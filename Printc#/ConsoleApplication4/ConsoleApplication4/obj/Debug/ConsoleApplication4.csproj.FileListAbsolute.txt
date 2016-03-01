@@ -1,0 +1,13 @@
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe.config
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.exe
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\ConsoleApplication4.pdb
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\DYMO.Label.Framework.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\DYMO.DLS.Runtime.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\DYMO.Common.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\Interop.DYMOPrintingSupportLib.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\Interop.DYMOBarcodeLib.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\stdole.dll
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\bin\Debug\DYMO.Label.Framework.xml
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.exe
+c:\users\user\documents\visual studio 2015\Projects\ConsoleApplication4\ConsoleApplication4\obj\Debug\ConsoleApplication4.pdb
