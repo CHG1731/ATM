@@ -8,3 +8,6 @@ C:\Users\Felix\Documents\Visual Studio 2015\Projects\ATM\ATM\obj\Debug\ATM.cspro
 C:\Users\Felix\Documents\Visual Studio 2015\Projects\ATM\ATM\obj\Debug\ATM.exe
 C:\Users\Felix\Documents\Visual Studio 2015\Projects\ATM\ATM\obj\Debug\ATM.pdb
 C:\Users\Felix\Documents\Visual Studio 2015\Projects\ATM\ATM\obj\Debug\ATM.csprojResolveAssemblyReference.cache
+C:\Users\Felix\Documents\ATM\VisuStudio\ATM\ATM\bin\Debug\ATM.exe.config
+C:\Users\Felix\Documents\ATM\VisuStudio\ATM\ATM\obj\Debug\ATM.exe
+C:\Users\Felix\Documents\ATM\VisuStudio\ATM\ATM\obj\Debug\ATM.pdb
