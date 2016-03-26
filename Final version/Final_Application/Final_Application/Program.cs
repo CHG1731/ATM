@@ -21,7 +21,7 @@ namespace Final_Application
         }
     }
 
-    static class Arduino
+    public class Arduino
     {
         static SerialPort Ard = new SerialPort();
         static String portName = "COM1";
@@ -56,7 +56,7 @@ namespace Final_Application
         }
     }
 
-    static class Error
+    public class Error
     {
         public static void show(String s, String x)
         {
@@ -64,5 +64,9 @@ namespace Final_Application
             MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+    }
+    public class HTTPGET
+    {
+        //code to get data from mysql database using HTTP GET method
     }
 }

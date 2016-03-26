@@ -74,6 +74,7 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            Error.show("NEXT FRAME PLOX", "NEXT FRAME ERROR");
             //Go to the next frame
         }
 
