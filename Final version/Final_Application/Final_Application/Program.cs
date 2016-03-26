@@ -16,7 +16,17 @@ namespace Final_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Init());
+            Application.Run(new Init1());
         }
+    }
+
+    static class Arduino
+    {
+
+    }
+    
+    static class Error
+    {
+
     }
 }
