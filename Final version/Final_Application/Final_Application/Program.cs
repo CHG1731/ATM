@@ -76,20 +76,17 @@ public class HTTPClass
     }
     static async Task RunAsync()
     {
-        using (var client = new HttpClient()) // met het gebruik van using zorgen we ervoor dat alles netjes wordt opgeruimd als je buiten de scope zit. 
+        using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/"); //de URL waar onze website op draait
+            client.BaseAddress = new Uri("http://localhost:50752/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); //we krijgen JSON terug van onze API
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             // HTTP GET
-            HttpResponseMessage klantresponse = await client.GetAsync("api/Klants/2").ConfigureAwait(false); //ik wil de eerste klant ophalen. Deze bevindt zich in de api, de RekeningsApiController en dan nummer 1
-            String s = "AWW YEAH";
-            if (klantresponse.IsSuccessStatusCode) //Controleren of we geen 404 krijgen, maar iets in de 200-reeks
+            HttpResponseMessage klantresponse = await client.GetAsync("api/Klants/2").ConfigureAwait(false);
+            if (klantresponse.IsSuccessStatusCode)
             {
-                Klant klant = await klantresponse.Content.ReadAsAsync<Klant>(); //zetten de response asynchroon om in een rekening-object
-                s = klant.Naam;
-                Error.show("IF CLAUSE", s);
+                Klant klant = await klantresponse.Content.ReadAsAsync<Klant>();
                 //Console.WriteLine("Naam: {0} Achternaam: {3} Adres: {1} KlantID: {2} Postcode: {4}", klant.Naam, klant.Adres, klant.KlantID, klant.Achternaam, klant.Postcode);
             }
             else
