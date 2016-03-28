@@ -22,7 +22,7 @@ namespace Final_Application
         {
             try
             {
-                if (Arduino.makePort(comboBox1.SelectedItem.ToString()) == true)
+                if (ArduinoClass.makePort(comboBox1.SelectedItem.ToString()) == true)
                 {
                     StatusText.ForeColor = Color.Green;
                     StatusText.Text = "ARDUINO CONNECTED";
@@ -74,8 +74,9 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            HTTPClass a = new HTTPClass();
+            a.info();
             Error.show("NEXT FRAME PLOX", "NEXT FRAME ERROR");
-            //Go to the next frame
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
