@@ -68,68 +68,102 @@ public class Error
 
 }
 
-public class HTTPClass
+public class HTTP
 {
-    public void info()
+    public Klant getKlant(string s)
     {
-        RunAsync().Wait();
+        Klant result =  GetKlantData(s).Result;
+        return result;
+
     }
-    static async Task RunAsync()
+    public String getKlantID(string s)
+    {
+        String location = String.Concat("/api/pass/", s);
+        return getKlantIDthroughRFID(location).Result;
+    }
+    static async Task<String> getKlantIDthroughRFID(String s)
     {
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            // HTTP GET
-            HttpResponseMessage klantresponse = await client.GetAsync("api/Klants/2").ConfigureAwait(false);
-            if (klantresponse.IsSuccessStatusCode)
+            //GET THE KLANT ID
+            HttpResponseMessage response = await client.GetAsync(s).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
             {
-                Klant klant = await klantresponse.Content.ReadAsAsync<Klant>();
+                Pas tmppas = await response.Content.ReadAsAsync<Pas>();
+                String result = tmppas.KlantID.ToString();
+                return result;
+            }
+            else
+            {
+                String result = "0000";
+                return result;
+            }
+        }
+    }
+    static async Task<Klant> GetKlantData(String s)
+    {
+        String location = s;
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // HTTP GET
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Klant klant = await response.Content.ReadAsAsync<Klant>();
+                return klant;
+                //Klant klant = await klantresponse.Content.ReadAsAsync<Klant>();
                 //Console.WriteLine("Naam: {0} Achternaam: {3} Adres: {1} KlantID: {2} Postcode: {4}", klant.Naam, klant.Adres, klant.KlantID, klant.Achternaam, klant.Postcode);
             }
             else
             {
+                Klant a = new Klant();
+                return a;
                 //CONNECTION FAILED
                 //RETRY CLAUSE? or cut the program?
             }
         }
     }
+}
 
-    partial class Klant
-    {
+public class Klant
+{
 
-        public string Adres { get; set; }
-        public int KlantID { get; set; }
-        public string Naam { get; set; }
-        public string Achternaam { get; set; }
-        public String Postcode { get; set; }
-        public String getNaam()
-        {
-            return Naam;
-        }
-    }
-    partial class Pas
+    public string Adres { get; set; }
+    public int KlantID { get; set; }
+    public string Naam { get; set; }
+    public string Achternaam { get; set; }
+    public String Postcode { get; set; }
+    public String getNaam()
     {
-        public String PasID { get; set; }
-        public int RekeningID { get; set; }
-        public int KlantID { get; set; }
-        public int Actief { get; set; }
-        public int Pincode { get; set; }
-    }
-    partial class Rekening
-    {
-        public int RekeningID { get; set; }
-        public int Balans { get; set; }
-        public int RekeningType { get; set; }
-    }
-    partial class Transactie
-    {
-        public int TransactieID { get; set; }
-        public int RekeningID { get; set; }
-        public int Balans { get; set; }
-        public int PasID { get; set; }
+        return Naam;
     }
 }
+public class Pas
+{
+    public String PasID { get; set; }
+    public int RekeningID { get; set; }
+    public int KlantID { get; set; }
+    public int Actief { get; set; }
+    public int Pincode { get; set; }
+}
+public class Rekening
+{
+    public int RekeningID { get; set; }
+    public int Balans { get; set; }
+    public int RekeningType { get; set; }
+}
+public class Transactie
+{
+    public int TransactieID { get; set; }
+    public int RekeningID { get; set; }
+    public int Balans { get; set; }
+    public int PasID { get; set; }
+}
+
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,9 +75,20 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            HTTPClass a = new HTTPClass();
-            a.info();
-            Error.show("NEXT FRAME PLOX", "NEXT FRAME ERROR");
+            while (true)
+            {
+                HTTP testhttp = new HTTP();
+                SerialPort testard = ArduinoClass.getPort();
+                String RawUID = testard.ReadTo(",NEWUID");
+                //String UID = string.Concat("/api/pass/" + RawUID);
+                String KlantID = testhttp.getKlantID(RawUID);
+                String UID = String.Concat("/api/klants/", KlantID);
+                Klant tmpklant = testhttp.getKlant(UID);
+                String klantdata = string.Concat("Voornaam: ", tmpklant.Naam, " Achternaam: ", tmpklant.Achternaam, " Adres: ",tmpklant.Adres, " Postcode: ",tmpklant.Postcode);
+                Error.show(klantdata,"KLANT DATA");
+                break;
+            }
+            //Error.show("NEXT FRAME PLOX", "NEXT FRAME ERROR");
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
