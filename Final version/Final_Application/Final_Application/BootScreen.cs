@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +10,20 @@ using System.Windows.Forms;
 
 namespace Final_Application
 {
-    public partial class Init1 : Form
+    public partial class BootScreen : Form
     {
-        public Init1()
+        public BootScreen()
         {
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             fetchCom();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ArduinoClass.makePort(comboBox1.SelectedItem.ToString()) == true)
+                if (Arduino.makePort(comboBox1.SelectedItem.ToString()) == true)
                 {
                     StatusText.ForeColor = Color.Green;
                     StatusText.Text = "ARDUINO CONNECTED";
@@ -75,20 +75,8 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            while (true)
-            {
-                HTTP testhttp = new HTTP();
-                SerialPort testard = ArduinoClass.getPort();
-                String RawUID = testard.ReadTo(",NEWUID");
-                //String UID = string.Concat("/api/pass/" + RawUID);
-                String KlantID = testhttp.getKlantID(RawUID);
-                String UID = String.Concat("/api/klants/", KlantID);
-                Klant tmpklant = testhttp.getKlant(UID);
-                String klantdata = string.Concat("Voornaam: ", tmpklant.Naam, " Achternaam: ", tmpklant.Achternaam, " Adres: ",tmpklant.Adres, " Postcode: ",tmpklant.Postcode);
-                Error.show(klantdata,"KLANT DATA");
-                break;
-            }
-            //Error.show("NEXT FRAME PLOX", "NEXT FRAME ERROR");
+            MainProgram atm = new MainProgram();
+            atm.run();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)

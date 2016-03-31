@@ -71,14 +71,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Init1.cs">
+    <Compile Include="ArduinoData.cs" />
+    <Compile Include="Beginscherm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Init1.Designer.cs">
-      <DependentUpon>Init1.cs</DependentUpon>
+    <Compile Include="Beginscherm.Designer.cs">
+      <DependentUpon>Beginscherm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="BootUp.cs" />
+    <Compile Include="ErrorScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorScreen.Designer.cs">
+      <DependentUpon>ErrorScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BootScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BootScreen.Designer.cs">
+      <DependentUpon>BootScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PinInvoer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PinInvoer.Designer.cs">
+      <DependentUpon>PinInvoer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hoofdmenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hoofdmenu.Designer.cs">
+      <DependentUpon>Hoofdmenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Beginscherm.resx">
+      <DependentUpon>Beginscherm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorScreen.resx">
+      <DependentUpon>ErrorScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BootScreen.resx">
+      <DependentUpon>BootScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PinInvoer.resx">
+      <DependentUpon>PinInvoer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hoofdmenu.resx">
+      <DependentUpon>Hoofdmenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
