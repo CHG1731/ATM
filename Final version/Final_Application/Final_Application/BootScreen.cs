@@ -17,13 +17,14 @@ namespace Final_Application
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             fetchCom();
+            //StartButton.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Arduino.makePort(comboBox1.SelectedItem.ToString()) == true)
+                if (ArduinoClass.makePort(comboBox1.SelectedItem.ToString()) == true)
                 {
                     StatusText.ForeColor = Color.Green;
                     StatusText.Text = "ARDUINO CONNECTED";
@@ -38,6 +39,14 @@ namespace Final_Application
             catch (Exception)
             {
                 Error.show("No port selected", "Error");
+            }
+        }
+        public class Error
+        {
+            public static void show(String s, String x)
+            {
+                MessageBox.Show(s, x,
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -75,8 +84,8 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            MainProgram atm = new MainProgram();
-            atm.run();
+            Start s = new Start();
+            s.run();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -85,4 +94,5 @@ namespace Final_Application
             fetchCom();
         }
     }
+
 }

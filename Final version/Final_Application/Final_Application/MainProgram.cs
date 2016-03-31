@@ -10,149 +10,30 @@ using System.Windows.Forms;
 
 namespace Final_Application
 {
-    //aa
-    class MainProgram
+    static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-
         [STAThread]
-        public void run()
+        static void Main()
         {
-            Beginscherm beginscherm = new Beginscherm();
-            PinInvoer pinInvoer = new PinInvoer();
-            Hoofdmenu hoofdmenu = new Hoofdmenu();
-            ArduinoData arduino = new ArduinoData();
-            Boolean reset = false;
-            Boolean pinCorrect;
-            Boolean choiceMade;
-            int wrongPinCodeAmount;
-            int maxAmount = 4;
-            //User user;
-
-            try
-            {
-                while (true) ///Infinite loop so that the program returns here after every cancelation.
-                {
-                    while (true)
-                    {
-                        pinCorrect = false;
-                        choiceMade = false;
-                        int userID = 0;
-                        wrongPinCodeAmount = 0;
-                        reset = false;
-                        //user = null;
-
-                        beginscherm.Show(); ///Shows staring screen until a card is detected.
-                        while (true)
-                        {
-                            if (arduino.getString().Contains(",NEWUID"))
-                            {
-                                userID = arduino.getUser();
-                                break;
-                            }
-                        }
-                        beginscherm.Hide();
-                        pinInvoer.Show();
-                        while (pinCorrect == false)
-                        {
-                            for (int i = 0; i < 0; i++) ///Waits for user input until 4 digits have been submitted.
-                            {
-                                String a = arduino.getString();
-                                if (a != null)
-                                {
-                                    pinInvoer.printStar(i + 1);
-                                }
-                                else if (a.Contains("$KEY"))
-                                {
-                                    pinInvoer.printStar(0);
-                                    reset = true;
-                                    break;
-                                }
-                            }
-                            if (reset == true) { break; }
-                            /*
-                            if (dataBase.validatePincode(arduino.getPin(), userID) == false)
-                            {
-                                if(++wrongPinCodeAmount == 3)
-                                {
-                                    dataBase.blockCard();
-                                    reset = true;
-                                    break;
-                                }
-                            }
-                            else
-                            {
-                                pinCorrect = true;
-                            }
-                            */
-                        }
-                        pinInvoer.Hide();
-                        if (reset == true)
-                        {
-                            break;
-                        }
-                        hoofdmenu.Show();
-                        while (choiceMade == false)
-                        {
-                            int choice = arduino.getChoice();
-                            if (choice != 0)
-                            {
-                                choiceMade = true;
-                                executeChoice(choice);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                ErrorScreen error = new ErrorScreen();
-
-                while (true) { }
-            }
-        }
-
-        public static void executeChoice(int choice)
-        {
-            switch (choice)
-            {
-                case 1:
-                    pin();
-                    break;
-                case 2:
-                    checkSaldo();
-                    break;
-                case 3:
-                    quickPin();
-                    break;
-                case 4:
-                    break;
-            }
-        }
-
-        public static void pin()
-        {
-
-        }
-
-        public static void checkSaldo()
-        {
-
-        }
-
-        public static void quickPin()
-        {
-
-        }
-
-        public static void blockCard()
-        {
-
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new BootScreen());
         }
     }
 }
+public class Start
+{
+    public void run()
+    {
+        Beginscherm begin = new Beginscherm();
+        begin.Show();
+    }
+
+}
+
 public class ArduinoClass
 {
     static SerialPort Arduino = new SerialPort();
@@ -170,15 +51,15 @@ public class ArduinoClass
         }
         catch (System.IO.IOException)
         {
-            ErrorScreen.show("Poort niet gevonden", "Error");
+            Error.show("Poort niet gevonden", "Error");
         }
         catch (System.UnauthorizedAccessException)
         {
-            ErrorScreen.show("Toegang tot de compoort is geweigerd", "Error");
+            Error.show("Toegang tot de compoort is geweigerd", "Error");
         }
         catch (Exception)
         {
-            ErrorScreen.show("No port selected", "Error");
+            Error.show("No port selected", "Error");
         }
         return status;
     }
@@ -188,7 +69,7 @@ public class ArduinoClass
     }
 }
 
-public class ErrorScreen
+public class Error
 {
     public static void show(String s, String x)
     {
@@ -295,5 +176,38 @@ public class Transactie
     public int Balans { get; set; }
     public int PasID { get; set; }
 }
+public class ArduinoData
+{
+    SerialPort startPort = ArduinoClass.getPort();
+    private String inputString;
 
+    public String getString()
+    {
+        inputString = startPort.ReadTo("\r\n");
+        startPort.DiscardInBuffer();
+        return inputString;
+    }
 
+    public string getPin()
+    {
+        String pin = "0000";
+        return pin;
+    }
+
+    public int getChoice()
+    {
+        int choice = 0;
+        string choiceString = getString();
+        if (choiceString == "a") { choice = 1; }
+        if (choiceString == "b") { choice = 2; }
+        if (choiceString == "c") { choice = 3; }
+        if (choiceString == "d") { choice = 4; }
+        return choice;
+    }
+
+    public int getUser()
+    {
+        int userID = 0;
+        return userID;
+    }
+}

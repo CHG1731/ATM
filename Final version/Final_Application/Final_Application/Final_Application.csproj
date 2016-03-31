@@ -79,6 +79,7 @@
       <DependentUpon>Beginscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="BootUp.cs" />
+    <Compile Include="MainProgram.cs" />
     <Compile Include="ErrorScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,7 +104,6 @@
     <Compile Include="Hoofdmenu.Designer.cs">
       <DependentUpon>Hoofdmenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Beginscherm.resx">
       <DependentUpon>Beginscherm.cs</DependentUpon>
@@ -129,7 +129,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

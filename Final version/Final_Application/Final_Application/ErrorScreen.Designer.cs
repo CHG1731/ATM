@@ -40,7 +40,7 @@
             this.ClientSize = new System.Drawing.Size(971, 574);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ErrorScreen";
-            this.Text = "Form1";
+            this.Text = "ErrorScreen";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
