@@ -13,7 +13,7 @@ namespace ConsoleApplication4
         static void Main(string[] args)
         {
             ILabel _label;
-            _label = Framework.Open(@"C:\Users\User\Documents\DYMO Label\Labels\Layouts\ATM.label");
+            _label = Framework.Open(@"C:\Dymo\ATM.label");
             _label.SetObjectText("Klantnaam", "Ik ben een koekje");
             _label.SetObjectText("bedrag", "honderdmilljoenmiljard");
             _label.SetObjectText("DATUM-TIJD", "limbo");
