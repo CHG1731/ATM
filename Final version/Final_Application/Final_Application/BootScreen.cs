@@ -97,7 +97,7 @@ namespace Final_Application
         private void button1_Click_2(object sender, EventArgs e)
         {
             HTTPpost test = new HTTPpost();
-            test.UpdateBalans(1,999);
+            test.UpdateBalans(2,1337);
         }
     }
 

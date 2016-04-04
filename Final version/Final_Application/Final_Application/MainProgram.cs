@@ -178,28 +178,15 @@ public class HTTPpost
     }
     static async Task NieuwBalans(int RekeningID, int balans)
     {
-        //String RekeningIDstring = RekeningID.ToString();
-        //String location = string.Concat("api/rekenings/", RekeningIDstring);
+        String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            HttpResponseMessage response = await client.GetAsync("/api/rekenings/1").ConfigureAwait(false);
-            Rekening newbalans = new Rekening();
-            if (response.IsSuccessStatusCode)
-            {
-                Error.show("PART 1 DONE", "PART 1 DONE");
-                Rekening tmp = await response.Content.ReadAsAsync<Rekening>().ConfigureAwait(false);
-                newbalans = tmp;
-            }
-            else
-            {
-                Error.show("CRASH IN PART 1", "CRASH IN PART 1");
-            }
-            var postbalans = new Rekening() { RekeningID = 1, RekeningType = 1, Balans = 345 };
-            response = await client.PutAsJsonAsync("api/rekenings/1", postbalans);
+            Rekening postbalans = new Rekening() { RekeningID = RekeningID, RekeningType = 1, Balans = balans };
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, postbalans).ConfigureAwait(false);
             if(response.IsSuccessStatusCode)
             {
                 Error.show("Succeeded", "Succeeded");
