@@ -79,7 +79,7 @@ public class Error
 
 }
 
-public class HTTP
+public class HTTPget
 {
     public Klant getKlant(string s)
     {
@@ -91,6 +91,11 @@ public class HTTP
     {
         String location = String.Concat("/api/pass/", s);
         return getKlantIDthroughRFID(location).Result;
+    }
+    public Rekening getRekening(string s)
+    {
+        Rekening result = getRekeningData(s).Result;
+        return result;
     }
     static async Task<String> getKlantIDthroughRFID(String s)
     {
@@ -128,8 +133,6 @@ public class HTTP
             {
                 Klant klant = await response.Content.ReadAsAsync<Klant>();
                 return klant;
-                //Klant klant = await klantresponse.Content.ReadAsAsync<Klant>();
-                //Console.WriteLine("Naam: {0} Achternaam: {3} Adres: {1} KlantID: {2} Postcode: {4}", klant.Naam, klant.Adres, klant.KlantID, klant.Achternaam, klant.Postcode);
             }
             else
             {
@@ -137,6 +140,54 @@ public class HTTP
                 return a;
                 //CONNECTION FAILED
                 //RETRY CLAUSE? or cut the program?
+            }
+        }
+    }
+    static async Task<Rekening> getRekeningData(string s)
+    {
+        String location = s;
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // HTTP GET
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Rekening rekening = await response.Content.ReadAsAsync<Rekening>();
+                return rekening;
+            }
+            else
+            {
+                Rekening reject = new Rekening();
+                return reject;
+            }
+
+        }
+    }
+}
+public class HTTPpost
+{
+    public void UpdateBalans(int RekeningID, int balans)
+    {
+        NieuwBalans(RekeningID, balans).Wait();
+    }
+    static async Task NieuwBalans(int RekeningID, int balans)
+    {
+        String RekeningIDstring = RekeningID.ToString();
+        String location = string.Concat("api/rekenings/", RekeningIDstring);
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HTTPpost part
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+               // var tmpJSON = { balans = 10 };
+                await client.PutAsJsonAsync(location, tmpjson);
             }
         }
     }
