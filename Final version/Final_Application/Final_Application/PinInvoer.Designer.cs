@@ -46,7 +46,6 @@
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(333, 50);
             this.inputDisplay.TabIndex = 0;
-            this.inputDisplay.Text = "  ";
             this.inputDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // confirmButton

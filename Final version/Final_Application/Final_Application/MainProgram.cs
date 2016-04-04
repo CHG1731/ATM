@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DYMO.Label.Framework;
 
 namespace Final_Application
 {
@@ -215,12 +216,16 @@ public class ArduinoData
 public class Executer
 {
     private String pincode;
-    private int userId;
+    private int userID;
+    private ArduinoData arduino;
 
-    public Executer(String p, int u)
+
+
+    public Executer(String p, int u, ArduinoData a)
     {
         this.pincode = p;
-        this.userId = u;
+        this.userID = u;
+        this.arduino = a;
     }
 
     public void executeChoice(int choice)
@@ -245,15 +250,108 @@ public class Executer
     {
         Pinscherm pinsherm = new Pinscherm();
         pinsherm.Show();
+        Boolean printTicket = false;
+        Boolean cancelled = false;
+        int amount;
+        String input;
+
+        while(true)
+        {
+            input = arduino.getString();
+            if (input.Contains("A")) {
+                amount = 10;
+                break;
+            }
+            else if (input.Contains("B"))
+            {
+                amount = 20;
+                break;
+            }
+            else if (input.Contains("C"))
+            {
+                amount = 50;
+                break;
+            }
+            else if (input.Contains("$"))
+            {
+                cancelled = true;
+                break;
+            }
+
+        }
+        if (cancelled == false)
+        {
+            TicketScreen asker = new TicketScreen();
+            asker.Show();
+            while(true)
+            {
+                input = arduino.getString();
+                if (input.Contains("A")) { printTicket = true;
+                    break;
+                }
+                if (input.Contains("B")) {
+                    Error.show("Geen Bon", "bon");
+                    break;
+                }
+            }
+            asker.Hide();
+        }
+        if (printTicket == true)
+        {
+            printMoney(20);
+        }
+        pinsherm.Hide();
     }
 
     private void checkSaldo()
     {
-
+        Error.show("Blut", "Blut");
     }
 
     private void quickPin()
     {
+        Error.show("Not implemented", "Error");
+    }
 
+    private void printMoney(int amount)
+    {
+        Error.show(amount.ToString(), "bon");
+        /*Printer printer = new Printer(userID.getNaam());
+        printer.printTicket(user.getNaam(), 10);*/
+    }
+}
+
+class Printer
+{
+    private String klantnaam;
+
+    public Printer(String s, int b)
+    {
+        this.klantnaam = s;
+    }
+
+    public void printTicket(int b)
+    {
+        String bedrag = b.ToString();
+        ILabel _label;
+        _label = Framework.Open(@"C:\Dymo\ATM.label");
+        _label.SetObjectText("Klantnaam", klantnaam);
+        _label.SetObjectText("bedrag", bedrag);
+        _label.SetObjectText("DATUM-TIJD", "limbo");
+        IPrinter printer = Framework.GetPrinters().First();
+        if (printer is ILabelWriterPrinter)
+        {
+            ILabelWriterPrintParams printParams = null;
+            ILabelWriterPrinter labelWriterPrinter = printer as ILabelWriterPrinter;
+            if (labelWriterPrinter.IsTwinTurbo)
+            {
+                printParams = new LabelWriterPrintParams();
+                printParams.RollSelection = (RollSelection)Enum.Parse(typeof(RollSelection), "koekje");
+            }
+
+            _label.Print(printer, printParams);
+        }
+        else
+            _label.Print(printer); // print with default params
     }
 }

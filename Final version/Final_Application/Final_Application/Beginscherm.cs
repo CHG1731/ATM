@@ -26,7 +26,6 @@ namespace Final_Apllication
             Executer executer;
             Boolean reset = false;
             Boolean pinCorrect;
-            Boolean choiceMade;
             int wrongPinCodeAmount;
             int maxAmount = 4;
             //User user;
@@ -38,7 +37,6 @@ namespace Final_Apllication
                     while (true)
                     {
                         pinCorrect = false;
-                        choiceMade = false;
                         int userID = 0;
                         wrongPinCodeAmount = 0;
                         reset = false;
@@ -85,7 +83,7 @@ namespace Final_Apllication
                                 }
                             }
                             pinInvoer.clear();
-                            executer = new Executer(pin, userID);
+                            executer = new Executer(pin, userID, arduino);
                             if (reset == true) { break; }
                             /*if (executer.validatePincode() == false)
                             {
@@ -108,15 +106,21 @@ namespace Final_Apllication
                             break;
                         }
                         hoofdmenu.Show();
-                        while(choiceMade == false)
+                        while(true)
                         {
                             int choice = arduino.getChoice();
-                            if (choice != 0)
+                            if (choice != 0 && choice != 4)
                             {
-                                choiceMade = true;
-                                hoofdmenu.Hide();
                                 executer.executeChoice(choice);
+                                if (choice == 1) {
+                                    hoofdmenu.Hide();
+                                    break;
+                                }
                             }
+                            else if(choice == 4) {
+                                hoofdmenu.Hide();
+                                break;
+                            } 
                         }
                     }
                 }
@@ -132,7 +136,7 @@ namespace Final_Apllication
         private Boolean checkInput(String input)
         {
             Boolean result = false;
-            for (int i = 1; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (input.Contains(i.ToString()))
                 {
