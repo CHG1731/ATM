@@ -97,7 +97,26 @@ namespace Final_Application
         private void button1_Click_2(object sender, EventArgs e)
         {
             HTTPpost test = new HTTPpost();
-            test.UpdateBalans(2,1337);
+            int intone = 1;
+            int inttwo = 1;
+            Int32.TryParse(textBox1.Text, out intone);
+            Int32.TryParse(textBox2.Text, out inttwo);
+            test.UpdateBalans(intone,inttwo);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
