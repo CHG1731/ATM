@@ -21,7 +21,13 @@
             @Html.DisplayNameFor(model => model.Actief)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pincode)
+            @Html.DisplayNameFor(model => model.Hash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AtmID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
         </th>
         <th></th>
     </tr>
@@ -38,7 +44,13 @@
             @Html.DisplayFor(modelItem => item.Actief)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Pincode)
+            @Html.DisplayFor(modelItem => item.Hash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AtmID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PasID }) |

@@ -35,6 +35,7 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.KILLBUTTON = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.DEBUGBUTTON = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ARDCONNECT
@@ -117,12 +118,23 @@
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
-            // Form1
+            // DEBUGBUTTON
+            // 
+            this.DEBUGBUTTON.Location = new System.Drawing.Point(329, 68);
+            this.DEBUGBUTTON.Name = "DEBUGBUTTON";
+            this.DEBUGBUTTON.Size = new System.Drawing.Size(75, 65);
+            this.DEBUGBUTTON.TabIndex = 8;
+            this.DEBUGBUTTON.Text = "DEBUG PURPOSES(HTTP POST)";
+            this.DEBUGBUTTON.UseVisualStyleBackColor = true;
+            this.DEBUGBUTTON.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // BootScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(416, 307);
+            this.Controls.Add(this.DEBUGBUTTON);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.KILLBUTTON);
             this.Controls.Add(this.StartButton);
@@ -131,7 +143,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ARDCONNECT);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Form1";
+            this.Name = "BootScreen";
             this.Text = "Start menu";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -147,6 +159,7 @@
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button KILLBUTTON;
         private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.Button DEBUGBUTTON;
     }
 }
 
