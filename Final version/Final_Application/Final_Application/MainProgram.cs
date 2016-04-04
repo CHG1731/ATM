@@ -187,7 +187,7 @@ public class HTTPpost
             if (response.IsSuccessStatusCode)
             {
                // var tmpJSON = { balans = 10 };
-                await client.PutAsJsonAsync(location, tmpjson);
+                await client.PostAsJsonAsync
             }
         }
     }
