@@ -97,9 +97,7 @@ namespace Final_Application
         private void button1_Click_2(object sender, EventArgs e)
         {
             HTTPpost test = new HTTPpost();
-            int a = 77;
-            test.UpdateBalans(1,a);
-            Error.show("UPDATE BALANS", "COMPLETED STEP 1");
+            test.UpdateBalans(1,999);
         }
     }
 
