@@ -248,11 +248,11 @@ public class ArduinoData
     public int getChoice()
     {
         int choice = 0;
-        string choiceString = getString();
-        if (choiceString == "a") { choice = 1; }
-        if (choiceString == "b") { choice = 2; }
-        if (choiceString == "c") { choice = 3; }
-        if (choiceString == "d") { choice = 4; }
+        string choiceString = this.getString();
+        if (choiceString == "AKEY") { choice = 1; }
+        if (choiceString == "BKEY") { choice = 2; }
+        if (choiceString == "CKEY") { choice = 3; }
+        if (choiceString == "$KEY") { choice = 4; }
         return choice;
     }
 
@@ -260,5 +260,51 @@ public class ArduinoData
     {
         int userID = 0;
         return userID;
+    }
+}
+
+public class Executer
+{
+    private String pincode;
+    private int userId;
+
+    public Executer(String p, int u)
+    {
+        this.pincode = p;
+        this.userId = u;
+    }
+
+    public void executeChoice(int choice)
+    {
+        switch (choice)
+        {
+            case 1:
+                pin();
+                break;
+            case 2:
+                checkSaldo();
+                break;
+            case 3:
+                quickPin();
+                break;
+            case 4:
+                break;
+        }
+    }
+
+    private void pin()
+    {
+        Pinscherm pinsherm = new Pinscherm();
+        pinsherm.Show();
+    }
+
+    private void checkSaldo()
+    {
+
+    }
+
+    private void quickPin()
+    {
+
     }
 }

@@ -26,5 +26,20 @@ namespace Final_Apllication
         {
 
         }
+
+        public void printStar()
+        {
+            inputDisplay.AppendText("*");
+        }
+
+        public void clear()
+        {
+            inputDisplay.Clear();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
