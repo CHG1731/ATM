@@ -29,7 +29,6 @@ namespace Final_Apllication
             Boolean pinCorrect;
             String[] pasInformation;
             int wrongPinCodeAmount;
-            int maxAmount = 4;
             //User user;
 
             try
@@ -40,7 +39,6 @@ namespace Final_Apllication
                     {
                         pinCorrect = false;
                         pasInformation = new String[4];
-                        int userID = 0;
                         wrongPinCodeAmount = 0;
                         reset = false;
                         executer = null;
@@ -95,13 +93,12 @@ namespace Final_Apllication
                                 }
                             }
                             pinInvoer.clear();
-                            executer = new Executer(rekeningID, arduino);
                             if (reset == true) { break; }
                             if(security.checkHash(rekeningID, pincode, userName) == false)
                             {
                                 if(++wrongPinCodeAmount == 3)
                                 {
-                                    security.blockCard();
+                                    //security.blockCard();
                                     reset = true;
                                     break;
                                 }
@@ -118,28 +115,28 @@ namespace Final_Apllication
                             break;
                         }
                         hoofdmenu.Show();
-                        while(true)
+                        executer = new Executer(rekeningID, userName, arduino);
+                        while (true)
                         {
                             int choice = arduino.getChoice();
-                            if (choice != 0 && choice != 4)
+                            if (choice != 0)
                             {
                                 executer.executeChoice(choice);
-                                if (choice == 1) {
+                                if (executer.getEndOfSession() == true)
+                                {
                                     hoofdmenu.Hide();
                                     break;
                                 }
                             }
-                            else if(choice == 4) {
-                                hoofdmenu.Hide();
-                                break;
-                            } 
+
                         }
                     }
                 }
             }
             catch (Exception)
             {
-                Error.show("BROKe", "AS FUCK");
+                ErrorScreen error = new ErrorScreen();
+                error.Show();
             }
 
             /* DONT EVER DELETE BRACKETS BELOW THIS LINE */

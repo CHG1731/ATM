@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
+using DYMO.Label.Framework;
 //using DYMO.Label.Framework;
 
 namespace Final_Application
@@ -311,17 +312,25 @@ public class ArduinoData
 public class Executer
 {
     private String rekeningID;
+    private String userName;
     private ArduinoData arduino;
     private HTTPget connection = new HTTPget();
     private Rekening rekening;
+    private Boolean endOfSession = true;
     private double saldo;
 
-    public Executer(String r, ArduinoData a)
+    public Executer(String r, String u, ArduinoData a)
     {
         this.rekeningID = r;
+        this.userName = u;
         this.arduino = a;
         this.rekening = connection.getRekening(rekeningID);
         this.saldo = rekening.Balans;
+    }
+
+    public Boolean getEndOfSession()
+    {
+        return this.endOfSession;
     }
 
     public void executeChoice(int choice)
@@ -345,70 +354,95 @@ public class Executer
     private void pin()
     {
         Pinscherm pinsherm = new Pinscherm();
-        pinsherm.Show();
         Boolean printTicket = false;
         Boolean cancelled = false;
+        Boolean goBack = true;
         double amount = 0;
         String input;
 
-        while(true)
+        while (goBack == true)
         {
-            input = arduino.getString();
-            if (input.Contains("A")) {
-                amount = 10;
-                break;
-            }
-            else if (input.Contains("B"))
-            {
-                amount = 20;
-                break;
-            }
-            else if (input.Contains("C"))
-            {
-                amount = 50;
-                break;
-            }
-            else if (input.Contains("$"))
-            {
-                cancelled = true;
-                break;
-            }
-
-        }
-        if (amount < saldo)
-        {
-            PinError pinError = new PinError();
-            System.Threading.Thread.Sleep(5000);
-            pinError.Close();
-            cancelled = true;
-        }
-        if (cancelled == false)
-        {
-            TicketScreen asker = new TicketScreen();
-            asker.Show();
-            while(true)
+            pinsherm.Show();
+            while (true)
             {
                 input = arduino.getString();
-                if (input.Contains("A")) {
-                    printTicket = true;
+                if (input.Contains("A"))
+                {
+                    amount = 10;
                     break;
                 }
-                if (input.Contains("B")) {
-                    Error.show("Geen Bon", "bon");
+                else if (input.Contains("B"))
+                {
+                    amount = 20;
+                    break;
+                }
+                else if (input.Contains("C"))
+                {
+                    amount = 50;
+                    break;
+                }
+                else if (input.Contains("*"))
+                {
+                    cancelled = true;
+                    break;
+                }
+                else if (input.Contains("&"))
+                {
+                    cancelled = true;
+                    endOfSession = false;
+                    break;
+                }
+
+            }
+            if (amount < saldo && amount != 0)
+            {
+                PinError pinError = new PinError();
+                System.Threading.Thread.Sleep(5000);
+                pinError.Hide();
+                cancelled = true;
+            }
+            if (cancelled == true)
+            {
+                pinsherm.Hide();
+                break;
+            }
+            TicketScreen asker = new TicketScreen();
+            asker.Show();
+            while (true)
+            {
+                input = arduino.getString();
+                if (input.Contains("A"))
+                {
+                    printTicket = true;
+                    goBack = false;
+                    break;
+                }
+                else if (input.Contains("B"))
+                {
+                    //Error.show("Geen Bon", "bon");
+                    goBack = false;
+                    break;
+                }
+                else if (input.Contains("C"))
+                {
                     break;
                 }
             }
             asker.Hide();
+            if (printTicket == true)
+            {
+                Printer bonPrinter = new Printer(userName, amount);
+                bonPrinter.printTicket();
+            }
+            if (goBack == false)
+            {
+                ByeScreen goAway = new ByeScreen();
+                goAway.Show();
+                System.Threading.Thread.Sleep(5000);
+                goAway.Hide();
+                pinsherm.Hide();
+            }
         }
-        if (printTicket == true)
-        {
-            printMoney(amount);
-        }
-        ByeScreen goAway = new ByeScreen();
-        goAway.Show();
-        System.Threading.Thread.Sleep(5000);
-        goAway.Hide();
-        pinsherm.Hide();
     }
 
     private void checkSaldo()
@@ -425,40 +459,39 @@ public class Executer
             }
             else if (input.Contains("C")) {
                 saldoDisplay.Hide();
-                break; }
+                break;
+            }
         }
         
     }
 
     private void quickPin()
     {
-        Error.show("Not implemented", "Error");
-    }
-
-    private void printMoney(double amount)
-    {
-        Error.show(amount.ToString(), "bon");
-        /*Printer printer = new Printer(userID.getNaam());
-        printer.printTicket(user.getNaam(), 10);*/
+        Printer bonPrinter = new Printer(userName, 70);
+        bonPrinter.printTicket();
+        ByeScreen quickBye = new ByeScreen();
+        System.Threading.Thread.Sleep(5000);
+        quickBye.Hide();
     }
 }
 
 public class Printer
 {
-    /*
-    private String klantnaam;
+    private String userName;
+    private double amount;
 
-    public Printer(String s, int b)
+    public Printer(String s, double b)
     {
-        this.klantnaam = s;
+        this.userName = s;
+        this.amount = b;
     }
 
-    public void printTicket(int b)
+    public void printTicket()
     {
-        String bedrag = b.ToString();
+        String bedrag = amount.ToString();
         ILabel _label;
         _label = Framework.Open(@"C:\Dymo\ATM.label");
-        _label.SetObjectText("Klantnaam", klantnaam);
+        _label.SetObjectText("Klantnaam", userName);
         _label.SetObjectText("bedrag", bedrag);
         _label.SetObjectText("DATUM-TIJD", "limbo");
         IPrinter printer = Framework.GetPrinters().First();
@@ -477,8 +510,8 @@ public class Printer
         else
             _label.Print(printer); // print with default params
     }
-    */
 }
+
 public class Hash
 {
     public bool checkHash(String RekeningID, String pincode, string PasID)

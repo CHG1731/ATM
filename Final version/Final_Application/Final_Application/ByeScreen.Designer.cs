@@ -1,4 +1,4 @@
-﻿namespace Final_Application
+﻿namespace Final_Apllication
 {
     partial class ByeScreen
     {

@@ -1,4 +1,4 @@
-﻿namespace Final_Application
+﻿namespace Final_Apllication
 {
     partial class SaldoScreen
     {
@@ -36,8 +36,8 @@
             // 
             // inputDisplay
             // 
-            this.inputDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.inputDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
