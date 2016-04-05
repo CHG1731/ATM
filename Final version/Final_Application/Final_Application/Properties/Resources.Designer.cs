@@ -59,15 +59,5 @@ namespace Final_Application.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] DYMO_Label_Framework {
-            get {
-                object obj = ResourceManager.GetObject("DYMO_Label_Framework", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
