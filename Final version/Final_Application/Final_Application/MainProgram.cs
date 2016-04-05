@@ -97,8 +97,15 @@ public class HTTPget
     }
     public Rekening getRekening(string s)
     {
-        Rekening result = getRekeningData(s).Result;
+        String loc = String.Concat("api/rekenings/", s);
+        Rekening result = getRekeningData(loc).Result;
         return result;
+    }
+    public String getHash(String RekeningID)
+    {
+        String loc = String.Concat("/api/rekenings/", RekeningID);
+        Rekening result = getRekeningData(loc).Result;
+        return result.Hash;
     }
     static async Task<String> getKlantIDthrougPasID(String s)
     {
@@ -169,6 +176,30 @@ public class HTTPget
 
         }
     }
+    static async Task<Pas> getPasData(string s)
+    {
+        String location = s;
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // HTTP GET
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Pas pas = await response.Content.ReadAsAsync<Pas>();
+                return pas;
+            }
+            else
+            {
+                Pas reject = new Pas();
+                return reject;
+            }
+
+        }
+    }
+
 }
 public class HTTPpost
 {
@@ -218,7 +249,7 @@ public class Pas
     public int RekeningID { get; set; }
     public int KlantID { get; set; }
     public int Actief { get; set; }
-    public int Pincode { get; set; }
+ 
 }
 public class Rekening
 {
@@ -226,6 +257,7 @@ public class Rekening
     public int RekeningID { get; set; }
     public double Balans { get; set; }
     public int RekeningType { get; set; }
+    public String Hash { get; set; }
 }
 public class Transactie
 {
@@ -434,6 +466,24 @@ public class Printer
 }
 public class Hash
 {
+    public bool checkHash(String RekeningID, String pincode, string PasID)
+    {
+        int RekeningIDcv;
+        int pincodecv;
+        Int32.TryParse(RekeningID, out RekeningIDcv);
+        Int32.TryParse(pincode, out pincodecv);
+        bool status = false;
+        HTTPget temporary = new HTTPget();
+        string Hash = makeHash(RekeningIDcv, pincodecv);
+        if (Hash == temporary.getHash(RekeningID))
+        {
+            status = true;
+            
+        }
+        else { }
+        return status;
+
+     }
     public String makeHash(int RekeningID, int pincode)
     {
         return  Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));

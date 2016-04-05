@@ -126,7 +126,21 @@ namespace Final_Application
             int b = 0;
             Int32.TryParse(textBox1.Text, out a);
             Int32.TryParse(textBox1.Text, out b);
-            textBox2.Text = passw.makeHash(a, b);
+            textBox2.Text = passw.makeHash(123456, 1234);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Hash tmphash = new Hash();
+            if(tmphash.checkHash("123456", "1234", "DICKBT"))
+            {
+                Error.show("JA", "JA");
+            }
+            else
+            {
+                Error.show("RIP", "RIP");
+            }
+
         }
     }
 
