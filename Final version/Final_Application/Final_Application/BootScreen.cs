@@ -98,9 +98,9 @@ namespace Final_Application
         {
             HTTPpost test = new HTTPpost();
             int intone = 1;
-            int inttwo = 1;
+            double inttwo = 1;
             Int32.TryParse(textBox1.Text, out intone);
-            Int32.TryParse(textBox2.Text, out inttwo);
+            Double.TryParse(textBox2.Text, out inttwo);
             test.UpdateBalans(intone,inttwo);
         }
 
@@ -117,6 +117,16 @@ namespace Final_Application
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            Hash passw = new Hash();
+            int a = 0;
+            int b = 0;
+            Int32.TryParse(textBox1.Text, out a);
+            Int32.TryParse(textBox1.Text, out b);
+            textBox2.Text = passw.makeHash(a, b);
         }
     }
 
