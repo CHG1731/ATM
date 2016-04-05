@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
-//using DYMO.Label.Framework;
 
 namespace Final_Application
 {
@@ -474,6 +473,7 @@ public class Executer
         quickBye.Hide();
     }
 }
+
 
 public class Printer
 {
