@@ -5,9 +5,11 @@ using System.IO.Ports;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DYMO.Label.Framework;
+using System.ComponentModel.DataAnnotations;
+//using DYMO.Label.Framework;
 
 namespace Final_Application
 {
@@ -176,19 +178,22 @@ public class HTTPpost
     }
     static async Task NieuwBalans(int RekeningID, int balans)
     {
-        String RekeningIDstring = RekeningID.ToString();
-        String location = string.Concat("api/rekenings/", RekeningIDstring);
+        String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
+            Rekening postbalans = new Rekening() { RekeningID = RekeningID, RekeningType = 1, Balans = balans };
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, postbalans).ConfigureAwait(false);
+            if(response.IsSuccessStatusCode)
             {
-               // var tmpJSON = { balans = 10 };
-                //await client.PostAsJsonAsync
+                Error.show("Succeeded", "Succeeded");
+            }
+            else
+            {
+                Error.show("COULDNT REPOST", "COULDNT REPOST");
             }
         }
     }
@@ -217,6 +222,7 @@ public class Pas
 }
 public class Rekening
 {
+    [Key]
     public int RekeningID { get; set; }
     public int Balans { get; set; }
     public int RekeningType { get; set; }
@@ -374,6 +380,7 @@ public class Executer
 
 class Printer
 {
+    /*
     private String klantnaam;
 
     public Printer(String s, int b)
@@ -405,4 +412,5 @@ class Printer
         else
             _label.Print(printer); // print with default params
     }
+    */
 }
