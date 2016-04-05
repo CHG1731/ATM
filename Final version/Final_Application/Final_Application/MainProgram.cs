@@ -448,12 +448,16 @@ public class Printer
 }
 public class Hash
 {
-    public bool checkHash(int RekeningID, int pincode, string PasID)
+    public bool checkHash(String RekeningID, String pincode, string PasID)
     {
+        int RekeningIDcv;
+        int pincodecv;
+        Int32.TryParse(RekeningID, out RekeningIDcv);
+        Int32.TryParse(pincode, out pincodecv);
         bool status = false;
         HTTPget temporary = new HTTPget();
-        string Hash = makeHash(RekeningID, pincode);
-        if (Hash == temporary.getHash(RekeningID.ToString()))
+        string Hash = makeHash(RekeningIDcv, pincodecv);
+        if (Hash == temporary.getHash(RekeningID))
         {
             status = true;
             
