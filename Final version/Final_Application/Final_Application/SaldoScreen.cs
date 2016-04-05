@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Final_Application
+namespace Final_Apllication
 {
     public partial class SaldoScreen : Form
     {
-        public SaldoScreen()
+        public SaldoScreen(double saldo)
         {
             InitializeComponent();
+            inputDisplay.AppendText(saldo.ToString());
         }
     }
 }

@@ -407,14 +407,13 @@ public class Executer
         ByeScreen goAway = new ByeScreen();
         goAway.Show();
         System.Threading.Thread.Sleep(5000);
-        goAway.Close();
+        goAway.Hide();
         pinsherm.Hide();
     }
 
     private void checkSaldo()
     {
-        SaldoScreen saldoDisplay = new SaldoScreen();
-        saldoDisplay.setSaldo(saldo);
+        SaldoScreen saldoDisplay = new SaldoScreen(saldo);
         saldoDisplay.Show();
         while (true)
         {
