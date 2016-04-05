@@ -44,7 +44,7 @@
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.inputDisplay.Location = new System.Drawing.Point(780, 328);
             this.inputDisplay.Name = "inputDisplay";
-            this.inputDisplay.Size = new System.Drawing.Size(333, 50);
+            this.inputDisplay.Size = new System.Drawing.Size(201, 50);
             this.inputDisplay.TabIndex = 0;
             this.inputDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -84,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1518, 636);
+            this.ClientSize = new System.Drawing.Size(1386, 636);
             this.Controls.Add(this.inputDisplay);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.rectifyButton);

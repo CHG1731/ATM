@@ -97,7 +97,7 @@ namespace Final_Apllication
                             pinInvoer.clear();
                             executer = new Executer(rekeningID, arduino);
                             if (reset == true) { break; }
-                            if(security.checkHash(rekeningID, pincode, userID) == false)
+                            if(security.checkHash(rekeningID, pincode, userName) == false)
                             {
                                 if(++wrongPinCodeAmount == 3)
                                 {

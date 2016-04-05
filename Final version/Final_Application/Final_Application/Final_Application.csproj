@@ -81,6 +81,24 @@
     <Compile Include="Beginscherm.Designer.cs">
       <DependentUpon>Beginscherm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ByeScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ByeScreen.Designer.cs">
+      <DependentUpon>ByeScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PinError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PinError.Designer.cs">
+      <DependentUpon>PinError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaldoScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaldoScreen.Designer.cs">
+      <DependentUpon>SaldoScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="TicketScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +146,12 @@
     <EmbeddedResource Include="BootScreen.resx">
       <DependentUpon>BootScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ByeScreen.resx">
+      <DependentUpon>ByeScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PinError.resx">
+      <DependentUpon>PinError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PinInvoer.resx">
       <DependentUpon>PinInvoer.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,6 +170,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SaldoScreen.resx">
+      <DependentUpon>SaldoScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TicketScreen.resx">
       <DependentUpon>TicketScreen.cs</DependentUpon>
     </EmbeddedResource>

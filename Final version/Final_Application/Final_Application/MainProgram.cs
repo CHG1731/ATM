@@ -378,7 +378,9 @@ public class Executer
         if (amount < saldo)
         {
             PinError pinError = new PinError();
-            Thread.Sleep(4000);
+            System.Threading.Thread.Sleep(5000);
+            pinError.Close();
+            cancelled = true;
         }
         if (cancelled == false)
         {
@@ -387,7 +389,8 @@ public class Executer
             while(true)
             {
                 input = arduino.getString();
-                if (input.Contains("A")) { printTicket = true;
+                if (input.Contains("A")) {
+                    printTicket = true;
                     break;
                 }
                 if (input.Contains("B")) {
@@ -401,12 +404,31 @@ public class Executer
         {
             printMoney(amount);
         }
+        ByeScreen goAway = new ByeScreen();
+        goAway.Show();
+        System.Threading.Thread.Sleep(5000);
+        goAway.Close();
         pinsherm.Hide();
     }
 
     private void checkSaldo()
     {
-        Error.show("Blut", "Blut");
+        SaldoScreen saldoDisplay = new SaldoScreen();
+        saldoDisplay.setSaldo(saldo);
+        saldoDisplay.Show();
+        while (true)
+        {
+            String input = arduino.getString();
+            if (input.Contains("A")) {
+                saldoDisplay.Hide();
+                pin();
+                break;
+            }
+            else if (input.Contains("C")) {
+                saldoDisplay.Hide();
+                break; }
+        }
+        
     }
 
     private void quickPin()
@@ -419,12 +441,6 @@ public class Executer
         Error.show(amount.ToString(), "bon");
         /*Printer printer = new Printer(userID.getNaam());
         printer.printTicket(user.getNaam(), 10);*/
-    }
-
-    private async displayTimedScreen(int screenNR)
-    {
-        Task koekje = new Task()
-        return;
     }
 }
 
