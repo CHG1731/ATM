@@ -39,7 +39,7 @@
             // pinButton
             // 
             this.pinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pinButton.Location = new System.Drawing.Point(823, 162);
+            this.pinButton.Location = new System.Drawing.Point(823, 154);
             this.pinButton.Name = "pinButton";
             this.pinButton.Size = new System.Drawing.Size(389, 44);
             this.pinButton.TabIndex = 0;
@@ -49,7 +49,7 @@
             // saldoButton
             // 
             this.saldoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saldoButton.Location = new System.Drawing.Point(823, 262);
+            this.saldoButton.Location = new System.Drawing.Point(823, 254);
             this.saldoButton.Name = "saldoButton";
             this.saldoButton.Size = new System.Drawing.Size(389, 44);
             this.saldoButton.TabIndex = 3;
@@ -58,7 +58,7 @@
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitButton.Location = new System.Drawing.Point(823, 212);
+            this.exitButton.Location = new System.Drawing.Point(823, 204);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(389, 44);
             this.exitButton.TabIndex = 1;
@@ -67,7 +67,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(823, 312);
+            this.button1.Location = new System.Drawing.Point(823, 304);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(389, 44);
             this.button1.TabIndex = 4;
@@ -76,7 +76,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(823, 362);
+            this.button2.Location = new System.Drawing.Point(823, 354);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(389, 44);
             this.button2.TabIndex = 5;
@@ -88,7 +88,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1386, 788);
+            this.ClientSize = new System.Drawing.Size(1378, 780);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pinButton);

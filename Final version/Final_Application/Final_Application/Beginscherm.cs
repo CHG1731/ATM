@@ -23,9 +23,11 @@ namespace Final_Apllication
             Hoofdmenu hoofdmenu = new Hoofdmenu();
             ArduinoData arduino = new ArduinoData();
             ErrorScreen errorscr = new ErrorScreen();
+            Hash security = new Hash();
             Executer executer;
             Boolean reset = false;
             Boolean pinCorrect;
+            String[] pasInformation;
             int wrongPinCodeAmount;
             int maxAmount = 4;
             //User user;
@@ -37,17 +39,27 @@ namespace Final_Apllication
                     while (true)
                     {
                         pinCorrect = false;
+                        pasInformation = new String[4];
                         int userID = 0;
                         wrongPinCodeAmount = 0;
                         reset = false;
                         executer = null;
+                        String userName;
+                        String rekeningID;
+                        String pasID;
                         //user = null;
                         while (true)
                         {
-                            String s = arduino.getString();
+                            String s = arduino.getFirstString();
                             if (s.Contains(",NEWUID"))
                             {
-                                userID = arduino.getUser();
+                                pasInformation = s.Split('\n', '\n', '\n');
+                                userName = pasInformation[0];
+                                rekeningID = pasInformation[1];
+                                pasID = pasInformation[2];
+                                Error.show(userName, "Boe");
+                                Error.show(rekeningID, "Boe");
+                                Error.show(pasID, "Boe");
                                 break;
                             }
                         }
@@ -55,7 +67,7 @@ namespace Final_Apllication
                         while (pinCorrect == false)
                         {
                             int insertedDigits = 0;
-                            String pin = "";
+                            String pincode = "";
                             Boolean confirmed = false;
                             while (confirmed == false) ///Waits for user input until 4 digits have been submitted.
                             {
@@ -64,7 +76,7 @@ namespace Final_Apllication
                                 {
                                     pinInvoer.printStar();
                                     insertedDigits++;
-                                    pin += input.ElementAt(0);
+                                    pincode += input.ElementAt(0);
                                 }
                                 else if (input.Contains("$KEY"))
                                 {
@@ -75,7 +87,7 @@ namespace Final_Apllication
                                 {
                                     pinInvoer.clear();
                                     insertedDigits = 0;
-                                    pin = "";
+                                    pincode = "";
                                 }
                                 if(insertedDigits == 4)
                                 {
@@ -83,13 +95,13 @@ namespace Final_Apllication
                                 }
                             }
                             pinInvoer.clear();
-                            executer = new Executer(pin, userID, arduino);
+                            executer = new Executer(rekeningID, arduino);
                             if (reset == true) { break; }
-                            /*if (executer.validatePincode() == false)
+                            if(security.checkHash(rekeningID, pincode, userID) == false)
                             {
                                 if(++wrongPinCodeAmount == 3)
                                 {
-                                    dataBase.blockCard();
+                                    security.blockCard();
                                     reset = true;
                                     break;
                                 }
@@ -97,7 +109,7 @@ namespace Final_Apllication
                             else
                             {
                                 pinCorrect = true;
-                            }*/
+                            }
                             pinCorrect = true;
                         }
                         pinInvoer.Hide();

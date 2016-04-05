@@ -239,6 +239,12 @@ public class ArduinoData
     SerialPort startPort = ArduinoClass.getPort();
     private String inputString;
 
+    public String getFirstString()
+    {
+        inputString = startPort.ReadTo("\r\n");
+        return inputString;
+    }
+
     public String getString()
     {
         inputString = startPort.ReadTo("\r\n");
@@ -272,17 +278,18 @@ public class ArduinoData
 
 public class Executer
 {
-    private String pincode;
-    private int userID;
+    private String rekeningID;
     private ArduinoData arduino;
+    private HTTPget connection = new HTTPget();
+    private Rekening rekening;
+    private double saldo;
 
-
-
-    public Executer(String p, int u, ArduinoData a)
+    public Executer(String r, ArduinoData a)
     {
-        this.pincode = p;
-        this.userID = u;
+        this.rekeningID = r;
         this.arduino = a;
+        this.rekening = connection.getRekening(rekeningID);
+        this.saldo = rekening.Balans;
     }
 
     public void executeChoice(int choice)
@@ -309,7 +316,7 @@ public class Executer
         pinsherm.Show();
         Boolean printTicket = false;
         Boolean cancelled = false;
-        int amount = 0;
+        double amount = 0;
         String input;
 
         while(true)
@@ -335,6 +342,11 @@ public class Executer
                 break;
             }
 
+        }
+        if (amount < saldo)
+        {
+            PinError pinError = new PinError();
+            Thread.Sleep(4000);
         }
         if (cancelled == false)
         {
@@ -370,11 +382,17 @@ public class Executer
         Error.show("Not implemented", "Error");
     }
 
-    private void printMoney(int amount)
+    private void printMoney(double amount)
     {
         Error.show(amount.ToString(), "bon");
         /*Printer printer = new Printer(userID.getNaam());
         printer.printTicket(user.getNaam(), 10);*/
+    }
+
+    private async displayTimedScreen(int screenNR)
+    {
+        Task koekje = new Task()
+        return;
     }
 }
 
