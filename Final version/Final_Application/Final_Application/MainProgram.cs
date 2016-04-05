@@ -93,14 +93,14 @@ public class HTTPget
     public String getKlantID(string s)
     {
         String location = String.Concat("/api/pass/", s);
-        return getKlantIDthroughRFID(location).Result;
+        return getKlantIDthrougPasID(location).Result;
     }
     public Rekening getRekening(string s)
     {
         Rekening result = getRekeningData(s).Result;
         return result;
     }
-    static async Task<String> getKlantIDthroughRFID(String s)
+    static async Task<String> getKlantIDthrougPasID(String s)
     {
         using (var client = new HttpClient())
         {
@@ -172,11 +172,11 @@ public class HTTPget
 }
 public class HTTPpost
 {
-    public void UpdateBalans(int RekeningID, int balans)
+    public void UpdateBalans(int RekeningID, double balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
     }
-    static async Task NieuwBalans(int RekeningID, int balans)
+    static async Task NieuwBalans(int RekeningID, double balans)
     {
         String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
@@ -224,7 +224,7 @@ public class Rekening
 {
     [Key]
     public int RekeningID { get; set; }
-    public int Balans { get; set; }
+    public double Balans { get; set; }
     public int RekeningType { get; set; }
 }
 public class Transactie
@@ -378,7 +378,7 @@ public class Executer
     }
 }
 
-class Printer
+public class Printer
 {
     /*
     private String klantnaam;
@@ -413,4 +413,11 @@ class Printer
             _label.Print(printer); // print with default params
     }
     */
+}
+public class Hash
+{
+    public String makeHash(int RekeningID, int pincode)
+    {
+        return  Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
+    }
 }
