@@ -97,7 +97,8 @@ public class HTTPget
     }
     public Rekening getRekening(string s)
     {
-        Rekening result = getRekeningData(s).Result;
+        String loc = String.Concat("api/rekenings/", s);
+        Rekening result = getRekeningData(loc).Result;
         return result;
     }
     static async Task<String> getKlantIDthrougPasID(String s)
