@@ -10,107 +10,107 @@ using WebApplication5.Models;
 
 namespace WebApplication5.Controllers
 {
-    public class RekeningController : Controller
+    public class PasController : Controller
     {
         private OP3Context db = new OP3Context();
 
-        // GET: Rekening
+        // GET: Pas
         public ActionResult Index()
         {
-            return View(db.Rekening.ToList());
+            return View(db.Pas.ToList());
         }
 
-        // GET: Rekening/Details/5
-        public ActionResult Details(int? id)
+        // GET: Pas/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rekening rekening = db.Rekening.Find(id);
-            if (rekening == null)
+            Pas pas = db.Pas.Find(id);
+            if (pas == null)
             {
                 return HttpNotFound();
             }
-            return View(rekening);
+            return View(pas);
         }
 
-        // GET: Rekening/Create
+        // GET: Pas/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Rekening/Create
+        // POST: Pas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RekeningID,Balans,RekeningType,Hash")] Rekening rekening)
+        public ActionResult Create([Bind(Include = "PasID,RekeningID,KlantID,Actief")] Pas pas)
         {
             if (ModelState.IsValid)
             {
-                db.Rekening.Add(rekening);
+                db.Pas.Add(pas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(rekening);
+            return View(pas);
         }
 
-        // GET: Rekening/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Pas/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rekening rekening = db.Rekening.Find(id);
-            if (rekening == null)
+            Pas pas = db.Pas.Find(id);
+            if (pas == null)
             {
                 return HttpNotFound();
             }
-            return View(rekening);
+            return View(pas);
         }
 
-        // POST: Rekening/Edit/5
+        // POST: Pas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RekeningID,Balans,RekeningType,Hash")] Rekening rekening)
+        public ActionResult Edit([Bind(Include = "PasID,RekeningID,KlantID,Actief")] Pas pas)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rekening).State = EntityState.Modified;
+                db.Entry(pas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(rekening);
+            return View(pas);
         }
 
-        // GET: Rekening/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Pas/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rekening rekening = db.Rekening.Find(id);
-            if (rekening == null)
+            Pas pas = db.Pas.Find(id);
+            if (pas == null)
             {
                 return HttpNotFound();
             }
-            return View(rekening);
+            return View(pas);
         }
 
-        // POST: Rekening/Delete/5
+        // POST: Pas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Rekening rekening = db.Rekening.Find(id);
-            db.Rekening.Remove(rekening);
+            Pas pas = db.Pas.Find(id);
+            db.Pas.Remove(pas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

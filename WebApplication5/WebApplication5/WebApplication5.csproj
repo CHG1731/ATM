@@ -260,16 +260,16 @@
     <Content Include="Views\Transactie\Details.cshtml" />
     <Content Include="Views\Transactie\Edit.cshtml" />
     <Content Include="Views\Transactie\Index.cshtml" />
-    <Content Include="Views\Pas\Create.cshtml" />
-    <Content Include="Views\Pas\Delete.cshtml" />
-    <Content Include="Views\Pas\Details.cshtml" />
-    <Content Include="Views\Pas\Edit.cshtml" />
-    <Content Include="Views\Pas\Index.cshtml" />
     <Content Include="Views\Transacties\Create.cshtml" />
     <Content Include="Views\Transacties\Delete.cshtml" />
     <Content Include="Views\Transacties\Details.cshtml" />
     <Content Include="Views\Transacties\Edit.cshtml" />
     <Content Include="Views\Transacties\Index.cshtml" />
+    <Content Include="Views\Pas\Create.cshtml" />
+    <Content Include="Views\Pas\Delete.cshtml" />
+    <Content Include="Views\Pas\Details.cshtml" />
+    <Content Include="Views\Pas\Edit.cshtml" />
+    <Content Include="Views\Pas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

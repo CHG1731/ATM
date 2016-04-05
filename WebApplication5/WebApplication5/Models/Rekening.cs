@@ -12,5 +12,6 @@ namespace WebApplication5.Models
         public int RekeningID { get; set; }
         public int Balans { get; set; }
         public int RekeningType { get; set; }
+        public String Hash { get; set; }
     }
 }

@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.RekeningType)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hash)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RekeningType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hash)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RekeningID }) |
