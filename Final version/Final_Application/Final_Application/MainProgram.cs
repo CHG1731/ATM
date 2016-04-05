@@ -303,7 +303,7 @@ public class Executer
         pinsherm.Show();
         Boolean printTicket = false;
         Boolean cancelled = false;
-        int amount;
+        int amount = 0;
         String input;
 
         while(true)
@@ -349,7 +349,7 @@ public class Executer
         }
         if (printTicket == true)
         {
-            printMoney(20);
+            printMoney(amount);
         }
         pinsherm.Hide();
     }
