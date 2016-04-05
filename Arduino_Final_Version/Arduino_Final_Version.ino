@@ -57,17 +57,17 @@ void loop() {
         {
           Serial.write(PasID[i]);
         }
-        Serial.println();
+        Serial.write("\n\r\n");
         for(int i=0;i<6;i++)
         {
           Serial.write(RekeningID[i]);
         }
-        Serial.println();
+        Serial.write("\n\r\n");
         for(int i=0;i<4;i++)
         {
           Serial.write(KlantID[i]);
         }
-        Serial.println();
+        Serial.write("\n\r\n");
       Serial.println(",NEWUID");
       delay(1000);
       }
