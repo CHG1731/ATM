@@ -94,7 +94,7 @@ namespace Final_Apllication
                             }
                             pinInvoer.clear();
                             if (reset == true) { break; }
-                            if(security.checkHash(rekeningID, pincode, userName) == false)
+                            if(security.checkHash(rekeningID, pincode) == false)
                             {
                                 if(++wrongPinCodeAmount == 3)
                                 {

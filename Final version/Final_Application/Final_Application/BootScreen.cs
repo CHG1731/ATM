@@ -132,7 +132,7 @@ namespace Final_Application
         private void button2_Click(object sender, EventArgs e)
         {
             Hash tmphash = new Hash();
-            if(tmphash.checkHash("123456", "1234", "DICKBT"))
+            if(tmphash.checkHash("123456", "1234"))
             {
                 Error.show("JA", "JA");
             }

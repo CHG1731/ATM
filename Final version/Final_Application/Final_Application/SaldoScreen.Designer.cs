@@ -36,8 +36,8 @@
             // 
             // inputDisplay
             // 
-            this.inputDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.inputDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -65,6 +65,7 @@
             this.button1.Size = new System.Drawing.Size(389, 44);
             this.button1.TabIndex = 3;
             this.button1.Text = "B - Nee";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SaldoScreen
             // 

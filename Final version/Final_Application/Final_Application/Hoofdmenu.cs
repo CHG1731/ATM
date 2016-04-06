@@ -21,5 +21,10 @@ namespace Final_Apllication
         {
 
         }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

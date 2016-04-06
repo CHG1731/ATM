@@ -71,6 +71,7 @@
             this.exitButton.Size = new System.Drawing.Size(389, 44);
             this.exitButton.TabIndex = 1;
             this.exitButton.Text = "B - Saldo informatie";
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // Hoofdmenu
             // 

@@ -17,5 +17,10 @@ namespace Final_Apllication
             InitializeComponent();
             inputDisplay.AppendText(saldo.ToString());
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
