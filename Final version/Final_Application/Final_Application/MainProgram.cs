@@ -314,7 +314,8 @@ public class Executer
     private String rekeningID;
     private String userName;
     private ArduinoData arduino;
-    private HTTPget connection = new HTTPget();
+    private HTTPget downloadConnection = new HTTPget();
+    private HTTPpost uploadConnection = new HTTPpost();
     private Rekening rekening;
     private Boolean endOfSession = true;
     private double saldo;
@@ -324,7 +325,7 @@ public class Executer
         this.rekeningID = r;
         this.userName = u;
         this.arduino = a;
-        this.rekening = connection.getRekening(rekeningID);
+        this.rekening = downloadConnection.getRekening(rekeningID);
         this.saldo = rekening.Balans;
     }
 
@@ -405,6 +406,10 @@ public class Executer
             {
                 pinsherm.Hide();
                 break;
+            }
+            else
+            {
+                uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
             }
             TicketScreen asker = new TicketScreen();
             asker.Show();
