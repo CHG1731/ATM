@@ -34,17 +34,14 @@ void loop()
         {
           Serial.write(PasID[i]);
         }
-        Serial.print("\n")
         for(int i=0;i<6;i++)
         {
           Serial.write(RekeningID[i]);
         }
-        Serial.print("\n");
         for(int i=0;i<4;i++)
         {
           Serial.write(KlantID[i]);
         }
-        Serial.print("\n");
       }
     }
 }
