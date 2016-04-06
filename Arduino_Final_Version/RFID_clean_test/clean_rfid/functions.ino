@@ -19,7 +19,7 @@ int writeBlock(int blockNumber, byte arrayAddress[])
   //Uid *uid is a pointer to the UID struct that contains the user ID of the card.
   if (status != MFRC522::STATUS_OK) {
          Serial.print("PCD_Authenticate() failed: ");
-         Serial.println(mfrc522.GetStatusCodeName(status));
+         //Serial.println(mfrc522.GetStatusCodeName(status));
          return 3;//return "3" as error message
   }
   //it appears the authentication needs to be made before every block read/write within a specific sector.
@@ -30,18 +30,12 @@ int writeBlock(int blockNumber, byte arrayAddress[])
         
   status = mfrc522.MIFARE_Write(blockNumber, arrayAddress, 16);//valueBlockA is the block number, MIFARE_Write(block number (0-15), byte array containing 16 values, number of bytes in block (=16))
   //status = mfrc522.MIFARE_Write(9, value1Block, 16);
-  if (status != MFRC522::STATUS_OK) {
-           Serial.print("MIFARE_Write() failed: ");
-           Serial.println(mfrc522.GetStatusCodeName(status));
-           return 4;//return "4" as error message
-  }
-  Serial.println("block was written");
 }
 
 
 int readBlock(int blockNumber, byte arrayAddress[]) 
 {
-  int largestModulo4Number=blockNumber/4*4;
+  int largestModulo4Number = blockNumber/4*4;
   int trailerBlock=largestModulo4Number+3;//determine trailer block for the sector
 
   /*****************************************authentication of the desired block for access***********************************************************/
@@ -54,7 +48,7 @@ int readBlock(int blockNumber, byte arrayAddress[])
   //Uid *uid is a pointer to the UID struct that contains the user ID of the card.
   if (status != MFRC522::STATUS_OK) {
          Serial.print("PCD_Authenticate() failed (read): ");
-         Serial.println(mfrc522.GetStatusCodeName(status));
+         //Serial.println(mfrc522.GetStatusCodeName(status));
          return 3;//return "3" as error message
   }
   //it appears the authentication needs to be made before every block read/write within a specific sector.
@@ -67,8 +61,7 @@ int readBlock(int blockNumber, byte arrayAddress[])
   status = mfrc522.MIFARE_Read(blockNumber, arrayAddress, &buffersize);//&buffersize is a pointer to the buffersize variable; MIFARE_Read requires a pointer instead of just a number
   if (status != MFRC522::STATUS_OK) {
           Serial.print("MIFARE_read() failed: ");
-          Serial.println(mfrc522.GetStatusCodeName(status));
+          //Serial.println(mfrc522.GetStatusCodeName(status));
           return 4;//return "4" as error message
   }
-  Serial.println("block was read");
 }

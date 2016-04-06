@@ -55,9 +55,8 @@ void loop() {
         readBlock(60,KlantID);
         for(int i=0;i<6;i++)
         {
-          Serial.write(PasID[i]);
+          Serial.write(PasID[i]"\r");
         }
-        Serial.write("\n\r\n");
         for(int i=0;i<6;i++)
         {
           Serial.write(RekeningID[i]);
