@@ -619,3 +619,27 @@ public class Hash
 
     }
 }
+public class actiefOfNiet
+{
+    public int actiefWisselen()
+    {
+        HTTPget a = new HTTPget();
+        int currentFalsepinState = a.getFalsePinnr("DICKBT");
+        if (currentFalsepinState == 3)
+        {
+            int setActief = 0;
+        }
+        else { }
+    }
+    
+    
+    
+    /*
+    private void button1_Click_3(object sender, EventArgs e)
+    {
+        HTTPget a = new HTTPget();
+        int fff = a.getFalsePinnr("DICKBT");
+        textBox2.Text = fff.ToString();
+    }
+    */
+}
