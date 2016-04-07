@@ -55,9 +55,6 @@ namespace Final_Apllication
                                 userName = pasInformation[0];
                                 rekeningID = pasInformation[1];
                                 pasID = pasInformation[2];
-                                //Error.show(userName, "Boe");
-                                //Error.show(rekeningID, "Boe");
-                                //Error.show(pasID, "Boe");
                                 break;
                             }
                         }
@@ -96,14 +93,7 @@ namespace Final_Apllication
                             if (reset == true) { break; }
                             if(security.checkHash(rekeningID, pincode) == false)
                             {
-                                if(++wrongPinCodeAmount == 3)
-                                {
-                                    //security.blockCard(pasID);
-                                    reset = true;
-                                    BlockScreen blocked = new BlockScreen();
-                                    blocked.Show();
-                                    break;
-                                }
+                                                       
                             }
                             else
                             {
@@ -139,8 +129,6 @@ namespace Final_Apllication
                 ErrorScreen error = new ErrorScreen();
                 error.Show();
             }
-
-            /* DONT EVER DELETE BRACKETS BELOW THIS LINE */
         }
 
         private Boolean checkInput(String input)

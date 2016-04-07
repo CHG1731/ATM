@@ -600,7 +600,7 @@ public class Hash
         {
             status = true;   
         }
-        else { }
+        else {}
         return status;
 
      }
