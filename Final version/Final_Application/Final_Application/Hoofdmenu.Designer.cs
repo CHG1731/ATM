@@ -57,7 +57,7 @@
             // quickpinButton
             // 
             this.quickpinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.quickpinButton.Location = new System.Drawing.Point(985, 591);
+            this.quickpinButton.Location = new System.Drawing.Point(930, 553);
             this.quickpinButton.Name = "quickpinButton";
             this.quickpinButton.Size = new System.Drawing.Size(389, 44);
             this.quickpinButton.TabIndex = 2;

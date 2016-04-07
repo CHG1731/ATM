@@ -80,16 +80,26 @@ public class Error
         MessageBox.Show(s, x,
         MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
-
+    public static void show(String s)
+    {
+        MessageBox.Show(s, s,
+        MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
 }
 
 public class HTTPget
 {
-    public int getActiefStand(String s)
+    public bool getActiefStand(String pasID)
     {
-        Pas temp = getActiefStandData(s).Result;
-        int Actiefcurrent = temp.Actief;
-        return Actiefcurrent;
+        Pas temp = getActiefStandData(pasID).Result;
+        if(temp.Actief==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Pas getPinclass(String s)
@@ -670,9 +680,7 @@ public class Hash
     }
     public void blockCard(String PasID)
     {
-        HTTPget tmp = new HTTPget();
-        int actiefStand = tmp.getActiefStand(PasID);
-        Error.show("hi", actiefStand.ToString());
+
     }
 }
 /*

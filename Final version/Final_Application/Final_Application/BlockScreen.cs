@@ -21,13 +21,13 @@ namespace Final_Apllication
             sleepnow().Wait();
             this.Close();
         }
-        private void BlockScreen_Load(object sender, EventArgs e)
-        {
-
-        }
         async Task sleepnow()
         {
             System.Threading.Thread.Sleep(5000);
+        }
+        private void BlockScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

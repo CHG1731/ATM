@@ -70,6 +70,10 @@ namespace Final_Application
             {
                 comboBox1.Items.Add("No ports available");
             }
+            comboBox1.SelectedItem = ports[0];
+            ArduinoClass.makePort(comboBox1.SelectedItem.ToString());
+            StartButton.Visible = true;
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -129,9 +133,10 @@ namespace Final_Application
         private void button2_Click(object sender, EventArgs e)
         {
             HTTPget tmp = new HTTPget();
-            int actiefStand = tmp.getActiefStand("PasID");
-            textBox2.Text = actiefStand.ToString();
-
+            if(tmp.getActiefStand("DICKBT"))
+            {
+                textBox1.Text = "ACTIEF";
+            }
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
