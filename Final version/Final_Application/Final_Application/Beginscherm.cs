@@ -30,8 +30,8 @@ namespace Final_Apllication
             String[] pasInformation;
             //User user;
 
-            try
-            {
+            //try
+            //{
                 while (true) ///Infinite loop so that the program returns here after every cancelation.
                 {
                     while (true)
@@ -122,12 +122,14 @@ namespace Final_Apllication
                         }
                     }
                 }
-            }
+            //}
+            /*
             catch (Exception)
             {
                 ErrorScreen error = new ErrorScreen();
                 error.Show();
             }
+            */
         }
 
         private Boolean checkInput(String input)

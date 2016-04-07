@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
+using System.Timers;
 
 namespace Final_Application
 {
@@ -241,15 +242,18 @@ public class HTTPpost
     {
         HTTPget tmp = new HTTPget();
         int nrfalsepin = tmp.getFalsePinnr(PasID);
-        Error.show(nrfalsepin.ToString(), "NUMBER OF FALSE PINS");
+        Pas uploaddata = tmp.getPinclass(PasID);
         nrfalsepin++;
-        if(nrfalsepin>=3)
+        if(nrfalsepin>3)
         {
-            Error.show("BLOCK CARD", "BLOCK CARD");
+            Error.show("CARD BLOCKED", "CARD BLOCKED");
+            ShowErrorScreen a = new ShowErrorScreen();
+            a.screen();
+            //BlockCard(PasID, uploaddata).Wait();
         }
-        if(nrfalsepin<3)
+        if(nrfalsepin<=3)
         {
-            incrementFalsePin(PasID).Wait();
+            incrementFalsePin(PasID,uploaddata,nrfalsepin).Wait();
         }
     }
     public void UpdateBalans(int RekeningID, double balans)
@@ -277,7 +281,7 @@ public class HTTPpost
             }
         }
     }
-    static async Task incrementFalsePin(String PasID)
+    static async Task incrementFalsePin(String PasID, Pas data, int falsepinnr)
     {
         String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
@@ -286,15 +290,36 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { PasID = PasID};
+            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID};
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
+                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
             }
             else
             {
                 Error.show("INCR FAILED", "INCR FAILED");
+            }
+        }
+    }
+    static async Task BlockCard(String PasID, Pas data)
+    {
+        String location = string.Concat("api/pass/", PasID.ToString());
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HTTPpost part
+            Pas incrementFalsePin = new Pas() { Actief = 0, FalsePin = data.FalsePin, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
+            }
+            else
+            {
+                Error.show("BLOCKING FAILED", "BLOCKING FAILED");
             }
         }
     }
@@ -604,12 +629,12 @@ public class Hash
         string Hash = makeHash(RekeningIDcv, pincodecv);
         if (Hash == temporary.getHash(RekeningID))
         {
-            status = true;   
+            status = true;
         }
-        else {}
+        else { }
         return status;
 
-     }
+    }
     public String makeHash(int RekeningID, int pincode)
     {
         return Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
@@ -619,3 +644,29 @@ public class Hash
 
     }
 }
+public class ShowErrorScreen
+{
+    bool close = false;
+    private void go()
+    {
+        System.Timers.Timer timer = new System.Timers.Timer(4000);
+        timer.Enabled = true;
+        timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+        timer.Start();
+    }
+    private void timer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        close = true;
+    }
+    public void screen()
+    {
+        BlockScreen tmp = new BlockScreen();
+        go();
+        while(!close)
+        {
+            tmp.Show();
+        }
+        tmp.Close();
+    }
+}
+

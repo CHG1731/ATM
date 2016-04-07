@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Final_Apllication
 {
@@ -16,7 +17,6 @@ namespace Final_Apllication
         {
             InitializeComponent();
         }
-
         private void BlockScreen_Load(object sender, EventArgs e)
         {
 
