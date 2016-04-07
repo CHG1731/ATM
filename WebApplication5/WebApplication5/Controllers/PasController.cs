@@ -46,7 +46,7 @@ namespace WebApplication5.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PasID,RekeningID,KlantID,Actief")] Pas pas)
+        public ActionResult Create([Bind(Include = "PasID,RekeningID,KlantID,Actief,FalsePin")] Pas pas)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace WebApplication5.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PasID,RekeningID,KlantID,Actief")] Pas pas)
+        public ActionResult Edit([Bind(Include = "PasID,RekeningID,KlantID,Actief,FalsePin")] Pas pas)
         {
             if (ModelState.IsValid)
             {
