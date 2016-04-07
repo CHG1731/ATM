@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,7 +96,6 @@ namespace Final_Apllication
                             if (reset == true) { break; }
                             if (pincode == "0000") //Added easter egg
                             {
-                                throw new InvalidOperationException();
                                 pinInvoer.pictureBox2.Visible = true;
                                 pinInvoer.Refresh();
                                 System.Threading.Thread.Sleep(5000);
@@ -139,15 +139,24 @@ namespace Final_Apllication
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
                 ErrorScreen error = new ErrorScreen();
+                List<Form> openForms = new List<Form>();
+                foreach (Form f in Application.OpenForms)
+                    openForms.Add(f);
+                foreach (Form f in openForms)
+                {
+                    if (f.Name != "ErrorScreen")
+                        f.Close();
+                }
                 while (true)
                 { } //Loop forever :)
             }
         }
         private Boolean checkInput(String input)
         {
+
             Boolean result = false;
             for (int i = 0; i < 10; i++)
             {
@@ -156,6 +165,10 @@ namespace Final_Apllication
                     result = true;
                     break;
                 }
+            }
+            if (input.Length > 4)
+            {
+                result = false;
             }
             return result;
         }
