@@ -139,6 +139,9 @@ namespace Final_Application
             }
 
         }
-    }
+        private void BootScreen_Load(object sender, EventArgs e)
+        {
 
+        }
+    }
 }

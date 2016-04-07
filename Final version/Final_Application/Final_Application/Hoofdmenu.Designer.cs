@@ -38,7 +38,7 @@
             // pinButton
             // 
             this.pinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pinButton.Location = new System.Drawing.Point(24, 582);
+            this.pinButton.Location = new System.Drawing.Point(623, 298);
             this.pinButton.Name = "pinButton";
             this.pinButton.Size = new System.Drawing.Size(389, 44);
             this.pinButton.TabIndex = 0;
@@ -48,7 +48,7 @@
             // saldoButton
             // 
             this.saldoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saldoButton.Location = new System.Drawing.Point(856, 582);
+            this.saldoButton.Location = new System.Drawing.Point(623, 398);
             this.saldoButton.Name = "saldoButton";
             this.saldoButton.Size = new System.Drawing.Size(389, 44);
             this.saldoButton.TabIndex = 3;
@@ -57,16 +57,16 @@
             // quickpinButton
             // 
             this.quickpinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.quickpinButton.Location = new System.Drawing.Point(1279, 582);
+            this.quickpinButton.Location = new System.Drawing.Point(985, 591);
             this.quickpinButton.Name = "quickpinButton";
             this.quickpinButton.Size = new System.Drawing.Size(389, 44);
             this.quickpinButton.TabIndex = 2;
-            this.quickpinButton.Text = "D - Afbreken";
+            this.quickpinButton.Text = "X - Afbreken";
             // 
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitButton.Location = new System.Drawing.Point(442, 582);
+            this.exitButton.Location = new System.Drawing.Point(623, 348);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(389, 44);
             this.exitButton.TabIndex = 1;
@@ -79,7 +79,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1680, 647);
+            this.ClientSize = new System.Drawing.Size(1386, 647);
             this.Controls.Add(this.pinButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.quickpinButton);
