@@ -139,6 +139,19 @@ namespace Final_Application
             }
 
         }
-    }
+        Timer formClose = new Timer();
+        private void BootScreen_Load(object sender, EventArgs e)
+        {
+            formClose.Interval = 4000;
+            formClose.Tick += new EventHandler(formClose_Tick);
+            formClose.Start();
 
+        }
+        private void formClose_Tick(object sender, EventArgs e)
+        {
+            formClose.Stop();
+            formClose.Tick -= new EventHandler(formClose_Tick);
+            this.Close();
+        }
+    }
 }
