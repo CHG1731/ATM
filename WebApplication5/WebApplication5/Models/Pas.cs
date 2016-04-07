@@ -13,5 +13,6 @@ namespace WebApplication5.Models
         public int RekeningID { get; set; }
         public int KlantID { get; set; }
         public int Actief { get; set; }
+        public int FalsePin { get; set; }
     }
 }
