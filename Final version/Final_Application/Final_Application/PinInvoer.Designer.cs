@@ -44,14 +44,14 @@
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.inputDisplay.Location = new System.Drawing.Point(727, 302);
             this.inputDisplay.Name = "inputDisplay";
-            this.inputDisplay.Size = new System.Drawing.Size(201, 50);
+            this.inputDisplay.Size = new System.Drawing.Size(188, 50);
             this.inputDisplay.TabIndex = 0;
             this.inputDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.confirmButton.Location = new System.Drawing.Point(126, 526);
+            this.confirmButton.Location = new System.Drawing.Point(126, 602);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(278, 44);
             this.confirmButton.TabIndex = 0;
@@ -61,7 +61,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelButton.Location = new System.Drawing.Point(410, 526);
+            this.cancelButton.Location = new System.Drawing.Point(410, 602);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(278, 44);
             this.cancelButton.TabIndex = 0;
@@ -71,7 +71,7 @@
             // rectifyButton
             // 
             this.rectifyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rectifyButton.Location = new System.Drawing.Point(694, 526);
+            this.rectifyButton.Location = new System.Drawing.Point(694, 602);
             this.rectifyButton.Name = "rectifyButton";
             this.rectifyButton.Size = new System.Drawing.Size(278, 44);
             this.rectifyButton.TabIndex = 7;
@@ -84,12 +84,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1386, 636);
+            this.ClientSize = new System.Drawing.Size(1373, 712);
             this.Controls.Add(this.inputDisplay);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.rectifyButton);
             this.Controls.Add(this.confirmButton);
             this.DoubleBuffered = true;
+            this.Enabled = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PinInvoer";
             this.Text = "Form2";
