@@ -277,8 +277,7 @@ public class HTTPpost
         if(nrfalsepin>3)
         {
             Error.show("CARD BLOCKED", "CARD BLOCKED");
-            ShowErrorScreen a = new ShowErrorScreen();
-            a.screen();
+            BlockScreen a = new BlockScreen();
             //BlockCard(PasID, uploaddata).Wait();
         }
         if(nrfalsepin<=3)
@@ -676,6 +675,7 @@ public class Hash
         Error.show("hi", actiefStand.ToString());
     }
 }
+/*
 public class ShowErrorScreen
 {
     bool close = false;
@@ -696,9 +696,10 @@ public class ShowErrorScreen
         go();
         while(!close)
         {
-            tmp.Show();
+            tmp.ShowDialog();
         }
         tmp.Close();
     }
 }
+*/
 

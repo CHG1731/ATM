@@ -70,6 +70,7 @@ void loop() {
         Serial.write("\n");
       Serial.println(",NEWUID");
       delay(1000);
+      asm volatile ("  jmp 0");  
       }
     }
     char key = keypad.getKey();

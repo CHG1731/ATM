@@ -16,10 +16,18 @@ namespace Final_Apllication
         public BlockScreen()
         {
             InitializeComponent();
+            this.Show();
+            this.Refresh();
+            sleepnow().Wait();
+            this.Close();
         }
         private void BlockScreen_Load(object sender, EventArgs e)
         {
 
+        }
+        async Task sleepnow()
+        {
+            System.Threading.Thread.Sleep(5000);
         }
     }
 }
