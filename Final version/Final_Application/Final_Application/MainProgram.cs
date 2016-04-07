@@ -386,7 +386,7 @@ public class Executer
                     cancelled = true;
                     break;
                 }
-                else if (input.Contains("&"))
+                else if (input.Contains("#"))
                 {
                     cancelled = true;
                     endOfSession = false;
@@ -461,7 +461,7 @@ public class Executer
                 pin();
                 break;
             }
-            else if (input.Contains("C")) {
+            else if (input.Contains("B")) {
                 saldoDisplay.Hide();
                 break;
             }

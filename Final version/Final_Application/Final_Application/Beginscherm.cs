@@ -55,9 +55,6 @@ namespace Final_Apllication
                                 userName = pasInformation[0];
                                 rekeningID = pasInformation[1];
                                 pasID = pasInformation[2];
-                                Error.show(userName, "Boe");
-                                Error.show(rekeningID, "Boe");
-                                Error.show(pasID, "Boe");
                                 break;
                             }
                         }
