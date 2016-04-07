@@ -42,7 +42,7 @@
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputDisplay.Location = new System.Drawing.Point(780, 328);
+            this.inputDisplay.Location = new System.Drawing.Point(727, 302);
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(201, 50);
             this.inputDisplay.TabIndex = 0;
@@ -51,31 +51,31 @@
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.confirmButton.Location = new System.Drawing.Point(578, 558);
+            this.confirmButton.Location = new System.Drawing.Point(126, 526);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(389, 44);
+            this.confirmButton.Size = new System.Drawing.Size(278, 44);
             this.confirmButton.TabIndex = 0;
-            this.confirmButton.Text = "A - Confirm";
+            this.confirmButton.Text = "A - Bevestig";
             this.confirmButton.UseVisualStyleBackColor = false;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelButton.Location = new System.Drawing.Point(1090, 558);
+            this.cancelButton.Location = new System.Drawing.Point(410, 526);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(389, 44);
+            this.cancelButton.Size = new System.Drawing.Size(278, 44);
             this.cancelButton.TabIndex = 0;
-            this.cancelButton.Text = "C - Correct";
+            this.cancelButton.Text = "B - Corrigeren";
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // rectifyButton
             // 
             this.rectifyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rectifyButton.Location = new System.Drawing.Point(49, 558);
+            this.rectifyButton.Location = new System.Drawing.Point(694, 526);
             this.rectifyButton.Name = "rectifyButton";
-            this.rectifyButton.Size = new System.Drawing.Size(389, 44);
+            this.rectifyButton.Size = new System.Drawing.Size(278, 44);
             this.rectifyButton.TabIndex = 7;
-            this.rectifyButton.Text = "D - Cancel";
+            this.rectifyButton.Text = "X - Annuleren";
             this.rectifyButton.UseVisualStyleBackColor = true;
             // 
             // PinInvoer

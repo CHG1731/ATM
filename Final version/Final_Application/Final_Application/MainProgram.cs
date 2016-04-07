@@ -297,7 +297,7 @@ public class ArduinoData
         if (choiceString == "AKEY") { choice = 1; }
         if (choiceString == "BKEY") { choice = 2; }
         if (choiceString == "CKEY") { choice = 3; }
-        if (choiceString == "$KEY") { choice = 4; }
+        if (choiceString == "#KEY") { choice = 4; }
         return choice;
     }
 
@@ -366,17 +366,17 @@ public class Executer
             while (true)
             {
                 input = arduino.getString();
-                if (input.Contains("A"))
+                if (input.Contains("1"))
                 {
                     amount = 10;
                     break;
                 }
-                else if (input.Contains("B"))
+                else if (input.Contains("2"))
                 {
                     amount = 20;
                     break;
                 }
-                else if (input.Contains("C"))
+                else if (input.Contains("3"))
                 {
                     amount = 50;
                     break;
@@ -386,7 +386,7 @@ public class Executer
                     cancelled = true;
                     break;
                 }
-                else if (input.Contains("&"))
+                else if (input.Contains("#"))
                 {
                     cancelled = true;
                     endOfSession = false;
@@ -462,11 +462,14 @@ public class Executer
                 break;
             }
             else if (input.Contains("C")) {
+                ByeScreen goAway = new ByeScreen();
+                goAway.Show();
+                System.Threading.Thread.Sleep(5000);
+                goAway.Hide();
                 saldoDisplay.Hide();
                 break;
             }
-        }
-        
+        }      
     }
 
     private void quickPin()

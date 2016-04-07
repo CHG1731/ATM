@@ -76,12 +76,12 @@ namespace Final_Apllication
                                     insertedDigits++;
                                     pincode += input.ElementAt(0);
                                 }
-                                else if (input.Contains("$KEY"))
+                                else if (input.Contains("#KEY"))
                                 {
                                     reset = true;
                                     break;
                                 }
-                                else if (input.Contains("CKEY"))
+                                else if (input.Contains("BKEY"))
                                 {
                                     pinInvoer.clear();
                                     insertedDigits = 0;
@@ -98,8 +98,10 @@ namespace Final_Apllication
                             {
                                 if(++wrongPinCodeAmount == 3)
                                 {
-                                    //security.blockCard();
+                                    //security.blockCard(pasID);
                                     reset = true;
+                                    BlockScreen blocked = new BlockScreen();
+                                    blocked.Show();
                                     break;
                                 }
                             }
