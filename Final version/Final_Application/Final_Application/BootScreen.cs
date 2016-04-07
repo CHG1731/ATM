@@ -121,12 +121,9 @@ namespace Final_Application
 
         private void button1_Click_3(object sender, EventArgs e)
         {
-            Hash passw = new Hash();
-            int a = 0;
-            int b = 0;
-            Int32.TryParse(textBox1.Text, out a);
-            Int32.TryParse(textBox1.Text, out b);
-            textBox2.Text = passw.makeHash(123456, 1234);
+            HTTPget a = new HTTPget();
+            int fff = a.getFalsePinnr("DICKBT");
+            textBox2.Text = fff.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)

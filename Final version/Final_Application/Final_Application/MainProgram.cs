@@ -595,8 +595,7 @@ public class Hash
         string Hash = makeHash(RekeningIDcv, pincodecv);
         if (Hash == temporary.getHash(RekeningID))
         {
-            status = true;
-            
+            status = true;   
         }
         else { }
         return status;
