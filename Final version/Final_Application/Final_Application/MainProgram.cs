@@ -84,6 +84,13 @@ public class Error
 
 public class HTTPget
 {
+    public int getActiefStand(String s)
+    {
+        Pas temp = getActiefStandData(s).Result;
+        int Actiefcurrent = temp.Actief;
+        return Actiefcurrent;
+    }
+
     public Pas getPinclass(String s)
     {
         Pas tmp = getPinData(s).Result;
@@ -233,8 +240,31 @@ public class HTTPget
 
         }
     }
+    static async Task<Pas> getActiefStandData (string ID)
+{
+        String location = string.Concat("api/Pass/", ID);
+        using (var client = new HttpClient())
+    {
+        client.BaseAddress = new Uri("http://localhost:50752/");
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        // HTTP GET
+        HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+        if (response.IsSuccessStatusCode)
+        {
+            Pas Actief = await response.Content.ReadAsAsync<Pas>();
+            return Actief;
+        }
+        else
+        {
+            Pas reject = new Pas();
+            return reject;
+        }
 
+    }
 }
+}
+
 public class HTTPpost
 {
     public void Incrementfalsepin(String PasID)
@@ -616,6 +646,8 @@ public class Hash
     }
     public void blockCard(String PasID)
     {
-
+        HTTPget tmp = new HTTPget();
+        int actiefStand = tmp.getActiefStand(PasID);
+        Error.show("hi", actiefStand.ToString());
     }
 }

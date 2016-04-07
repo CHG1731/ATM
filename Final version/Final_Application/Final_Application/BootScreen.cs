@@ -128,15 +128,10 @@ namespace Final_Application
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Hash tmphash = new Hash();
-            if(tmphash.checkHash("123456", "1234"))
-            {
-                Error.show("JA", "JA");
-            }
-            else
-            {
-                Error.show("RIP", "RIP");
-            }
+            HTTPget tmp = new HTTPget();
+            int actiefStand = tmp.getActiefStand("PasID");
+            textBox2.Text = actiefStand.ToString();
+
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
