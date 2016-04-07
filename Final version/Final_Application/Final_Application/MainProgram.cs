@@ -84,6 +84,12 @@ public class Error
 
 public class HTTPget
 {
+    public int getFalsePinnr(String s)
+    {
+        Pas tmp = getFalsePinData(s).Result;
+        int falsepi = tmp.FalsePin;
+        return falsepi;
+    }
     public Klant getKlant(string s)
     {
         Klant result = GetKlantData(s).Result;
@@ -199,6 +205,29 @@ public class HTTPget
 
         }
     }
+    static async Task<Pas> getFalsePinData(string ID)
+    {
+        String location = string.Concat("api/Pass/", ID);
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // HTTP GET
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Pas FalsePin = await response.Content.ReadAsAsync<Pas>();
+                return FalsePin;
+            }
+            else
+            {
+                Pas reject = new Pas();
+                return reject;
+            }
+
+        }
+    }
 
 }
 public class HTTPpost
@@ -219,6 +248,41 @@ public class HTTPpost
             Rekening postbalans = new Rekening() { RekeningID = RekeningID, RekeningType = 1, Balans = balans };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, postbalans).ConfigureAwait(false);
             if(response.IsSuccessStatusCode)
+            {
+                Error.show("Succeeded", "Succeeded");
+            }
+            else
+            {
+                Error.show("COULDNT REPOST", "COULDNT REPOST");
+            }
+        }
+    }
+    /*
+    public void incrementFalsePin(String PasID)
+    {
+        HTTPget temporary = new HTTPget();
+        if (Hash == temporary.getHash(RekeningID))
+
+            if (FalsePin < 3)
+        {
+            FalsePin++;
+        }
+
+        incrementFalsePin(PasID).Result();
+    }
+    */
+    static async Task incrementFalsePin(String PasID)
+    {
+        String location = string.Concat("api/rekenings/", PasID.ToString());
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HTTPpost part
+            Pas incrementFalsePin = new Pas() { PasID = PasID};
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
             {
                 Error.show("Succeeded", "Succeeded");
             }
@@ -249,7 +313,8 @@ public class Pas
     public int RekeningID { get; set; }
     public int KlantID { get; set; }
     public int Actief { get; set; }
- 
+    public int FalsePin { get; set; }
+
 }
 public class Rekening
 {
