@@ -519,7 +519,7 @@ public class Printer
 
 public class Hash
 {
-    public bool checkHash(String RekeningID, String pincode, string PasID)
+    public bool checkHash(String RekeningID, String pincode)
     {
         int RekeningIDcv;
         int pincodecv;
@@ -540,5 +540,9 @@ public class Hash
     public String makeHash(int RekeningID, int pincode)
     {
         return  Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
+    }
+    public void blockCard(String PasID)
+    {
+
     }
 }

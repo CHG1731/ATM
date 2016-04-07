@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Actief)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FalsePin)
+        </th>
         <th></th>
     </tr>
 
@@ -33,6 +36,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Actief)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalsePin)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PasID }) |
