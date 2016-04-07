@@ -89,17 +89,6 @@ namespace Final_Apllication
                         }
                         pinInvoer.clear();
                         if (reset == true) { break; }
-                        if(pincode=="0000") //Added easter egg :)
-                        {
-                            /*
-                            pinInvoer.ee.Visible = true;
-                            pinInvoer.Refresh();
-                            System.Threading.Thread.Sleep(5000);
-                            pinInvoer.ee.Visible = false;
-                            reset = true;
-                            break;
-                            */
-                        }
                         if (security.checkHash(rekeningID, pincode) == false)
                         {
                             HTTPpost tmp = new HTTPpost();
