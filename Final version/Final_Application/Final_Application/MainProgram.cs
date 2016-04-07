@@ -84,9 +84,14 @@ public class Error
 
 public class HTTPget
 {
+    public Pas getPinclass(String s)
+    {
+        Pas tmp = getPinData(s).Result;
+        return tmp;
+    }
     public int getFalsePinnr(String s)
     {
-        Pas tmp = getFalsePinData(s).Result;
+        Pas tmp = getPinData(s).Result;
         int falsepi = tmp.FalsePin;
         return falsepi;
     }
@@ -205,7 +210,7 @@ public class HTTPget
 
         }
     }
-    static async Task<Pas> getFalsePinData(string ID)
+    static async Task<Pas> getPinData(string ID)
     {
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
@@ -232,6 +237,21 @@ public class HTTPget
 }
 public class HTTPpost
 {
+    public void Incrementfalsepin(String PasID)
+    {
+        HTTPget tmp = new HTTPget();
+        int nrfalsepin = tmp.getFalsePinnr(PasID);
+        Error.show(nrfalsepin.ToString(), "NUMBER OF FALSE PINS");
+        nrfalsepin++;
+        if(nrfalsepin>=3)
+        {
+            Error.show("BLOCK CARD", "BLOCK CARD");
+        }
+        if(nrfalsepin<3)
+        {
+            incrementFalsePin(PasID).Wait();
+        }
+    }
     public void UpdateBalans(int RekeningID, double balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
@@ -257,23 +277,9 @@ public class HTTPpost
             }
         }
     }
-    /*
-    public void incrementFalsePin(String PasID)
-    {
-        HTTPget temporary = new HTTPget();
-        if (Hash == temporary.getHash(RekeningID))
-
-            if (FalsePin < 3)
-        {
-            FalsePin++;
-        }
-
-        incrementFalsePin(PasID).Result();
-    }
-    */
     static async Task incrementFalsePin(String PasID)
     {
-        String location = string.Concat("api/rekenings/", PasID.ToString());
+        String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
@@ -284,11 +290,11 @@ public class HTTPpost
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                Error.show("Succeeded", "Succeeded");
+                Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
             }
             else
             {
-                Error.show("COULDNT REPOST", "COULDNT REPOST");
+                Error.show("INCR FAILED", "INCR FAILED");
             }
         }
     }

@@ -28,7 +28,6 @@ namespace Final_Apllication
             Boolean reset = false;
             Boolean pinCorrect;
             String[] pasInformation;
-            int wrongPinCodeAmount;
             //User user;
 
             try
@@ -39,10 +38,9 @@ namespace Final_Apllication
                     {
                         pinCorrect = false;
                         pasInformation = new String[4];
-                        wrongPinCodeAmount = 0;
                         reset = false;
                         executer = null;
-                        String userName;
+                        String KlantID;
                         String rekeningID;
                         String pasID;
                         //user = null;
@@ -52,9 +50,9 @@ namespace Final_Apllication
                             if (s.Contains(",NEWUID"))
                             {
                                 pasInformation = s.Split('\n', '\n', '\n');
-                                userName = pasInformation[0];
+                                KlantID = pasInformation[2];
                                 rekeningID = pasInformation[1];
-                                pasID = pasInformation[2];
+                                pasID = pasInformation[0];
                                 break;
                             }
                         }
@@ -93,7 +91,8 @@ namespace Final_Apllication
                             if (reset == true) { break; }
                             if(security.checkHash(rekeningID, pincode) == false)
                             {
-                                                       
+                                HTTPpost tmp = new HTTPpost();
+                                tmp.Incrementfalsepin(pasID);
                             }
                             else
                             {
@@ -106,7 +105,7 @@ namespace Final_Apllication
                             break;
                         }
                         hoofdmenu.Show();
-                        executer = new Executer(rekeningID, userName, arduino);
+                        executer = new Executer(rekeningID, KlantID, arduino);
                         while (true)
                         {
                             int choice = arduino.getChoice();

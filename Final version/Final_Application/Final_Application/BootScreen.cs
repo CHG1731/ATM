@@ -137,7 +137,6 @@ namespace Final_Application
             {
                 Error.show("RIP", "RIP");
             }
-
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
