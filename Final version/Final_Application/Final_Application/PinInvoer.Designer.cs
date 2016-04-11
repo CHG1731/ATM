@@ -33,6 +33,7 @@
             this.rectifyButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.falsepininfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,6 +94,19 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
             // 
+            // falsepininfo
+            // 
+            this.falsepininfo.AutoSize = true;
+            this.falsepininfo.BackColor = System.Drawing.Color.Transparent;
+            this.falsepininfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.falsepininfo.ForeColor = System.Drawing.Color.Red;
+            this.falsepininfo.Location = new System.Drawing.Point(723, 275);
+            this.falsepininfo.Name = "falsepininfo";
+            this.falsepininfo.Size = new System.Drawing.Size(140, 24);
+            this.falsepininfo.TabIndex = 13;
+            this.falsepininfo.Text = "FOUTIEVE PIN";
+            this.falsepininfo.Visible = false;
+            // 
             // PinInvoer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,6 +114,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1386, 636);
+            this.Controls.Add(this.falsepininfo);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.inputDisplay);
@@ -124,5 +139,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
         protected internal System.Windows.Forms.PictureBox pictureBox2;
+        protected internal System.Windows.Forms.Label falsepininfo;
     }
 }

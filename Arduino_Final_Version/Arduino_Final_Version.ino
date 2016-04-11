@@ -17,10 +17,9 @@ char keys[ROWS][COLS] = {
 };
 byte rowPins[ROWS] = {7, 6, 5, 4};
 byte colPins[COLS] = {14, 15, 16, 17};
-String reset = "__RESET__";
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
-
-
+int timeout = 0;
+bool newcard = false;
 void setup()
 {
   Serial.begin(9600);
@@ -34,34 +33,44 @@ void setup()
 }
 void loop() {
   // Look for new cards
+  timeout++;
+  if (timeout == 20)
+  {
+    newcard = true;
+  }
   if (mfrc522.PICC_IsNewCardPresent())
   {
-    if (mfrc522.PICC_ReadCardSerial())
+    timeout=0;
+    if (newcard)
     {
-      byte PasID[18];
-      byte RekeningID[18];
-      byte KlantID[18];
-      readBlock(62, PasID);
-      readBlock(61, RekeningID);
-      readBlock(60, KlantID);
-      for (int i = 0; i < 6; i++)
+      if (mfrc522.PICC_ReadCardSerial())
       {
-        Serial.write(PasID[i]);
+        byte PasID[18];
+        byte RekeningID[18];
+        byte KlantID[18];
+        readBlock(62, PasID);
+        readBlock(61, RekeningID);
+        readBlock(60, KlantID);
+        for (int i = 0; i < 6; i++)
+        {
+          Serial.write(PasID[i]);
+        }
+        Serial.write("\n");
+        for (int i = 0; i < 6; i++)
+        {
+          Serial.write(RekeningID[i]);
+        }
+        Serial.write("\n");
+        for (int i = 0; i < 4; i++)
+        {
+          Serial.write(KlantID[i]);
+        }
+        Serial.write("\n");
+        Serial.println(",NEWUID");
+        newcard = false;
+        delay(100);
+        asm volatile ("  jmp 0");
       }
-      Serial.write("\n");
-      for (int i = 0; i < 6; i++)
-      {
-        Serial.write(RekeningID[i]);
-      }
-      Serial.write("\n");
-      for (int i = 0; i < 4; i++)
-      {
-        Serial.write(KlantID[i]);
-      }
-      Serial.write("\n");
-      Serial.println(",NEWUID");
-      delay(2000);
-      asm volatile ("  jmp 0");
     }
   }
   char key = keypad.getKey();

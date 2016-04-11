@@ -51,5 +51,10 @@ namespace Final_Apllication
         {
 
         }
+
+        private void falsepininfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

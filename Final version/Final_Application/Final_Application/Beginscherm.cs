@@ -30,8 +30,8 @@ namespace Final_Apllication
             String[] pasInformation;
             //User user;
 
-            try
-            {
+            //try
+            //{
                 while (true) ///Infinite loop so that the program returns here after every cancelation.
                 {
                     while (true)
@@ -44,6 +44,7 @@ namespace Final_Apllication
                         String rekeningID;
                         String pasID;
                         HTTPget httpget = new HTTPget();
+                        HTTPpost httppost = new HTTPpost();
                         while (true)
                         {
                             String s = arduino.getFirstString();
@@ -73,6 +74,7 @@ namespace Final_Apllication
                                 if (checkInput(input) == true && insertedDigits < 4)
                                 {
                                     pinInvoer.printStar();
+                                    pinInvoer.falsepininfo.Visible = false;
                                     insertedDigits++;
                                     pincode += input.ElementAt(0);
                                 }
@@ -105,13 +107,13 @@ namespace Final_Apllication
                             }
                             if (security.checkHash(rekeningID, pincode) == false)
                             {
+                                pinInvoer.falsepininfo.Visible = true;
                                 HTTPpost tmp = new HTTPpost();
                                 tmp.Incrementfalsepin(pasID);
-                                reset = true;
-                                break;
                             }
                             else
                             {
+                                httppost.resetfalsepin(pasID);
                                 pinCorrect = true;
                             }
                         }
@@ -139,6 +141,7 @@ namespace Final_Apllication
                     }
                 }
             }
+            /*
             catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
                 ErrorScreen error = new ErrorScreen();
@@ -154,6 +157,7 @@ namespace Final_Apllication
                 { } //Loop forever :)
             }
         }
+        */
         private Boolean checkInput(String input)
         {
 

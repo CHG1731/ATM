@@ -278,19 +278,24 @@ public class HTTPget
 
 public class HTTPpost
 {
+    public void resetfalsepin(String PasID)
+    {
+        HTTPget tmp = new HTTPget();
+        Pas resetdata = tmp.getPinclass(PasID);
+        incrementFalsePin(PasID, resetdata, 0).Wait();
+    }
     public void Incrementfalsepin(String PasID)
     {
         HTTPget tmp = new HTTPget();
         int nrfalsepin = tmp.getFalsePinnr(PasID);
         Pas uploaddata = tmp.getPinclass(PasID);
         nrfalsepin++;
-        if(nrfalsepin>3)
+        if(nrfalsepin>=3)
         {
-            Error.show("CARD BLOCKED", "CARD BLOCKED");
             BlockScreen a = new BlockScreen();
-            //BlockCard(PasID, uploaddata).Wait();
+            BlockCard(PasID, uploaddata).Wait();
         }
-        if(nrfalsepin<=3)
+        if(nrfalsepin<3)
         {
             incrementFalsePin(PasID,uploaddata,nrfalsepin).Wait();
         }
@@ -632,6 +637,7 @@ public class Printer
     public void printTicket()
     {
         String bedrag = amount.ToString();
+        /*
         ILabel _label;
         _label = Framework.Open(@"C:\Dymo\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
@@ -652,6 +658,7 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
+            */
     }
 }
 
@@ -683,31 +690,3 @@ public class Hash
 
     }
 }
-/*
-public class ShowErrorScreen
-{
-    bool close = false;
-    private void go()
-    {
-        System.Timers.Timer timer = new System.Timers.Timer(4000);
-        timer.Enabled = true;
-        timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-        timer.Start();
-    }
-    private void timer_Elapsed(object sender, ElapsedEventArgs e)
-    {
-        close = true;
-    }
-    public void screen()
-    {
-        BlockScreen tmp = new BlockScreen();
-        go();
-        while(!close)
-        {
-            tmp.ShowDialog();
-        }
-        tmp.Close();
-    }
-}
-*/
-
