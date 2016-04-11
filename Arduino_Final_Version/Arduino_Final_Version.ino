@@ -23,7 +23,7 @@ bool newcard = false;
 void setup()
 {
   Serial.begin(9600);
-  Serial.setTimeout(100);
+  //Serial.setTimeout(100);
   SPI.begin();
   mfrc522.PCD_Init();
   for (byte i = 0; i < 6; i++)
@@ -34,7 +34,7 @@ void setup()
 void loop() {
   // Look for new cards
   timeout++;
-  if (timeout == 20)
+  if (timeout == 5)
   {
     newcard = true;
   }

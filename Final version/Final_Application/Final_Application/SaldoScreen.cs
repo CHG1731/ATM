@@ -15,10 +15,20 @@ namespace Final_Apllication
         public SaldoScreen(double saldo)
         {
             InitializeComponent();
-            inputDisplay.AppendText(saldo.ToString());
+            saldoLabel.Text = saldo.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inputDisplay_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaldoScreen_Load(object sender, EventArgs e)
         {
 
         }

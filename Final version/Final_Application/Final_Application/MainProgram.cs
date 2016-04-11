@@ -593,6 +593,7 @@ public class Executer
     {
         SaldoScreen saldoDisplay = new SaldoScreen(saldo);
         saldoDisplay.Show();
+        saldoDisplay.Refresh();
         while (true)
         {
             String input = arduino.getString();
@@ -601,12 +602,9 @@ public class Executer
                 pin();
                 break;
             }
-            else if (input.Contains("C")) {
+            else if (input.Contains("$")) {
                 ByeScreen goAway = new ByeScreen();
-                goAway.Show();
-                System.Threading.Thread.Sleep(5000);
-                goAway.Hide();
-                saldoDisplay.Hide();
+                saldoDisplay.Close();
                 break;
             }
         }      

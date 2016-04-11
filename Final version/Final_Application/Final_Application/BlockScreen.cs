@@ -23,6 +23,7 @@ namespace Final_Apllication
         }
         async Task sleepnow()
         {
+            //its all ogre now
             System.Threading.Thread.Sleep(5000);
         }
         private void BlockScreen_Load(object sender, EventArgs e)
