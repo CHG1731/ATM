@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
+using System.Timers;
 
 namespace Final_Application
 {
@@ -23,7 +24,6 @@ namespace Final_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            BlockScreen block = new BlockScreen();
             Application.Run(new BootScreen());
         }
     }
@@ -80,14 +80,36 @@ public class Error
         MessageBox.Show(s, x,
         MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
-
+    public static void show(String s)
+    {
+        MessageBox.Show(s, s,
+        MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
 }
 
 public class HTTPget
 {
+    public bool getActiefStand(String pasID)
+    {
+        Pas temp = getActiefStandData(pasID).Result;
+        if(temp.Actief==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public Pas getPinclass(String s)
+    {
+        Pas tmp = getPinData(s).Result;
+        return tmp;
+    }
     public int getFalsePinnr(String s)
     {
-        Pas tmp = getFalsePinData(s).Result;
+        Pas tmp = getPinData(s).Result;
         int falsepi = tmp.FalsePin;
         return falsepi;
     }
@@ -206,7 +228,7 @@ public class HTTPget
 
         }
     }
-    static async Task<Pas> getFalsePinData(string ID)
+    static async Task<Pas> getPinData(string ID)
     {
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
@@ -229,10 +251,55 @@ public class HTTPget
 
         }
     }
+    static async Task<Pas> getActiefStandData (string ID)
+{
+        String location = string.Concat("api/Pass/", ID);
+        using (var client = new HttpClient())
+    {
+        client.BaseAddress = new Uri("http://localhost:50752/");
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        // HTTP GET
+        HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+        if (response.IsSuccessStatusCode)
+        {
+            Pas Actief = await response.Content.ReadAsAsync<Pas>();
+            return Actief;
+        }
+        else
+        {
+            Pas reject = new Pas();
+            return reject;
+        }
 
+    }
 }
+}
+
 public class HTTPpost
 {
+    public void resetfalsepin(String PasID)
+    {
+        HTTPget tmp = new HTTPget();
+        Pas resetdata = tmp.getPinclass(PasID);
+        incrementFalsePin(PasID, resetdata, 0).Wait();
+    }
+    public void Incrementfalsepin(String PasID)
+    {
+        HTTPget tmp = new HTTPget();
+        int nrfalsepin = tmp.getFalsePinnr(PasID);
+        Pas uploaddata = tmp.getPinclass(PasID);
+        nrfalsepin++;
+        if(nrfalsepin>=3)
+        {
+            BlockScreen a = new BlockScreen();
+            BlockCard(PasID, uploaddata).Wait();
+        }
+        if(nrfalsepin<3)
+        {
+            incrementFalsePin(PasID,uploaddata,nrfalsepin).Wait();
+        }
+    }
     public void UpdateBalans(int RekeningID, double balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
@@ -258,38 +325,45 @@ public class HTTPpost
             }
         }
     }
-    /*
-    public void incrementFalsePin(String PasID)
+    static async Task incrementFalsePin(String PasID, Pas data, int falsepinnr)
     {
-        HTTPget temporary = new HTTPget();
-        if (Hash == temporary.getHash(RekeningID))
-
-            if (FalsePin < 3)
-        {
-            FalsePin++;
-        }
-
-        incrementFalsePin(PasID).Result();
-    }
-    */
-    static async Task incrementFalsePin(String PasID)
-    {
-        String location = string.Concat("api/rekenings/", PasID.ToString());
+        String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { PasID = PasID};
+            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID};
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                Error.show("Succeeded", "Succeeded");
+                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
             }
             else
             {
-                Error.show("COULDNT REPOST", "COULDNT REPOST");
+                Error.show("INCR FAILED", "INCR FAILED");
+            }
+        }
+    }
+    static async Task BlockCard(String PasID, Pas data)
+    {
+        String location = string.Concat("api/pass/", PasID.ToString());
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HTTPpost part
+            Pas incrementFalsePin = new Pas() { Actief = 0, FalsePin = data.FalsePin, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
+            }
+            else
+            {
+                Error.show("BLOCKING FAILED", "BLOCKING FAILED");
             }
         }
     }
@@ -463,8 +537,6 @@ public class Executer
             if (amount < saldo && amount != 0)
             {
                 PinError pinError = new PinError();
-                System.Threading.Thread.Sleep(5000);
-                pinError.Hide();
                 cancelled = true;
             }
             if (cancelled == true)
@@ -519,6 +591,7 @@ public class Executer
     {
         SaldoScreen saldoDisplay = new SaldoScreen(saldo);
         saldoDisplay.Show();
+        saldoDisplay.Refresh();
         while (true)
         {
             String input = arduino.getString();
@@ -527,12 +600,9 @@ public class Executer
                 pin();
                 break;
             }
-            else if (input.Contains("C")) {
+            else if (input.Contains("$")) {
                 ByeScreen goAway = new ByeScreen();
-                goAway.Show();
-                System.Threading.Thread.Sleep(5000);
-                goAway.Hide();
-                saldoDisplay.Hide();
+                saldoDisplay.Close();
                 break;
             }
         }      
@@ -563,6 +633,7 @@ public class Printer
     public void printTicket()
     {
         String bedrag = amount.ToString();
+        /*
         ILabel _label;
         _label = Framework.Open(@"C:\Dymo\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
@@ -583,6 +654,7 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
+            */
     }
 }
 
@@ -599,19 +671,18 @@ public class Hash
         string Hash = makeHash(RekeningIDcv, pincodecv);
         if (Hash == temporary.getHash(RekeningID))
         {
-            status = true;   
+            status = true;
         }
         else { }
         return status;
 
-     }
+    }
     public String makeHash(int RekeningID, int pincode)
     {
-        return  Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
+        return Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
     }
     public void blockCard(String PasID)
     {
 
     }
 }
-

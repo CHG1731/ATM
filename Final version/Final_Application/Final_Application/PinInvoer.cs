@@ -36,5 +36,20 @@ namespace Final_Apllication
         {
 
         }
+
+        private void confirmButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void falsepininfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

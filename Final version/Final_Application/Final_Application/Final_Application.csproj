@@ -208,7 +208,16 @@
     <TypeScriptCompile Include="Scripts\typings\dymo-label-framework\dymo-label-framework.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DYMO.Label.Framework.dll" />
+    <None Include="Resources\ee.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Interop.DYMOPrintingSupportLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Interop.DYMOBarcodeLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stdole.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

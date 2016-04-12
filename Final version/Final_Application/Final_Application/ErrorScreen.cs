@@ -15,6 +15,7 @@ namespace Final_Apllication
         public ErrorScreen()
         {
             InitializeComponent();
+            this.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)

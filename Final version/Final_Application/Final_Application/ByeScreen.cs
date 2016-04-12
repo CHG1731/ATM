@@ -15,6 +15,15 @@ namespace Final_Apllication
         public ByeScreen()
         {
             InitializeComponent();
+            this.Show();
+            this.Refresh();
+            sleepnow().Wait();
+            this.Close();
+        }
+        async Task sleepnow()
+        {
+            //its all ogre now
+            System.Threading.Thread.Sleep(5000);
         }
     }
 }

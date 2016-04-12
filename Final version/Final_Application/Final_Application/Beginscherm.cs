@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 
 namespace Final_Apllication
 {
@@ -23,46 +23,44 @@ namespace Final_Apllication
             PinInvoer pinInvoer = new PinInvoer();
             Hoofdmenu hoofdmenu = new Hoofdmenu();
             ArduinoData arduino = new ArduinoData();
-            ErrorScreen errorscr = new ErrorScreen();
-            BlockScreen block = new BlockScreen();
             Hash security = new Hash();
             Executer executer;
             Boolean reset = false;
             Boolean pinCorrect;
             String[] pasInformation;
-            int wrongPinCodeAmount;
             //User user;
 
-            try
-            {
+            //try
+            //{
                 while (true) ///Infinite loop so that the program returns here after every cancelation.
                 {
                     while (true)
                     {
                         pinCorrect = false;
                         pasInformation = new String[4];
-                        wrongPinCodeAmount = 0;
                         reset = false;
                         executer = null;
-                        String userName;
+                        String KlantID;
                         String rekeningID;
                         String pasID;
-                        //user = null;
-                        block.popUp();
+                        HTTPget httpget = new HTTPget();
+                        HTTPpost httppost = new HTTPpost();
                         while (true)
                         {
                             String s = arduino.getFirstString();
                             if (s.Contains(",NEWUID"))
                             {
                                 pasInformation = s.Split('\n', '\n', '\n');
-                                userName = pasInformation[0];
+                                KlantID = pasInformation[2];
                                 rekeningID = pasInformation[1];
-                                pasID = pasInformation[2];
-                                //Error.show(userName, "Boe");
-                                //Error.show(rekeningID, "Boe");
-                                //Error.show(pasID, "Boe");
+                                pasID = pasInformation[0];
                                 break;
                             }
+                        }
+                        if (!httpget.getActiefStand(pasID))
+                        {
+                            BlockScreen tmp = new BlockScreen();
+                            break;
                         }
                         pinInvoer.Show();
                         while (pinCorrect == false)
@@ -76,6 +74,7 @@ namespace Final_Apllication
                                 if (checkInput(input) == true && insertedDigits < 4)
                                 {
                                     pinInvoer.printStar();
+                                    pinInvoer.falsepininfo.Visible = false;
                                     insertedDigits++;
                                     pincode += input.ElementAt(0);
                                 }
@@ -97,19 +96,24 @@ namespace Final_Apllication
                             }
                             pinInvoer.clear();
                             if (reset == true) { break; }
+                            if (pincode == "0000") //Added easter egg
+                            {
+                                pinInvoer.pictureBox2.Visible = true;
+                                pinInvoer.Refresh();
+                                System.Threading.Thread.Sleep(5000);
+                                reset = true;
+                                pinInvoer.pictureBox2.Visible = false;
+                                break;
+                            }
                             if (security.checkHash(rekeningID, pincode) == false)
                             {
-                                if (++wrongPinCodeAmount == 3)
-                                {
-                                    //security.blockCard(pasID);
-                                    //temp.showBlockScreen();
-                                    //private void showBlockScreen()
-                                    reset = true;
-                                    break;
-                                }
+                                pinInvoer.falsepininfo.Visible = true;
+                                HTTPpost tmp = new HTTPpost();
+                                tmp.Incrementfalsepin(pasID);
                             }
                             else
                             {
+                                httppost.resetfalsepin(pasID);
                                 pinCorrect = true;
                             }
                         }
@@ -119,7 +123,7 @@ namespace Final_Apllication
                             break;
                         }
                         hoofdmenu.Show();
-                        executer = new Executer(rekeningID, userName, arduino);
+                        executer = new Executer(rekeningID, KlantID, arduino);
                         while (true)
                         {
                             int choice = arduino.getChoice();
@@ -137,17 +141,26 @@ namespace Final_Apllication
                     }
                 }
             }
-            catch (Exception)
+            /*
+            catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
                 ErrorScreen error = new ErrorScreen();
-                error.Show();
+                List<Form> openForms = new List<Form>();
+                foreach (Form f in Application.OpenForms)
+                    openForms.Add(f);
+                foreach (Form f in openForms)
+                {
+                    if (f.Name != "ErrorScreen")
+                        f.Close();
+                }
+                while (true)
+                { } //Loop forever :)
             }
-
-            /* DONT EVER DELETE BRACKETS BELOW THIS LINE */
         }
-
+        */
         private Boolean checkInput(String input)
         {
+
             Boolean result = false;
             for (int i = 0; i < 10; i++)
             {
@@ -156,6 +169,10 @@ namespace Final_Apllication
                     result = true;
                     break;
                 }
+            }
+            if (input.Length > 4)
+            {
+                result = false;
             }
             return result;
         }
