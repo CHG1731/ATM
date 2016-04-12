@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Final_Apllication
 {
@@ -23,6 +24,7 @@ namespace Final_Apllication
             Hoofdmenu hoofdmenu = new Hoofdmenu();
             ArduinoData arduino = new ArduinoData();
             ErrorScreen errorscr = new ErrorScreen();
+            BlockScreen block = new BlockScreen();
             Hash security = new Hash();
             Executer executer;
             Boolean reset = false;
@@ -46,6 +48,7 @@ namespace Final_Apllication
                         String rekeningID;
                         String pasID;
                         //user = null;
+                        block.popUp();
                         while (true)
                         {
                             String s = arduino.getFirstString();
@@ -87,21 +90,21 @@ namespace Final_Apllication
                                     insertedDigits = 0;
                                     pincode = "";
                                 }
-                                if(insertedDigits == 4)
+                                if (insertedDigits == 4)
                                 {
                                     if (input.Contains("AKEY")) { confirmed = true; }
                                 }
                             }
                             pinInvoer.clear();
                             if (reset == true) { break; }
-                            if(security.checkHash(rekeningID, pincode) == false)
+                            if (security.checkHash(rekeningID, pincode) == false)
                             {
-                                if(++wrongPinCodeAmount == 3)
+                                if (++wrongPinCodeAmount == 3)
                                 {
                                     //security.blockCard(pasID);
+                                    //temp.showBlockScreen();
+                                    //private void showBlockScreen()
                                     reset = true;
-                                    BlockScreen blocked = new BlockScreen();
-                                    blocked.Show();
                                     break;
                                 }
                             }

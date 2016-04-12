@@ -23,6 +23,7 @@ namespace Final_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            BlockScreen block = new BlockScreen();
             Application.Run(new BootScreen());
         }
     }
@@ -613,3 +614,4 @@ public class Hash
 
     }
 }
+
