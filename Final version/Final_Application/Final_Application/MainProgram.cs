@@ -548,6 +548,7 @@ public class Executer
             else
             {
                 uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+                uploadConnection.Transaction()
                 Error.show(amount.ToString());
             }
             TicketScreen asker = new TicketScreen();
