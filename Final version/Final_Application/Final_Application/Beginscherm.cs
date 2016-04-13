@@ -93,7 +93,7 @@ namespace Final_Apllication
                             }
                             if (insertedDigits == 4)
                             {
-                                if (input.Contains("AKEY")) { confirmed = true; }
+                                if (input.Contains("*")) { confirmed = true; }
                             }
                         }
                         pinInvoer.clear();
