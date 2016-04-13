@@ -16,5 +16,10 @@ namespace Final_Apllication
         {
             InitializeComponent();
         }
+
+        private void pinButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

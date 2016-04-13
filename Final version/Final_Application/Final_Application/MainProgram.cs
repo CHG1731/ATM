@@ -547,26 +547,23 @@ public class Executer
             else
             {
                 uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+                Error.show(amount.ToString());
             }
             TicketScreen asker = new TicketScreen();
             asker.Show();
             while (true)
             {
                 input = arduino.getString();
-                if (input.Contains("A"))
+                if (input.Contains("#"))
                 {
                     printTicket = true;
                     goBack = false;
                     break;
                 }
-                else if (input.Contains("B"))
+                else if (input.Contains("*"))
                 {
                     //Error.show("Geen Bon", "bon");
                     goBack = false;
-                    break;
-                }
-                else if (input.Contains("C"))
-                {
                     break;
                 }
             }
@@ -576,7 +573,7 @@ public class Executer
                 Printer bonPrinter = new Printer(userName, amount);
                 bonPrinter.printTicket();
             }
-            if (goBack == false)
+            if (goBack != false)
             {
                 ByeScreen goAway = new ByeScreen();
                 goAway.Show();
@@ -595,13 +592,14 @@ public class Executer
         while (true)
         {
             String input = arduino.getString();
-            if (input.Contains("A")) {
+            if (input.Contains("#")) {
                 saldoDisplay.Hide();
                 pin();
                 break;
             }
-            else if (input.Contains("$")) {
+            else if (input.Contains("*")) {
                 ByeScreen goAway = new ByeScreen();
+                endOfSession = true;
                 saldoDisplay.Close();
                 break;
             }
@@ -614,6 +612,7 @@ public class Executer
         bonPrinter.printTicket();
         ByeScreen quickBye = new ByeScreen();
         System.Threading.Thread.Sleep(5000);
+        endOfSession = true;
         quickBye.Hide();
     }
 }

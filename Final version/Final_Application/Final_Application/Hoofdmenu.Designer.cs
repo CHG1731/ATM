@@ -59,9 +59,9 @@
             // quickpinButton
             // 
             this.quickpinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.quickpinButton.BackColor = System.Drawing.Color.DarkRed;
+            this.quickpinButton.BackColor = System.Drawing.Color.Red;
             this.quickpinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quickpinButton.Location = new System.Drawing.Point(985, 650);
+            this.quickpinButton.Location = new System.Drawing.Point(948, 624);
             this.quickpinButton.Name = "quickpinButton";
             this.quickpinButton.Size = new System.Drawing.Size(389, 44);
             this.quickpinButton.TabIndex = 2;
