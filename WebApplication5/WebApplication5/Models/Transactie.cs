@@ -11,7 +11,7 @@ namespace WebApplication5.Models
     {
         public int TransactieID { get; set; }
         public int RekeningID { get; set; }
-        public int Balans { get; set; }
+        public double Balans { get; set; }
         public String PasID { get; set; }
         public String AtmID { get; set; }
     }
