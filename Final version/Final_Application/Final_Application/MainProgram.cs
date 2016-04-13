@@ -603,7 +603,9 @@ public class Executer
             asker.Hide();
             if (printTicket == true)
             {
-                Printer bonPrinter = new Printer(userName, amount);
+                Klant tmp = downloadConnection.getKlant(userName);
+                String printnaam = String.Concat(tmp.Naam + " " + tmp.Achternaam);
+                Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
                 bonPrinter.printTicket();
             }
             if (goBack != false)
@@ -641,7 +643,9 @@ public class Executer
 
     private void quickPin()
     {
-        Printer bonPrinter = new Printer(userName, 70);
+        Klant tmp = downloadConnection.getKlant(userName);
+        String printnaam = String.Concat(tmp.Naam + " " + tmp.Achternaam);
+        Printer bonPrinter = new Printer(printnaam, 70, rekeningID);
         bonPrinter.printTicket();
         ByeScreen quickBye = new ByeScreen();
         System.Threading.Thread.Sleep(5000);
@@ -654,12 +658,14 @@ public class Executer
 public class Printer
 {
     private String userName;
+    private String rekeningNr;
     private double amount;
 
-    public Printer(String s, double b)
+    public Printer(String s, double b, String r)
     {
         this.userName = s;
         this.amount = b;
+        this.rekeningNr = r;
     }
 
     public void printTicket()
@@ -668,6 +674,8 @@ public class Printer
         ILabel _label;
         _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
+        label = Framework.Open(@"C:\DYMO\ATM.label");
+        _label.SetObjectText("rekeningNr", rekeningNr);
         _label.SetObjectText("bedrag", bedrag+ "€");
         _label.SetObjectText("DATUM-TIJD", "limbo");
         IPrinter printer = Framework.GetPrinters().First();
