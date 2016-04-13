@@ -131,8 +131,9 @@ namespace Final_Application
 
         private void button2_Click(object sender, EventArgs e)
         {
-            HTTPpost tmp = new HTTPpost();
-            tmp.UpdateBalans(123456, 10.0);
+            Hash tmp = new Hash();
+            String s = tmp.makeHash(123456, 1234);
+            textBox1.Text = s;
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {

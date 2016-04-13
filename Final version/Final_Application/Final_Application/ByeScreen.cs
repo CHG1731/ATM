@@ -25,5 +25,10 @@ namespace Final_Apllication
             //its all ogre now
             System.Threading.Thread.Sleep(5000);
         }
+
+        private void ByeScreen_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

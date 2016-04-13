@@ -339,15 +339,17 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Rekening postbalans = new Rekening() { RekeningID = RekeningID, RekeningType = 1, Balans = balans };
-            HttpResponseMessage response = await client.PutAsJsonAsync(location, postbalans).ConfigureAwait(false);
+            HTTPget tmp = new HTTPget();
+            Rekening trans = tmp.getRekening(RekeningID.ToString());
+            trans.Balans = balans;
+            HttpResponseMessage response = await client.PutAsJsonAsync(location, trans).ConfigureAwait(false);
             if(response.IsSuccessStatusCode)
             {
-                Error.show("Succeeded", "Succeeded");
+                //Error.show("Succeeded", "Succeeded");
             }
             else
             {
-                Error.show("NIEW BALANS FAIELD");
+                Error.show("NIEW BALANS FAILED");
             }
         }
     }
