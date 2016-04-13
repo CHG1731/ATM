@@ -480,6 +480,7 @@ public class Executer
 {
     private String rekeningID;
     private String userName;
+    private String pasID;
     private ArduinoData arduino;
     private HTTPget downloadConnection = new HTTPget();
     private HTTPpost uploadConnection = new HTTPpost();
@@ -487,11 +488,12 @@ public class Executer
     private Boolean endOfSession = true;
     private double saldo;
 
-    public Executer(String r, String u, ArduinoData a)
+    public Executer(String r, String u, ArduinoData a, String p)
     {
         this.rekeningID = r;
         this.userName = u;
         this.arduino = a;
+        this.pasID = p;
         this.rekening = downloadConnection.getRekening(rekeningID);
         this.saldo = rekening.Balans;
     }

@@ -129,7 +129,7 @@ namespace Final_Apllication
                         break;
                     }
                     hoofdmenu.Show();
-                    executer = new Executer(rekeningID, KlantID, arduino);
+                    executer = new Executer(rekeningID, KlantID, arduino, pasID);
                     while (true)
                     {
                         int choice = arduino.getChoice();
