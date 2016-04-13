@@ -278,9 +278,9 @@ public class HTTPget
 
 public class HTTPpost
 {
-    public void transaction(String PasID, String RekeningID, double Balans, int ATMID)
+    public void transaction(String PasID, String RekeningID, double Balans)
     {
-
+        Transactie(PasID,RekeningID,Balans).Wait();
     }
     public void resetfalsepin(String PasID)
     {
@@ -307,6 +307,28 @@ public class HTTPpost
     public void UpdateBalans(int RekeningID, double balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
+    }
+    static async Task Transactie(String PasID,String RekeningID,double balans)
+    {
+        int RekeningIDint;
+        Int32.TryParse(RekeningID, out RekeningIDint);
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //HTTPpost part
+            var trans = new Transactie() { Balans = balans, PasID = PasID, RekeningID = RekeningIDint, AtmID = "HRO" };
+            HttpResponseMessage response = await client.PostAsJsonAsync("api/transacties", trans).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("TRANSACTIE SUCCEED");
+            }
+            else
+            {
+                Error.show("TRANSACTIE FAILED");
+            }
+        }
     }
     static async Task NieuwBalans(int RekeningID, double balans)
     {
@@ -405,10 +427,12 @@ public class Rekening
 }
 public class Transactie
 {
+    [Key]
     public int TransactieID { get; set; }
     public int RekeningID { get; set; }
-    public int Balans { get; set; }
-    public int PasID { get; set; }
+    public double Balans { get; set; }
+    public String PasID { get; set; }
+   public String AtmID { get; set; }
 }
 public class ArduinoData
 {

@@ -132,11 +132,8 @@ namespace Final_Application
 
         private void button2_Click(object sender, EventArgs e)
         {
-            HTTPget tmp = new HTTPget();
-            if(tmp.getActiefStand("DICKBT"))
-            {
-                textBox1.Text = "ACTIEF";
-            }
+            HTTPpost tmp = new HTTPpost();
+            tmp.transaction("DICKBT","123456",10.0);
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
