@@ -125,9 +125,8 @@ namespace Final_Application
 
         private void button1_Click_3(object sender, EventArgs e)
         {
-            HTTPget a = new HTTPget();
-            int fff = a.getFalsePinnr("DICKBT");
-            textBox2.Text = fff.ToString();
+            Printer print = new Printer("Koekje", 0.6);
+            print.printTicket();
         }
 
         private void button2_Click(object sender, EventArgs e)

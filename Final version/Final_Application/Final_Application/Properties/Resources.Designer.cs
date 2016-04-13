@@ -61,52 +61,12 @@ namespace Final_Application.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] DYMO_Label_Framework {
-            get {
-                object obj = ResourceManager.GetObject("DYMO_Label_Framework", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ee {
             get {
                 object obj = ResourceManager.GetObject("ee", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Interop_DYMOBarcodeLib {
-            get {
-                object obj = ResourceManager.GetObject("Interop_DYMOBarcodeLib", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Interop_DYMOPrintingSupportLib {
-            get {
-                object obj = ResourceManager.GetObject("Interop_DYMOPrintingSupportLib", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] stdole {
-            get {
-                object obj = ResourceManager.GetObject("stdole", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

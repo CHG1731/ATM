@@ -665,9 +665,8 @@ public class Printer
     public void printTicket()
     {
         String bedrag = amount.ToString();
-        /*
         ILabel _label;
-        _label = Framework.Open(@"C:\Dymo\ATM.label");
+        _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
         _label.SetObjectText("bedrag", bedrag);
         _label.SetObjectText("DATUM-TIJD", "limbo");
@@ -686,7 +685,6 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
-            */
     }
 }
 
