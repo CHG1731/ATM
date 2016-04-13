@@ -132,7 +132,7 @@ namespace Final_Application
         private void button2_Click(object sender, EventArgs e)
         {
             HTTPpost tmp = new HTTPpost();
-            tmp.transaction("DICKBT","123456",10.0);
+            tmp.UpdateBalans(123456, 10.0);
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {

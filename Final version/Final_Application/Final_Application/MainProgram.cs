@@ -347,7 +347,7 @@ public class HTTPpost
             }
             else
             {
-                Error.show("COULDNT REPOST", "COULDNT REPOST");
+                Error.show("NIEW BALANS FAIELD");
             }
         }
     }

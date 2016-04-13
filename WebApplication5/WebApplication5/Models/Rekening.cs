@@ -10,7 +10,7 @@ namespace WebApplication5.Models
     public class Rekening
     {
         public int RekeningID { get; set; }
-        public int Balans { get; set; }
+        public double Balans { get; set; }
         public int RekeningType { get; set; }
         public String Hash { get; set; }
     }
