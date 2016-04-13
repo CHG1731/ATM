@@ -551,12 +551,12 @@ public class Executer
                     amount = 50;
                     break;
                 }
-                else if (input.Contains("C"))
+                else if (input.Contains("#"))
                 {
                     cancelled = true;
                     break;
                 }
-                else if (input.Contains("#"))
+                else if (input.Contains("C"))
                 {
                     cancelled = true;
                     endOfSession = false;
@@ -663,9 +663,8 @@ public class Printer
     public void printTicket()
     {
         String bedrag = amount.ToString();
-        /*
         ILabel _label;
-        _label = Framework.Open(@"C:\Dymo\ATM.label");
+        _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
         _label.SetObjectText("bedrag", bedrag);
         _label.SetObjectText("DATUM-TIJD", "limbo");
@@ -684,7 +683,6 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
-            */
     }
 }
 
