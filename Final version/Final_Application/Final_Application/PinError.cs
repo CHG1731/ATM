@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Final_Apllication
 {
@@ -15,6 +16,19 @@ namespace Final_Apllication
         public PinError()
         {
             InitializeComponent();
+            this.Show();
+            this.Refresh();
+            this.sleepnow().Wait();
+            this.Close();
+        }
+        async Task sleepnow()
+        {
+            //its all ogre now
+            System.Threading.Thread.Sleep(5000);
+        }
+        private void PinError_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

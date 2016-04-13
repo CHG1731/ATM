@@ -38,7 +38,8 @@
             // pinButton
             // 
             this.pinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pinButton.Location = new System.Drawing.Point(623, 298);
+            this.pinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pinButton.Location = new System.Drawing.Point(635, 314);
             this.pinButton.Name = "pinButton";
             this.pinButton.Size = new System.Drawing.Size(389, 44);
             this.pinButton.TabIndex = 0;
@@ -48,7 +49,8 @@
             // saldoButton
             // 
             this.saldoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saldoButton.Location = new System.Drawing.Point(623, 398);
+            this.saldoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saldoButton.Location = new System.Drawing.Point(635, 414);
             this.saldoButton.Name = "saldoButton";
             this.saldoButton.Size = new System.Drawing.Size(389, 44);
             this.saldoButton.TabIndex = 3;
@@ -57,16 +59,20 @@
             // quickpinButton
             // 
             this.quickpinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.quickpinButton.Location = new System.Drawing.Point(930, 553);
+            this.quickpinButton.BackColor = System.Drawing.Color.DarkRed;
+            this.quickpinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quickpinButton.Location = new System.Drawing.Point(985, 650);
             this.quickpinButton.Name = "quickpinButton";
             this.quickpinButton.Size = new System.Drawing.Size(389, 44);
             this.quickpinButton.TabIndex = 2;
             this.quickpinButton.Text = "X - Afbreken";
+            this.quickpinButton.UseVisualStyleBackColor = false;
             // 
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.exitButton.Location = new System.Drawing.Point(623, 348);
+            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(635, 364);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(389, 44);
             this.exitButton.TabIndex = 1;
@@ -79,7 +85,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1386, 647);
+            this.ClientSize = new System.Drawing.Size(1386, 706);
             this.Controls.Add(this.pinButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.quickpinButton);

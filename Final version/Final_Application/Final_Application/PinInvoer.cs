@@ -17,11 +17,6 @@ namespace Final_Apllication
             InitializeComponent();
         }
 
-        public void printStar(int amount)
-        {
-
-        }
-
         private void Form2_Load(object sender, EventArgs e)
         {
 

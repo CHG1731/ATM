@@ -18,7 +18,7 @@ namespace Final_Apllication
             InitializeComponent();
             this.Show();
             this.Refresh();
-            sleepnow().Wait();
+            this.sleepnow().Wait();
             this.Close();
         }
         async Task sleepnow()

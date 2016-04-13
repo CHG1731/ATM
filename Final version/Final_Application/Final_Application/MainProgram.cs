@@ -537,8 +537,6 @@ public class Executer
             if (amount < saldo && amount != 0)
             {
                 PinError pinError = new PinError();
-                System.Threading.Thread.Sleep(5000);
-                pinError.Hide();
                 cancelled = true;
             }
             if (cancelled == true)

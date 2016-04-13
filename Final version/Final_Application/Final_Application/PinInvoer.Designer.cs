@@ -45,7 +45,7 @@
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputDisplay.Location = new System.Drawing.Point(727, 302);
+            this.inputDisplay.Location = new System.Drawing.Point(680, 222);
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(201, 50);
             this.inputDisplay.TabIndex = 0;
@@ -54,37 +54,44 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelButton.Location = new System.Drawing.Point(410, 526);
+            this.cancelButton.BackColor = System.Drawing.Color.Yellow;
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.Location = new System.Drawing.Point(680, 301);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(278, 44);
             this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "B - Corrigeren";
+            this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // rectifyButton
             // 
             this.rectifyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rectifyButton.Location = new System.Drawing.Point(694, 526);
+            this.rectifyButton.BackColor = System.Drawing.Color.DarkRed;
+            this.rectifyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rectifyButton.Location = new System.Drawing.Point(1096, 580);
             this.rectifyButton.Name = "rectifyButton";
             this.rectifyButton.Size = new System.Drawing.Size(278, 44);
             this.rectifyButton.TabIndex = 7;
-            this.rectifyButton.Text = "X - Annuleren";
-            this.rectifyButton.UseVisualStyleBackColor = true;
+            this.rectifyButton.Text = "X - Afbreken";
+            this.rectifyButton.UseVisualStyleBackColor = false;
             // 
             // confirmButton
             // 
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.confirmButton.Location = new System.Drawing.Point(126, 526);
+            this.confirmButton.BackColor = System.Drawing.Color.DarkGreen;
+            this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.confirmButton.Location = new System.Drawing.Point(680, 351);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(278, 44);
             this.confirmButton.TabIndex = 8;
             this.confirmButton.Text = "A - Bevestig";
+            this.confirmButton.UseVisualStyleBackColor = false;
             this.confirmButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::Final_Application.Properties.Resources.ee;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.InitialImage = null;
             this.pictureBox2.Location = new System.Drawing.Point(12, 12);
@@ -100,7 +107,7 @@
             this.falsepininfo.BackColor = System.Drawing.Color.Transparent;
             this.falsepininfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.falsepininfo.ForeColor = System.Drawing.Color.Red;
-            this.falsepininfo.Location = new System.Drawing.Point(723, 275);
+            this.falsepininfo.Location = new System.Drawing.Point(910, 240);
             this.falsepininfo.Name = "falsepininfo";
             this.falsepininfo.Size = new System.Drawing.Size(140, 24);
             this.falsepininfo.TabIndex = 13;
