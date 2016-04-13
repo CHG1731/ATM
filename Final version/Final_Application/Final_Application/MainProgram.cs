@@ -278,6 +278,7 @@ public class HTTPget
 
 public class HTTPpost
 {
+    //public void transaction(String )
     public void resetfalsepin(String PasID)
     {
         HTTPget tmp = new HTTPget();
