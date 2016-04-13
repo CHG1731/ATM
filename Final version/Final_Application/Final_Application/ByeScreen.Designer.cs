@@ -43,6 +43,7 @@
             this.Name = "ByeScreen";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.ByeScreen_Load);
             this.ResumeLayout(false);
 
         }
