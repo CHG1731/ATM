@@ -674,7 +674,7 @@ public class Printer
         ILabel _label;
         _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("Klantnaam", userName);
-        label = Framework.Open(@"C:\DYMO\ATM.label");
+        _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("rekeningNr", rekeningNr);
         _label.SetObjectText("bedrag", bedrag+ "€");
         _label.SetObjectText("DATUM-TIJD", "limbo");
