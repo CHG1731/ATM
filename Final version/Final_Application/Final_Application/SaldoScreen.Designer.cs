@@ -58,7 +58,7 @@
             this.saldoLabel.AutoSize = true;
             this.saldoLabel.BackColor = System.Drawing.Color.Transparent;
             this.saldoLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saldoLabel.Location = new System.Drawing.Point(696, 188);
+            this.saldoLabel.Location = new System.Drawing.Point(827, 232);
             this.saldoLabel.Name = "saldoLabel";
             this.saldoLabel.Size = new System.Drawing.Size(0, 43);
             this.saldoLabel.TabIndex = 4;

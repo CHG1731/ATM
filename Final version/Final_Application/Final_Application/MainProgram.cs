@@ -602,7 +602,7 @@ public class Executer
                 pin();
                 break;
             }
-            else if (input.Contains("$")) {
+            else if (input.Contains("#")) {
                 ByeScreen goAway = new ByeScreen();
                 saldoDisplay.Close();
                 break;
