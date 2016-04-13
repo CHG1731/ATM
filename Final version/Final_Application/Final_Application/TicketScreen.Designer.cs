@@ -42,7 +42,7 @@
             this.pinButton.Name = "pinButton";
             this.pinButton.Size = new System.Drawing.Size(389, 44);
             this.pinButton.TabIndex = 1;
-            this.pinButton.Text = "* - Ja";
+            this.pinButton.Text = "✔ - Ja";
             this.pinButton.UseVisualStyleBackColor = false;
             this.pinButton.Click += new System.EventHandler(this.pinButton_Click);
             // 

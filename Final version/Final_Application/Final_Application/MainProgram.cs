@@ -521,7 +521,7 @@ public class Executer
                     amount = 50;
                     break;
                 }
-                else if (input.Contains("*"))
+                else if (input.Contains("C"))
                 {
                     cancelled = true;
                     break;
@@ -554,13 +554,13 @@ public class Executer
             while (true)
             {
                 input = arduino.getString();
-                if (input.Contains("#"))
+                if (input.Contains("*"))
                 {
                     printTicket = true;
                     goBack = false;
                     break;
                 }
-                else if (input.Contains("*"))
+                else if (input.Contains("#"))
                 {
                     //Error.show("Geen Bon", "bon");
                     goBack = false;
@@ -592,12 +592,12 @@ public class Executer
         while (true)
         {
             String input = arduino.getString();
-            if (input.Contains("#")) {
+            if (input.Contains("*")) {
                 saldoDisplay.Hide();
                 pin();
                 break;
             }
-            else if (input.Contains("*")) {
+            else if (input.Contains("#")) {
                 ByeScreen goAway = new ByeScreen();
                 endOfSession = true;
                 saldoDisplay.Close();

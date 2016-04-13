@@ -85,7 +85,7 @@ namespace Final_Apllication
                                 reset = true;
                                 break;
                             }
-                            else if (input.Contains("BKEY"))
+                            else if (input.Contains("CKEY"))
                             {
                                 pinInvoer.clear();
                                 insertedDigits = 0;
