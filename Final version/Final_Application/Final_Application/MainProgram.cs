@@ -538,7 +538,7 @@ public class Executer
                 }
 
             }
-            if (amount < saldo && amount != 0)
+            if (amount > saldo && amount != 0)
             {
                 PinError pinError = new PinError();
                 cancelled = true;
