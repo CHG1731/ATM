@@ -41,35 +41,44 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
 }
 
 void loop() {
-  //timeout++;
+  timeout++;
+  if (timeout == 15)
+  {
+    newcard = true;
+  }
   if (mfrc522.PICC_IsNewCardPresent())
   {
-    if (mfrc522.PICC_ReadCardSerial())
+    timeout = 0;
+    if (newcard)
     {
-      byte PasID[18];
-      byte RekeningID[18];
-      byte KlantID[18];
-      readBlock(62, PasID);
-      readBlock(61, RekeningID);
-      readBlock(60, KlantID);
-      for (int i = 0; i < 6; i++)
+      if (mfrc522.PICC_ReadCardSerial())
       {
-        Serial.write(PasID[i]);
+        byte PasID[18];
+        byte RekeningID[18];
+        byte KlantID[18];
+        readBlock(62, PasID);
+        readBlock(61, RekeningID);
+        readBlock(60, KlantID);
+        for (int i = 0; i < 6; i++)
+        {
+          Serial.write(PasID[i]);
+        }
+        Serial.write("\n");
+        for (int i = 0; i < 6; i++)
+        {
+          Serial.write(RekeningID[i]);
+        }
+        Serial.write("\n");
+        for (int i = 0; i < 4; i++)
+        {
+          Serial.write(KlantID[i]);
+        }
+        Serial.write("\n");
+        Serial.println(",NEWUID");
+        newcard = false;
+        delay(1000);
+        asm volatile ("  jmp 0");
       }
-      Serial.write("\n");
-      for (int i = 0; i < 6; i++)
-      {
-        Serial.write(RekeningID[i]);
-      }
-      Serial.write("\n");
-      for (int i = 0; i < 4; i++)
-      {
-        Serial.write(KlantID[i]);
-      }
-      Serial.write("\n");
-      Serial.println(",NEWUID");
-      delay(1000);
-      asm volatile ("  jmp 0");  
     }
   }
 
