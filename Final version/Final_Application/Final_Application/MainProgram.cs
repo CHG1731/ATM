@@ -489,6 +489,8 @@ public class Executer
     private Rekening rekening;
     private Boolean endOfSession = true;
     private double saldo;
+    Pinscherm pinsherm = new Pinscherm();
+    TicketScreen asker = new TicketScreen();
 
     public Executer(String r, String u, ArduinoData a, String p)
     {
@@ -525,7 +527,6 @@ public class Executer
 
     private void pin()
     {
-        Pinscherm pinsherm = new Pinscherm();
         Boolean printTicket = false;
         Boolean cancelled = false;
         Boolean goBack = true;
@@ -582,7 +583,6 @@ public class Executer
                 uploadConnection.transaction(pasID, rekeningID, amount);
                 //Error.show(amount.ToString());
             }
-            TicketScreen asker = new TicketScreen();
             asker.Show();
             while (true)
             {
@@ -611,10 +611,6 @@ public class Executer
             if (goBack != false)
             {
                 ByeScreen goAway = new ByeScreen();
-                goAway.Show();
-                System.Threading.Thread.Sleep(5000);
-                goAway.Hide();
-                pinsherm.Hide();
             }
         }
     }
@@ -623,7 +619,6 @@ public class Executer
     {
         SaldoScreen saldoDisplay = new SaldoScreen(saldo);
         saldoDisplay.Show();
-        saldoDisplay.Refresh();
         while (true)
         {
             String input = arduino.getString();
@@ -648,7 +643,6 @@ public class Executer
         Printer bonPrinter = new Printer(printnaam, 70, rekeningID);
         bonPrinter.printTicket();
         ByeScreen quickBye = new ByeScreen();
-        System.Threading.Thread.Sleep(5000);
         endOfSession = true;
         quickBye.Hide();
     }
