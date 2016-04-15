@@ -160,7 +160,8 @@ public class HTTPget
     }
     static async Task<Klant> GetKlantData(String s)
     {
-        String location = s;
+        
+        String location = String.Concat("/api/klants/",s);
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
@@ -175,6 +176,7 @@ public class HTTPget
             }
             else
             {
+                Error.show("FAILED TO GET KLANT");
                 Klant a = new Klant();
                 return a;
                 //CONNECTION FAILED
@@ -566,6 +568,7 @@ public class Executer
                 }
 
             }
+            pinsherm.Hide();
             if (amount > saldo && amount != 0)
             {
                 PinError pinError = new PinError();
@@ -573,7 +576,6 @@ public class Executer
             }
             if (cancelled == true)
             {
-                pinsherm.Hide();
                 break;
             }
             else
@@ -608,13 +610,9 @@ public class Executer
                 Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
                 bonPrinter.printTicket();
             }
-            if (goBack != false)
+            if (goBack == false)
             {
                 ByeScreen goAway = new ByeScreen();
-                goAway.Show();
-                System.Threading.Thread.Sleep(5000);
-                goAway.Hide();
-                pinsherm.Hide();
             }
         }
     }
@@ -672,12 +670,11 @@ public class Printer
     {
         String bedrag = amount.ToString();
         ILabel _label;
-        _label = Framework.Open(@"C:\DYMO\ATM.label");
+        _label = Framework.Open(@"C:\DYMO\jaja.label");
         _label.SetObjectText("Klantnaam", userName);
-        _label = Framework.Open(@"C:\DYMO\ATM.label");
         _label.SetObjectText("rekeningNr", rekeningNr);
         _label.SetObjectText("bedrag", bedrag+ "€");
-        _label.SetObjectText("DATUM-TIJD", "limbo");
+        _label.SetObjectText("DATUM-TIJD","");
         IPrinter printer = Framework.GetPrinters().First();
         if (printer is ILabelWriterPrinter)
         {
