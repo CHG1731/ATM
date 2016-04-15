@@ -90,6 +90,12 @@
     <Compile Include="ByeScreen.Designer.cs">
       <DependentUpon>ByeScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bedragselectie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bedragselectie.Designer.cs">
+      <DependentUpon>Bedragselectie.cs</DependentUpon>
+    </Compile>
     <Compile Include="PinError.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ByeScreen.resx">
       <DependentUpon>ByeScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bedragselectie.resx">
+      <DependentUpon>Bedragselectie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PinError.resx">
       <DependentUpon>PinError.cs</DependentUpon>

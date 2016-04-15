@@ -125,8 +125,8 @@ namespace Final_Application
 
         private void button1_Click_3(object sender, EventArgs e)
         {
-            Printer print = new Printer("Koekje", 0.6, "AA");
-            print.printTicket();
+           // Printer print = new Printer("Koekje", 0.6);
+           // print.printTicket();
         }
 
         private void button2_Click(object sender, EventArgs e)
