@@ -660,6 +660,7 @@ public class Executer
     private double getAlternativeAmount()
     {
         double customBedrag = 0;
+        String bedragstring = "";
         String input;
         Boolean validInput;
         Boolean pending = true;
@@ -688,25 +689,29 @@ public class Executer
                         {
                             selector.clearDisplay();
                             selector.showError();
+                            break;
                         }
                     }
                 }
                 else if (input.Contains("C"))
                 {
                     cancelled = true;
+                    pending = false;
                     break;
                 }
                 else if (input.Contains("#"))
                 {
                     cancelled = true;
                     endOfSession = true;
+                    pending = false;
                     break;
                 }
             }
             if (validInput)
             {
-                customBedrag += Int32.Parse(input.ElementAt(0).ToString());
-                selector.setDisplay(customBedrag.ToString());
+                bedragstring += input.ElementAt(0);
+                customBedrag = Int32.Parse(bedragstring);
+                selector.setDisplay(bedragstring);
             }
         }
         selector.Hide();
