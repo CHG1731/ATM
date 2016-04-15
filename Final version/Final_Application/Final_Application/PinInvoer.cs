@@ -16,6 +16,7 @@ namespace Final_Apllication
         {
             InitializeComponent();
             this.Refresh();
+            Application.DoEvents();
         }
 
         private void Form2_Load(object sender, EventArgs e)

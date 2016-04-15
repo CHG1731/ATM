@@ -554,6 +554,11 @@ public class Executer
                     amount = 50;
                     break;
                 }
+                else if (input.Contains("4"))
+                {
+                    amount = getAlternativeAmount();
+                    break;
+                }
                 else if (input.Contains("#"))
                 {
                     cancelled = true;
@@ -645,6 +650,11 @@ public class Executer
         ByeScreen quickBye = new ByeScreen();
         endOfSession = true;
         quickBye.Hide();
+    }
+
+    private double getAlternativeAmount()
+    {
+        return 0.0;
     }
 }
 
