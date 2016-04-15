@@ -15,6 +15,7 @@ namespace Final_Apllication
         public ByeScreen()
         {
             InitializeComponent();
+            Cursor.Hide();
             this.Show();
             this.Refresh();
             sleepnow().Wait();

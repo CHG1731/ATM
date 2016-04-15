@@ -41,13 +41,10 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
 }
 
 void loop() {
-  // Look for new cards
   timeout++;
   if (timeout == 15)
   {
-    Serial.println(timeout);
     newcard = true;
-    timeout = 0;
   }
   if (mfrc522.PICC_IsNewCardPresent())
   {
@@ -78,7 +75,9 @@ void loop() {
         }
         Serial.write("\n");
         Serial.println(",NEWUID");
+        newcard = false;
         delay(1000);
+        asm volatile ("  jmp 0");
       }
     }
   }

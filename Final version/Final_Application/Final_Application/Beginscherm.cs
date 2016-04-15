@@ -16,6 +16,7 @@ namespace Final_Apllication
         public Beginscherm()
         {
             InitializeComponent();
+            Cursor.Hide();
         }
 
         private void Beginscherm_Load(object sender, EventArgs e)

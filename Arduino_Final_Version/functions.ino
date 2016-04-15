@@ -18,8 +18,8 @@ int writeBlock(int blockNumber, byte arrayAddress[])
   //MIFARE_Key *key is a pointer to the MIFARE_Key struct defined above, this struct needs to be defined for each block. New cards have all A/B= FF FF FF FF FF FF
   //Uid *uid is a pointer to the UID struct that contains the user ID of the card.
   if (status != MFRC522::STATUS_OK) {
-         Serial.print("PCD_Authenticate() failed: ");
-         Serial.println(mfrc522.GetStatusCodeName(status));
+         //Serial.print("PCD_Authenticate() failed: ");
+         //Serial.println(mfrc522.GetStatusCodeName(status));
          return 3;//return "3" as error message
   }
   //it appears the authentication needs to be made before every block read/write within a specific sector.
@@ -31,8 +31,8 @@ int writeBlock(int blockNumber, byte arrayAddress[])
   status = mfrc522.MIFARE_Write(blockNumber, arrayAddress, 16);//valueBlockA is the block number, MIFARE_Write(block number (0-15), byte array containing 16 values, number of bytes in block (=16))
   //status = mfrc522.MIFARE_Write(9, value1Block, 16);
   if (status != MFRC522::STATUS_OK) {
-           Serial.print("MIFARE_Write() failed: ");
-           Serial.println(mfrc522.GetStatusCodeName(status));
+           //Serial.print("MIFARE_Write() failed: ");
+           //Serial.println(mfrc522.GetStatusCodeName(status));
            return 4;//return "4" as error message
   }
   Serial.println("block was written");
@@ -53,8 +53,8 @@ int readBlock(int blockNumber, byte arrayAddress[])
   //MIFARE_Key *key is a pointer to the MIFARE_Key struct defined above, this struct needs to be defined for each block. New cards have all A/B= FF FF FF FF FF FF
   //Uid *uid is a pointer to the UID struct that contains the user ID of the card.
   if (status != MFRC522::STATUS_OK) {
-         Serial.print("PCD_Authenticate() failed (read): ");
-         Serial.println(mfrc522.GetStatusCodeName(status));
+         //Serial.print("PCD_Authenticate() failed (read): ");
+         //Serial.println(mfrc522.GetStatusCodeName(status));
          return 3;//return "3" as error message
   }
   //it appears the authentication needs to be made before every block read/write within a specific sector.
@@ -66,8 +66,8 @@ int readBlock(int blockNumber, byte arrayAddress[])
   byte buffersize = 18;//we need to define a variable with the read buffer size, since the MIFARE_Read method below needs a pointer to the variable that contains the size... 
   status = mfrc522.MIFARE_Read(blockNumber, arrayAddress, &buffersize);//&buffersize is a pointer to the buffersize variable; MIFARE_Read requires a pointer instead of just a number
   if (status != MFRC522::STATUS_OK) {
-          Serial.print("MIFARE_read() failed: ");
-          Serial.println(mfrc522.GetStatusCodeName(status));
+          //Serial.print("MIFARE_read() failed: ");
+          //Serial.println(mfrc522.GetStatusCodeName(status));
           return 4;//return "4" as error message
   }
   //Serial.println("block was read");

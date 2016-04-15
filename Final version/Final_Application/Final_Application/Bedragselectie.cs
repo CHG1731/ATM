@@ -16,6 +16,7 @@ namespace Final_Apllication
         {
             nope.Visible = false;
             InitializeComponent();
+            Cursor.Hide();
         }
 
         public void setDisplay(String value)

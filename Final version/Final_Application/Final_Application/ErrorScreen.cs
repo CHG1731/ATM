@@ -15,6 +15,7 @@ namespace Final_Apllication
         public ErrorScreen()
         {
             InitializeComponent();
+            Cursor.Hide();
             this.Show();
         }
 
