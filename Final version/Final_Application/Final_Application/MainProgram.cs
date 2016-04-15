@@ -92,7 +92,7 @@ public class HTTPget
     public bool getActiefStand(String pasID)
     {
         Pas temp = getActiefStandData(pasID).Result;
-        if(temp.Actief==1)
+        if (temp.Actief == 1)
         {
             return true;
         }
@@ -160,8 +160,8 @@ public class HTTPget
     }
     static async Task<Klant> GetKlantData(String s)
     {
-        
-        String location = String.Concat("/api/klants/",s);
+
+        String location = String.Concat("/api/klants/", s);
         using (var client = new HttpClient())
         {
             client.BaseAddress = new Uri("http://localhost:50752/");
@@ -253,36 +253,36 @@ public class HTTPget
 
         }
     }
-    static async Task<Pas> getActiefStandData (string ID)
-{
+    static async Task<Pas> getActiefStandData(string ID)
+    {
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
-    {
-        client.BaseAddress = new Uri("http://localhost:50752/");
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        // HTTP GET
-        HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-        if (response.IsSuccessStatusCode)
         {
-            Pas Actief = await response.Content.ReadAsAsync<Pas>();
-            return Actief;
-        }
-        else
-        {
-            Pas reject = new Pas();
-            return reject;
-        }
+            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            // HTTP GET
+            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                Pas Actief = await response.Content.ReadAsAsync<Pas>();
+                return Actief;
+            }
+            else
+            {
+                Pas reject = new Pas();
+                return reject;
+            }
 
+        }
     }
-}
 }
 
 public class HTTPpost
 {
     public void transaction(String PasID, String RekeningID, double Balans)
     {
-        Transactie(PasID,RekeningID,Balans).Wait();
+        Transactie(PasID, RekeningID, Balans).Wait();
     }
     public void resetfalsepin(String PasID)
     {
@@ -296,21 +296,21 @@ public class HTTPpost
         int nrfalsepin = tmp.getFalsePinnr(PasID);
         Pas uploaddata = tmp.getPinclass(PasID);
         nrfalsepin++;
-        if(nrfalsepin>=3)
+        if (nrfalsepin >= 3)
         {
             BlockScreen a = new BlockScreen();
             BlockCard(PasID, uploaddata).Wait();
         }
-        if(nrfalsepin<3)
+        if (nrfalsepin < 3)
         {
-            incrementFalsePin(PasID,uploaddata,nrfalsepin).Wait();
+            incrementFalsePin(PasID, uploaddata, nrfalsepin).Wait();
         }
     }
     public void UpdateBalans(int RekeningID, double balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
     }
-    static async Task Transactie(String PasID,String RekeningID,double balans)
+    static async Task Transactie(String PasID, String RekeningID, double balans)
     {
         int RekeningIDint;
         Int32.TryParse(RekeningID, out RekeningIDint);
@@ -345,7 +345,7 @@ public class HTTPpost
             Rekening trans = tmp.getRekening(RekeningID.ToString());
             trans.Balans = balans;
             HttpResponseMessage response = await client.PutAsJsonAsync(location, trans).ConfigureAwait(false);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 //Error.show("Succeeded", "Succeeded");
             }
@@ -364,7 +364,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID};
+            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -436,7 +436,7 @@ public class Transactie
     public int RekeningID { get; set; }
     public double Balans { get; set; }
     public String PasID { get; set; }
-   public String AtmID { get; set; }
+    public String AtmID { get; set; }
 }
 public class ArduinoData
 {
@@ -489,6 +489,7 @@ public class Executer
     private HTTPget downloadConnection = new HTTPget();
     private HTTPpost uploadConnection = new HTTPpost();
     private Rekening rekening;
+    Boolean cancelled = false;
     private Boolean endOfSession = true;
     private double saldo;
     Pinscherm pinsherm = new Pinscherm();
@@ -530,10 +531,10 @@ public class Executer
     private void pin()
     {
         Boolean printTicket = false;
-        Boolean cancelled = false;
         Boolean goBack = true;
         double amount = 0;
         String input;
+        cancelled = false;
 
         while (goBack == true)
         {
@@ -629,18 +630,20 @@ public class Executer
         while (true)
         {
             String input = arduino.getString();
-            if (input.Contains("*")) {
+            if (input.Contains("*"))
+            {
                 saldoDisplay.Hide();
                 pin();
                 break;
             }
-            else if (input.Contains("#")) {
+            else if (input.Contains("#"))
+            {
                 ByeScreen goAway = new ByeScreen();
                 endOfSession = true;
                 saldoDisplay.Close();
                 break;
             }
-        }      
+        }
     }
 
     private void quickPin()
@@ -656,7 +659,58 @@ public class Executer
 
     private double getAlternativeAmount()
     {
-        return 0.0;
+        double customBedrag = 0;
+        String input;
+        Boolean validInput;
+        Boolean pending = true;
+        Bedragselectie selector = new Bedragselectie();
+        selector.Show();
+        while (pending)
+        {
+            validInput = false;
+            input = arduino.getString();
+            for (int i = 0; i < 10; i++)
+            {
+                if (input.Contains(i.ToString()))
+                {
+                    validInput = true;
+                }
+                else if (input.Contains("*"))
+                {
+                    if (customBedrag > 0)
+                    {
+                        if (customBedrag % 10 == 0)
+                        {
+                            pending = false;
+                            break;
+                        }
+                        else
+                        {
+                            selector.clearDisplay();
+                            selector.showError();
+                        }
+                    }
+                }
+                else if (input.Contains("C"))
+                {
+                    cancelled = true;
+                    break;
+                }
+                else if (input.Contains("#"))
+                {
+                    cancelled = true;
+                    endOfSession = true;
+                    break;
+                }
+            }
+            if (validInput)
+            {
+                customBedrag += Int32.Parse(input.ElementAt(0).ToString());
+                selector.setDisplay(customBedrag.ToString());
+            }
+        }
+        selector.Hide();
+        return customBedrag;
     }
 }
 
@@ -681,8 +735,8 @@ public class Printer
         _label = Framework.Open(@"C:\DYMO\jaja.label");
         _label.SetObjectText("Klantnaam", userName);
         _label.SetObjectText("rekeningNr", rekeningNr);
-        _label.SetObjectText("bedrag", bedrag+ "€");
-        _label.SetObjectText("DATUM-TIJD","");
+        _label.SetObjectText("bedrag", bedrag + "€");
+        _label.SetObjectText("DATUM-TIJD", "");
         IPrinter printer = Framework.GetPrinters().First();
         if (printer is ILabelWriterPrinter)
         {

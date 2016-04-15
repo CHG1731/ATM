@@ -14,7 +14,26 @@ namespace Final_Apllication
     {
         public Bedragselectie()
         {
+            nope.Visible = false;
             InitializeComponent();
+        }
+
+        public void setDisplay(String value)
+        {
+            inputDisplay.Text = value + "€";
+        }
+        public void clearDisplay()
+        {
+            inputDisplay.Text = "";
+        }
+        public void showError()
+        {
+            nope.Visible = true;
+        }
+
+        private void falsepininfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
