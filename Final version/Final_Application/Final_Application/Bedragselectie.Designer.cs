@@ -44,7 +44,7 @@
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputDisplay.Location = new System.Drawing.Point(668, 275);
+            this.inputDisplay.Location = new System.Drawing.Point(592, 235);
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(214, 50);
             this.inputDisplay.TabIndex = 1;
@@ -105,6 +105,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1236, 628);
             this.Controls.Add(this.rectifyButton);
             this.Controls.Add(this.cancelButton);
@@ -112,9 +113,11 @@
             this.Controls.Add(this.nope);
             this.Controls.Add(this.inputDisplay);
             this.Cursor = System.Windows.Forms.Cursors.No;
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Bedragselectie";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
