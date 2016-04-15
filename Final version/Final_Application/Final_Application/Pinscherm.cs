@@ -15,6 +15,7 @@ namespace Final_Apllication
         public Pinscherm()
         {
             InitializeComponent();
+            Cursor.Hide();
             this.Refresh();
         }
     }

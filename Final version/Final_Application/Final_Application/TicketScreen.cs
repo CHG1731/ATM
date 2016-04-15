@@ -15,6 +15,7 @@ namespace Final_Apllication
         public TicketScreen()
         {
             InitializeComponent();
+            Cursor.Hide();
             this.Refresh();
         }
 

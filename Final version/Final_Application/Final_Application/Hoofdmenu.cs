@@ -17,6 +17,7 @@ namespace Final_Apllication
             InitializeComponent();
             Application.DoEvents();
             this.Refresh();
+            Cursor.Hide();
         }
 
         private void Form3_Load(object sender, EventArgs e)

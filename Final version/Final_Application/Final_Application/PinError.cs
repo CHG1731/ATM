@@ -16,6 +16,7 @@ namespace Final_Apllication
         public PinError()
         {
             InitializeComponent();
+            Cursor.Hide();
             this.Show();
             this.Refresh();
             this.sleepnow().Wait();
