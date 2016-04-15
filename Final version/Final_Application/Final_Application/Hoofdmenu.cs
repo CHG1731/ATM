@@ -15,6 +15,7 @@ namespace Final_Apllication
         public Hoofdmenu()
         {
             InitializeComponent();
+            Application.DoEvents();
             this.Refresh();
         }
 
