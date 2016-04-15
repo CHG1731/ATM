@@ -60,7 +60,7 @@
             this.nope.Name = "nope";
             this.nope.Size = new System.Drawing.Size(523, 24);
             this.nope.TabIndex = 14;
-            this.nope.Text = "Bedrag kan niet gepint worden. Voer een veelvoed van 10 in.";
+            this.nope.Text = "Bedrag kan niet gepint worden. Voer een veelvoud van 10 in.";
             this.nope.Visible = false;
             this.nope.Click += new System.EventHandler(this.falsepininfo_Click);
             // 

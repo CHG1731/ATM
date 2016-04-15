@@ -14,7 +14,6 @@ namespace Final_Apllication
     {
         public Bedragselectie()
         {
-            nope.Visible = false;
             InitializeComponent();
             Cursor.Hide();
         }
