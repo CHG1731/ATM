@@ -90,6 +90,7 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.quickpinButton);
             this.Controls.Add(this.saldoButton);
+            this.Cursor = System.Windows.Forms.Cursors.No;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Hoofdmenu";

@@ -15,6 +15,7 @@ namespace Final_Apllication
         public PinInvoer()
         {
             InitializeComponent();
+            this.Refresh();
         }
 
         private void Form2_Load(object sender, EventArgs e)

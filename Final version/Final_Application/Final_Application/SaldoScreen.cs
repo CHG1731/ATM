@@ -15,7 +15,8 @@ namespace Final_Apllication
         public SaldoScreen(double saldo)
         {
             InitializeComponent();
-            saldoLabel.Text = saldo.ToString();
+            saldoLabel.Text = (saldo.ToString()+"€");
+            this.Refresh();
         }
 
         private void button1_Click(object sender, EventArgs e)

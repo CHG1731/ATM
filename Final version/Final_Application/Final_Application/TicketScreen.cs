@@ -15,6 +15,7 @@ namespace Final_Apllication
         public TicketScreen()
         {
             InitializeComponent();
+            this.Refresh();
         }
 
         private void pinButton_Click(object sender, EventArgs e)

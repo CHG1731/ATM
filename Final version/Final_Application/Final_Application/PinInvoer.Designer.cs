@@ -45,7 +45,7 @@
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputDisplay.Location = new System.Drawing.Point(680, 222);
+            this.inputDisplay.Location = new System.Drawing.Point(680, 240);
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(201, 50);
             this.inputDisplay.TabIndex = 0;
@@ -56,7 +56,7 @@
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cancelButton.BackColor = System.Drawing.Color.Yellow;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.Location = new System.Drawing.Point(680, 301);
+            this.cancelButton.Location = new System.Drawing.Point(680, 319);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(278, 44);
             this.cancelButton.TabIndex = 0;
@@ -67,9 +67,9 @@
             // rectifyButton
             // 
             this.rectifyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rectifyButton.BackColor = System.Drawing.Color.DarkRed;
+            this.rectifyButton.BackColor = System.Drawing.Color.Red;
             this.rectifyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rectifyButton.Location = new System.Drawing.Point(1096, 580);
+            this.rectifyButton.Location = new System.Drawing.Point(1070, 555);
             this.rectifyButton.Name = "rectifyButton";
             this.rectifyButton.Size = new System.Drawing.Size(278, 44);
             this.rectifyButton.TabIndex = 7;
@@ -81,7 +81,7 @@
             this.confirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.confirmButton.BackColor = System.Drawing.Color.DarkGreen;
             this.confirmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.confirmButton.Location = new System.Drawing.Point(680, 351);
+            this.confirmButton.Location = new System.Drawing.Point(680, 369);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(278, 44);
             this.confirmButton.TabIndex = 8;
@@ -107,7 +107,7 @@
             this.falsepininfo.BackColor = System.Drawing.Color.Transparent;
             this.falsepininfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.falsepininfo.ForeColor = System.Drawing.Color.Red;
-            this.falsepininfo.Location = new System.Drawing.Point(910, 240);
+            this.falsepininfo.Location = new System.Drawing.Point(907, 258);
             this.falsepininfo.Name = "falsepininfo";
             this.falsepininfo.Size = new System.Drawing.Size(140, 24);
             this.falsepininfo.TabIndex = 13;
@@ -127,6 +127,7 @@
             this.Controls.Add(this.inputDisplay);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.rectifyButton);
+            this.Cursor = System.Windows.Forms.Cursors.No;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PinInvoer";

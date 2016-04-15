@@ -67,6 +67,7 @@
             this.ClientSize = new System.Drawing.Size(1386, 788);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pinButton);
+            this.Cursor = System.Windows.Forms.Cursors.No;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TicketScreen";

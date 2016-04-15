@@ -15,6 +15,7 @@ namespace Final_Apllication
         public Hoofdmenu()
         {
             InitializeComponent();
+            this.Refresh();
         }
 
         private void Form3_Load(object sender, EventArgs e)

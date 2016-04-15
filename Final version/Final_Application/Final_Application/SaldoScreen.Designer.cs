@@ -79,6 +79,7 @@
             this.Controls.Add(this.saldoLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.exitButton);
+            this.Cursor = System.Windows.Forms.Cursors.No;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SaldoScreen";
