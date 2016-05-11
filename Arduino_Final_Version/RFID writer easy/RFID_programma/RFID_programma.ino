@@ -34,6 +34,10 @@ void setup()
   Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();
+  for (byte i = 0; i < 6; i++) 
+  {
+    key.keyByte[i] = 0xFF;
+  }
   Serial.println("$$===STARTING WRITE PROGRAM, PLEASE READ INFO BELOW!===$$");
   Serial.println("||BLOCK 62 is PasID                                    ||");
   Serial.println("||BLOCK 61 is RekeningID                               ||");
@@ -85,7 +89,7 @@ void setup()
 }
 void loop()
 {
-  for (int i = 0; i < 50; i++)
+  for(int i = 0; i < 50; i++)
   {
     Serial.println();
   }
@@ -98,11 +102,15 @@ void loop()
   {
     if (!mfrc522.PICC_IsNewCardPresent())
     {
-      return;
+      delay(2000);
+      break;
     }
-    if ( ! mfrc522.PICC_ReadCardSerial())
+    if (!mfrc522.PICC_ReadCardSerial())
     {
-      return;
-    }1  }
+      delay(2000);
+      break;
+    }
+    delay(2000);
+  }
 }
 

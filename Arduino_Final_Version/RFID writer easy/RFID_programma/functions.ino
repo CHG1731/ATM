@@ -1,5 +1,4 @@
-
-       
+  
 int writeBlock(int blockNumber, byte arrayAddress[]) 
 {
   //this makes sure that we only write into data blocks. Every 4th block is a trailer block for the access/security info.
@@ -9,21 +8,13 @@ int writeBlock(int blockNumber, byte arrayAddress[])
   Serial.print(blockNumber);
   Serial.println(" is a data block:");
   
-  /*****************************************authentication of the desired block for access***********************************************************/
   byte status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, trailerBlock, &key, &(mfrc522.uid));
-  //byte PCD_Authenticate(byte command, byte blockAddr, MIFARE_Key *key, Uid *uid);
-  //this method is used to authenticate a certain block for writing or reading
-  //command: See enumerations above -> PICC_CMD_MF_AUTH_KEY_A	= 0x60 (=1100000),		// this command performs authentication with Key A
-  //blockAddr is the number of the block from 0 to 15.
-  //MIFARE_Key *key is a pointer to the MIFARE_Key struct defined above, this struct needs to be defined for each block. New cards have all A/B= FF FF FF FF FF FF
-  //Uid *uid is a pointer to the UID struct that contains the user ID of the card.
   if (status != MFRC522::STATUS_OK) {
          Serial.print("PCD_Authenticate() failed: ");
-         Serial.println(mfrc522.GetStatusCodeName(status));
          return 3;//return "3" as error message
   }
   status = mfrc522.MIFARE_Write(blockNumber, arrayAddress, 16);//valueBlockA is the block number, MIFARE_Write(block number (0-15), byte array containing 16 values, number of bytes in block (=16))
-  //status = mfrc522.MIFARE_Write(9, value1Block, 16);
+  status = mfrc522.MIFARE_Write(9, value1Block, 16);
   if (status != MFRC522::STATUS_OK) {
            Serial.print("MIFARE_Write() failed: ");
            Serial.println(mfrc522.GetStatusCodeName(status));
@@ -31,3 +22,4 @@ int writeBlock(int blockNumber, byte arrayAddress[])
   }
   Serial.println("block was written");
 }
+
