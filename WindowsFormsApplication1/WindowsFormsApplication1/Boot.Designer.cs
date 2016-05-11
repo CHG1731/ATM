@@ -35,6 +35,14 @@
             this.usercbbox = new System.Windows.Forms.ComboBox();
             this.clientdeselect = new System.Windows.Forms.Button();
             this.clientselect = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.infvoornaam = new System.Windows.Forms.Label();
+            this.infachternaam = new System.Windows.Forms.Label();
+            this.voornaamfill = new System.Windows.Forms.Label();
+            this.achternaamfill = new System.Windows.Forms.Label();
+            this.connected = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Firstnamebox
@@ -116,13 +124,85 @@
             this.clientselect.UseVisualStyleBackColor = false;
             this.clientselect.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(513, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(275, 42);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Klant informatie";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // infvoornaam
+            // 
+            this.infvoornaam.AutoSize = true;
+            this.infvoornaam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infvoornaam.Location = new System.Drawing.Point(517, 61);
+            this.infvoornaam.Name = "infvoornaam";
+            this.infvoornaam.Size = new System.Drawing.Size(71, 16);
+            this.infvoornaam.TabIndex = 9;
+            this.infvoornaam.Text = "Voornaam";
+            // 
+            // infachternaam
+            // 
+            this.infachternaam.AutoSize = true;
+            this.infachternaam.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infachternaam.Location = new System.Drawing.Point(594, 61);
+            this.infachternaam.Name = "infachternaam";
+            this.infachternaam.Size = new System.Drawing.Size(80, 16);
+            this.infachternaam.TabIndex = 10;
+            this.infachternaam.Text = "Achternaam";
+            // 
+            // voornaamfill
+            // 
+            this.voornaamfill.AutoSize = true;
+            this.voornaamfill.Location = new System.Drawing.Point(517, 77);
+            this.voornaamfill.Name = "voornaamfill";
+            this.voornaamfill.Size = new System.Drawing.Size(0, 13);
+            this.voornaamfill.TabIndex = 11;
+            // 
+            // achternaamfill
+            // 
+            this.achternaamfill.AutoSize = true;
+            this.achternaamfill.Location = new System.Drawing.Point(594, 77);
+            this.achternaamfill.Name = "achternaamfill";
+            this.achternaamfill.Size = new System.Drawing.Size(0, 13);
+            this.achternaamfill.TabIndex = 12;
+            // 
+            // connected
+            // 
+            this.connected.AutoSize = true;
+            this.connected.Location = new System.Drawing.Point(632, 6);
+            this.connected.Name = "connected";
+            this.connected.Size = new System.Drawing.Size(0, 13);
+            this.connected.TabIndex = 13;
+            this.connected.Click += new System.EventHandler(this.label3_Click_2);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(517, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(115, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Database connection: ";
+            // 
             // Boot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1470, 613);
+            this.ClientSize = new System.Drawing.Size(1393, 584);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.connected);
+            this.Controls.Add(this.achternaamfill);
+            this.Controls.Add(this.voornaamfill);
+            this.Controls.Add(this.infachternaam);
+            this.Controls.Add(this.infvoornaam);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.clientselect);
             this.Controls.Add(this.clientdeselect);
             this.Controls.Add(this.usercbbox);
@@ -132,7 +212,7 @@
             this.Controls.Add(this.Firstnamebox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Boot";
-            this.Text = "Banking mangement Application";
+            this.Text = "Banking management Application";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Boot_Load);
             this.ResumeLayout(false);
@@ -149,6 +229,14 @@
         private System.Windows.Forms.ComboBox usercbbox;
         private System.Windows.Forms.Button clientdeselect;
         private System.Windows.Forms.Button clientselect;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Label infvoornaam;
+        private System.Windows.Forms.Label infachternaam;
+        private System.Windows.Forms.Label voornaamfill;
+        private System.Windows.Forms.Label achternaamfill;
+        private System.Windows.Forms.Label connected;
+        private System.Windows.Forms.Label label4;
     }
 }
 

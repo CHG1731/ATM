@@ -70,10 +70,19 @@
     <Compile Include="Boot.Designer.cs">
       <DependentUpon>Boot.cs</DependentUpon>
     </Compile>
+    <Compile Include="CredentialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CredentialForm.Designer.cs">
+      <DependentUpon>CredentialForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Boot.resx">
       <DependentUpon>Boot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CredentialForm.resx">
+      <DependentUpon>CredentialForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
