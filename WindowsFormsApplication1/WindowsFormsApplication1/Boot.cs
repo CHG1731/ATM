@@ -76,6 +76,7 @@ namespace WindowsFormsApplication1
         }
         private void button2_Click_1(object sender, EventArgs e)
         {
+            Rekeningenbox.Items.Clear();
             Lastnamebox.Enabled = true;
             Firstnamebox.Enabled = true;
             usercbbox.Enabled = true;
@@ -84,6 +85,11 @@ namespace WindowsFormsApplication1
             Lastnamebox.Text = "Last name";
             usercbbox.Items.Clear();
             usercbbox.Refresh();
+            filladres.ResetText();
+            voornaamfill.ResetText();
+            achternaamfill.ResetText();
+            postcodefill.ResetText();
+            KlantIDfill.ResetText();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -103,13 +109,34 @@ namespace WindowsFormsApplication1
         }
         private void Fillklantinformatie(String KlantID)
         {
-            string command = "SELECT * FROM OP3.Klant where KlantID = '"+KlantID+"'";
+            string command = "SELECT * FROM OP3.Klant where KlantID = '" + KlantID + "'";
             MySqlDataAdapter retr = new MySqlDataAdapter(command, connection);
             DataTable klantdt = new DataTable();
             retr.Fill(klantdt);
-            foreach
-            voornaamfill.Text = klantdt.Rows[0][1].ToString();
-            achternaamfill.Text = klantdt.Rows[2][3].ToString();
+            DataRow[] rows = klantdt.Select();
+            voornaamfill.Text = rows[0].ItemArray[1].ToString();
+            achternaamfill.Text = rows[0].ItemArray[2].ToString();
+            KlantIDfill.Text = rows[0].ItemArray[0].ToString();
+            filladres.Text = rows[0].ItemArray[3].ToString();
+            postcodefill.Text = rows[0].ItemArray[4].ToString();
+            Fillrekeninginformatie(KlantID);
+        }
+        private void Fillrekeninginformatie(String KlantID)
+        {
+            Rekeningenbox.Items.Clear();
+            string command = "SELECT * FROM OP3.Rekening where RekeningID in (SELECT RekeningID FROM OP3.Pas where KlantID = "+KlantID+");";
+            MySqlDataAdapter da = new MySqlDataAdapter(command, connection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow row in dt.Rows)
+            {
+                string rowz = string.Format("{0} : {1}", row.ItemArray[0],row.ItemArray[2]);
+                Rekeningenbox.Items.Add(rowz);
+            }
+            if (Rekeningenbox.Items.Count > 0)
+            {
+                Rekeningenbox.SelectedIndex = 0;
+            }
         }
         private void checkconnection()
         {
@@ -136,6 +163,21 @@ namespace WindowsFormsApplication1
 
         }
         private void label3_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
