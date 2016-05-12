@@ -64,6 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="arduinoselect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="arduinoselect.Designer.cs">
+      <DependentUpon>arduinoselect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Boot.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="arduinoselect.resx">
+      <DependentUpon>arduinoselect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Boot.resx">
       <DependentUpon>Boot.cs</DependentUpon>
     </EmbeddedResource>

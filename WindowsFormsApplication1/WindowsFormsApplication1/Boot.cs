@@ -10,13 +10,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.IO.Ports;
 
 namespace WindowsFormsApplication1
 {
     public partial class Boot : Form
     {
+        public static string glklantID;
+        public static string glRekeningNR;
+        public static string glPasNR;
         public static string wachtwoordtekst;
         public static string gebruikertekst;
+        public static SerialPort hardware;
+        public Boolean authenticated = false;
         private string connectionString;
         //private string connectionString = "server=145.24.222.163;Port=8500;UserId=dev;Password=dev!123;database=OP3;CharSet=utf8;Persist Security Info=True;";
         private static MySqlConnection connection;
@@ -27,6 +33,7 @@ namespace WindowsFormsApplication1
 
         private void Boot_Load(object sender, EventArgs e)
         {
+            writebutton.Enabled = false;
             Enabled = false;
             Credentialform cred = new Credentialform();
             cred.ShowDialog();
@@ -90,6 +97,11 @@ namespace WindowsFormsApplication1
             achternaamfill.ResetText();
             postcodefill.ResetText();
             KlantIDfill.ResetText();
+            rekeningselect.Enabled = true;
+            writebutton.Enabled = true;
+            pasbox.Items.Clear();
+            writebutton.Enabled = false;
+            hardware = null;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -100,7 +112,7 @@ namespace WindowsFormsApplication1
                 Firstnamebox.Enabled = false;
                 usercbbox.Enabled = false;
                 button1.Enabled = false;
-                Fillklantinformatie(usercbbox.SelectedItem.ToString().Substring(0,4));
+                Fillklantinformatie(usercbbox.SelectedItem.ToString().Substring(0, 4));
             }
             else
             {
@@ -119,28 +131,34 @@ namespace WindowsFormsApplication1
             KlantIDfill.Text = rows[0].ItemArray[0].ToString();
             filladres.Text = rows[0].ItemArray[3].ToString();
             postcodefill.Text = rows[0].ItemArray[4].ToString();
+            glklantID = KlantID;
             Fillrekeninginformatie(KlantID);
         }
         private void Fillrekeninginformatie(String KlantID)
         {
             Rekeningenbox.Items.Clear();
-            string command = "SELECT * FROM OP3.Rekening where RekeningID in (SELECT RekeningID FROM OP3.Pas where KlantID = "+KlantID+");";
+            string command = "SELECT * FROM OP3.Rekening where RekeningID in (SELECT RekeningID FROM OP3.Pas where KlantID = " + KlantID + ");";
             MySqlDataAdapter da = new MySqlDataAdapter(command, connection);
             DataTable dt = new DataTable();
             da.Fill(dt);
             foreach (DataRow row in dt.Rows)
             {
-                string rowz = string.Format("{0} : {1}", row.ItemArray[0],row.ItemArray[2]);
+                string rowz = string.Format("{0}", row.ItemArray[0]);
                 Rekeningenbox.Items.Add(rowz);
             }
             if (Rekeningenbox.Items.Count > 0)
             {
+                rekeningselect.Enabled = true;
                 Rekeningenbox.SelectedIndex = 0;
+            }
+            else
+            {
+                rekeningselect.Enabled = false;
             }
         }
         private void checkconnection()
         {
-            if(connection.Ping())
+            if (connection.Ping())
             {
                 connected.ForeColor = Color.Green;
                 connected.Text = "Connected";
@@ -180,6 +198,68 @@ namespace WindowsFormsApplication1
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Rekeningenbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rekeningselect_Click(object sender, EventArgs e)
+        {
+            if (Rekeningenbox.Items.Count > 0)
+            {
+                glRekeningNR = Rekeningenbox.SelectedItem.ToString();
+                Fillpasinformatie(Rekeningenbox.SelectedItem.ToString());
+            }
+        }
+        private void Fillpasinformatie(string RekeningNR)
+        {
+            string command = "SELECT PasID FROM OP3.Pas where RekeningID = " + RekeningNR + ";";
+            MySqlDataAdapter da = new MySqlDataAdapter(command, connection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow row in dt.Rows)
+            {
+                string rowz = string.Format("{0}", row.ItemArray[0]);
+                pasbox.Items.Add(rowz);
+            }
+            if (pasbox.Items.Count > 0)
+            {
+                pasbox.SelectedIndex = 0;
+            }
+            else
+            {
+                writebutton.Enabled = false;
+            }
+        }
+
+        private void pasbutton_Click(object sender, EventArgs e)
+        {
+            if (pasbox.Items.Count > 0)
+            {
+                glPasNR = pasbox.SelectedItem.ToString();
+                if (glPasNR.Length > 2 && glRekeningNR.Length > 2 && glklantID.Length > 2)
+                {
+                    writebutton.Enabled = true;
+                }
+            }
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void writebutton_Click(object sender, EventArgs e)
+        {
+            arduinoselect x = new arduinoselect();
+            x.ShowDialog();
         }
     }
 }

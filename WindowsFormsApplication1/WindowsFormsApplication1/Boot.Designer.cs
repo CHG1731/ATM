@@ -51,7 +51,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.Rekeningenbox = new System.Windows.Forms.ComboBox();
+            this.rekeningselect = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.pasbox = new System.Windows.Forms.ComboBox();
+            this.pasbutton = new System.Windows.Forms.Button();
+            this.writebutton = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.statuslabel = new System.Windows.Forms.Label();
+            this.statusinfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +66,7 @@
             // 
             this.Firstnamebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Firstnamebox.Location = new System.Drawing.Point(16, 37);
-            this.Firstnamebox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Firstnamebox.Margin = new System.Windows.Forms.Padding(4);
             this.Firstnamebox.Name = "Firstnamebox";
             this.Firstnamebox.Size = new System.Drawing.Size(197, 20);
             this.Firstnamebox.TabIndex = 0;
@@ -70,7 +77,7 @@
             // 
             this.Lastnamebox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lastnamebox.Location = new System.Drawing.Point(223, 37);
-            this.Lastnamebox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Lastnamebox.Margin = new System.Windows.Forms.Padding(4);
             this.Lastnamebox.Name = "Lastnamebox";
             this.Lastnamebox.Size = new System.Drawing.Size(185, 20);
             this.Lastnamebox.TabIndex = 1;
@@ -92,7 +99,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(16, 69);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(393, 28);
             this.button1.TabIndex = 3;
@@ -107,7 +114,7 @@
             this.usercbbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.usercbbox.FormattingEnabled = true;
             this.usercbbox.Location = new System.Drawing.Point(16, 117);
-            this.usercbbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usercbbox.Margin = new System.Windows.Forms.Padding(4);
             this.usercbbox.Name = "usercbbox";
             this.usercbbox.Size = new System.Drawing.Size(392, 24);
             this.usercbbox.TabIndex = 4;
@@ -118,7 +125,7 @@
             this.clientdeselect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clientdeselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clientdeselect.Location = new System.Drawing.Point(553, 7);
-            this.clientdeselect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.clientdeselect.Margin = new System.Windows.Forms.Padding(4);
             this.clientdeselect.Name = "clientdeselect";
             this.clientdeselect.Size = new System.Drawing.Size(128, 135);
             this.clientdeselect.TabIndex = 6;
@@ -133,7 +140,7 @@
             this.clientselect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clientselect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clientselect.Location = new System.Drawing.Point(417, 7);
-            this.clientselect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.clientselect.Margin = new System.Windows.Forms.Padding(4);
             this.clientselect.Name = "clientselect";
             this.clientselect.Size = new System.Drawing.Size(128, 135);
             this.clientselect.TabIndex = 7;
@@ -313,15 +320,85 @@
             this.Rekeningenbox.Name = "Rekeningenbox";
             this.Rekeningenbox.Size = new System.Drawing.Size(392, 24);
             this.Rekeningenbox.TabIndex = 23;
+            this.Rekeningenbox.SelectedIndexChanged += new System.EventHandler(this.Rekeningenbox_SelectedIndexChanged);
+            // 
+            // rekeningselect
+            // 
+            this.rekeningselect.Location = new System.Drawing.Point(413, 243);
+            this.rekeningselect.Name = "rekeningselect";
+            this.rekeningselect.Size = new System.Drawing.Size(132, 24);
+            this.rekeningselect.TabIndex = 24;
+            this.rekeningselect.Text = "Selecteer rekening";
+            this.rekeningselect.UseVisualStyleBackColor = true;
+            this.rekeningselect.Click += new System.EventHandler(this.rekeningselect_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(561, 15);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(552, 197);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 16);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 42);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Pas";
+            // 
+            // pasbox
+            // 
+            this.pasbox.BackColor = System.Drawing.SystemColors.Window;
+            this.pasbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pasbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.pasbox.FormattingEnabled = true;
+            this.pasbox.Location = new System.Drawing.Point(553, 244);
+            this.pasbox.Margin = new System.Windows.Forms.Padding(4);
+            this.pasbox.Name = "pasbox";
+            this.pasbox.Size = new System.Drawing.Size(136, 24);
+            this.pasbox.TabIndex = 26;
+            // 
+            // pasbutton
+            // 
+            this.pasbutton.Location = new System.Drawing.Point(699, 244);
+            this.pasbutton.Name = "pasbutton";
+            this.pasbutton.Size = new System.Drawing.Size(132, 24);
+            this.pasbutton.TabIndex = 27;
+            this.pasbutton.Text = "Selecteer Pas";
+            this.pasbutton.UseVisualStyleBackColor = true;
+            this.pasbutton.Click += new System.EventHandler(this.pasbutton_Click);
+            // 
+            // writebutton
+            // 
+            this.writebutton.Location = new System.Drawing.Point(837, 179);
+            this.writebutton.Name = "writebutton";
+            this.writebutton.Size = new System.Drawing.Size(120, 89);
+            this.writebutton.TabIndex = 28;
+            this.writebutton.Text = "Write selected data to Card";
+            this.writebutton.UseVisualStyleBackColor = true;
+            this.writebutton.Click += new System.EventHandler(this.writebutton_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(13, 322);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(947, 24);
+            this.progressBar1.TabIndex = 29;
+            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            // 
+            // statuslabel
+            // 
+            this.statuslabel.AutoSize = true;
+            this.statuslabel.Location = new System.Drawing.Point(10, 349);
+            this.statuslabel.Name = "statuslabel";
+            this.statuslabel.Size = new System.Drawing.Size(51, 16);
+            this.statuslabel.TabIndex = 30;
+            this.statuslabel.Text = "Status: ";
+            // 
+            // statusinfo
+            // 
+            this.statusinfo.AutoSize = true;
+            this.statusinfo.Location = new System.Drawing.Point(67, 349);
+            this.statusinfo.Name = "statusinfo";
+            this.statusinfo.Size = new System.Drawing.Size(0, 16);
+            this.statusinfo.TabIndex = 31;
             // 
             // Boot
             // 
@@ -329,8 +406,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1366, 719);
+            this.ClientSize = new System.Drawing.Size(969, 368);
+            this.Controls.Add(this.statusinfo);
+            this.Controls.Add(this.statuslabel);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.writebutton);
+            this.Controls.Add(this.pasbutton);
+            this.Controls.Add(this.pasbox);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.rekeningselect);
             this.Controls.Add(this.Rekeningenbox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.postcodefill);
@@ -356,7 +440,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Boot";
             this.Text = "Banking management Application";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -392,7 +476,14 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox Rekeningenbox;
+        private System.Windows.Forms.Button rekeningselect;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox pasbox;
+        private System.Windows.Forms.Button pasbutton;
+        private System.Windows.Forms.Button writebutton;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label statuslabel;
+        private System.Windows.Forms.Label statusinfo;
     }
 }
 
