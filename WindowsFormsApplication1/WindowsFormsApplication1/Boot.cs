@@ -260,6 +260,11 @@ namespace WindowsFormsApplication1
         {
             arduinoselect x = new arduinoselect();
             x.ShowDialog();
+            WriteCard();
+        }
+        private void WriteCard()
+        {
+
         }
     }
 }
