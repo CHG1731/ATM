@@ -78,6 +78,12 @@
     <Compile Include="Beginscherm.Designer.cs">
       <DependentUpon>Beginscherm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BiljetScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BiljetScreen.Designer.cs">
+      <DependentUpon>BiljetScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="BlockScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Beginscherm.resx">
       <DependentUpon>Beginscherm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BiljetScreen.resx">
+      <DependentUpon>BiljetScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BlockScreen.resx">
       <DependentUpon>BlockScreen.cs</DependentUpon>
