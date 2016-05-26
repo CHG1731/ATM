@@ -57,6 +57,7 @@ namespace Final_Apllication
                             KlantID = pasInformation[2];
                             rekeningID = pasInformation[1];
                             pasID = pasInformation[0];
+                            Error.show(httpget.getActiefStand(pasInformation[0]).ToString());
                             break;
                         }
                     }
@@ -108,6 +109,7 @@ namespace Final_Apllication
                             pinInvoer.pictureBox2.Visible = false;
                             break;
                         }
+                        /*
                         if (security.checkHash(rekeningID, pincode) == false)
                         {
                             pinInvoer.falsepininfo.Visible = true;
@@ -118,6 +120,7 @@ namespace Final_Apllication
                                 pinInvoer.Close();
                             }
                         }
+                        */
                         else
                         {
                             httppost.resetfalsepin(pasID);

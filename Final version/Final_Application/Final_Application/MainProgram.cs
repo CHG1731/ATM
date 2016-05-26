@@ -138,7 +138,7 @@ public class HTTPget
     {
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //GET THE KLANT ID
@@ -162,7 +162,7 @@ public class HTTPget
         String location = String.Concat("/api/klants/", s);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -187,7 +187,7 @@ public class HTTPget
         String location = s;
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -210,7 +210,7 @@ public class HTTPget
         String location = s;
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -233,7 +233,7 @@ public class HTTPget
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -256,7 +256,7 @@ public class HTTPget
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -314,7 +314,7 @@ public class HTTPpost
         Int32.TryParse(RekeningID, out RekeningIDint);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -335,7 +335,7 @@ public class HTTPpost
         String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -358,7 +358,7 @@ public class HTTPpost
         String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -379,7 +379,7 @@ public class HTTPpost
         String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -440,14 +440,22 @@ public class ArduinoData
 {
     SerialPort startPort = ArduinoClass.getPort();
     static String[] comports = System.IO.Ports.SerialPort.GetPortNames();
-    Boolean hoi = ArduinoClass.makePort(comports[1]);
-    SerialPort dispenserPort = ArduinoClass.getPort();
+    SerialPort dispenserPort = maakpoorttwee();
     private String inputString;
 
     public String getFirstString()
     {
         inputString = startPort.ReadTo("\r\n");
         return inputString;
+    }
+
+    public static SerialPort maakpoorttwee()
+    {
+        SerialPort twee = new SerialPort();
+        twee.BaudRate = 9600;
+        twee.PortName = "COM12";
+        twee.Open();
+        return twee;
     }
 
     public String getString()
@@ -677,6 +685,7 @@ public class Executer
             option4 = generateCommand(tens, twenties, fifties);
             selector.setLabel4(tens.ToString(), twenties.ToString(), fifties.ToString());
         }
+        selector.Show();
         int selection = 0;
         while(selection == 0)
         {
@@ -697,6 +706,7 @@ public class Executer
                 choice = option4;
                 break;
         }
+        selector.Hide();
         return choice;
     }
 
