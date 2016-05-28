@@ -12,34 +12,20 @@ namespace Final_Application
 {
     public partial class BootScreen : Form
     {
+        String com1;
+        String com2;
         public BootScreen()
         {
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            fetchCom();
-            //StartButton.Visible = true;
+            fetchCom(comboBox1);
+            fetchCom(comboBox2);
+            StartButton.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (ArduinoClass.makePort(comboBox1.SelectedItem.ToString()) == true)
-                {
-                    StatusText.ForeColor = Color.Green;
-                    StatusText.Text = "ARDUINO CONNECTED";
-                    StartButton.Visible = true;
-                }
-                else
-                {
-                    StatusText.ForeColor = Color.Red;
-                    StatusText.Text = "NO CONNECTION";
-                }
-            }
-            catch (Exception)
-            {
-                Error.show("No port selected", "Error");
-            }
+
         }
         public class Error
         {
@@ -59,20 +45,17 @@ namespace Final_Application
         {
 
         }
-        private void fetchCom()
+        private void fetchCom(ComboBox cbbox)
         {
             String[] ports = System.IO.Ports.SerialPort.GetPortNames();
             foreach (String port in ports)
             {
-                comboBox1.Items.Add(port);
+                cbbox.Items.Add(port);
             }
             if (ports.Length < 1)
             {
-                comboBox1.Items.Add("No ports available");
+                cbbox.Items.Add("No ports available");
             }
-            comboBox1.SelectedItem = ports[0];
-            ArduinoClass.makePort(comboBox1.SelectedItem.ToString());
-            StartButton.Visible = true;
 
         }
 
@@ -88,24 +71,18 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            com1 = comboBox1.SelectedText;
+            com2 = comboBox2.SelectedText;
             Start s = new Start();
             s.run();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
+            comboBox2.Items.Clear();
             comboBox1.Items.Clear();
-            fetchCom();
-        }
-
-        private void button1_Click_2(object sender, EventArgs e)
-        {
-            HTTPpost test = new HTTPpost();
-            int intone = 1;
-            double inttwo = 1;
-            Int32.TryParse(textBox1.Text, out intone);
-            Double.TryParse(textBox2.Text, out inttwo);
-            test.UpdateBalans(intone,inttwo);
+            fetchCom(comboBox1);
+            fetchCom(comboBox2);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -129,15 +106,18 @@ namespace Final_Application
            // print.printTicket();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Hash tmp = new Hash();
-            String s = tmp.makeHash(123456, 1234);
-            textBox1.Text = s;
-        }
         private void BootScreen_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public String getcom1()
+        {
+            return com1;
+        }
+        public String getcom2()
+        {
+            return com2;
         }
     }
 }

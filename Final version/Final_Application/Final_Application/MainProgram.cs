@@ -22,7 +22,7 @@ namespace Final_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BootScreen());
+            Application.Run(new Beginscherm());
         }
     }
 }
@@ -438,10 +438,24 @@ public class Transactie
 }
 public class ArduinoData
 {
-    SerialPort startPort = ArduinoClass.getPort();
+    public ArduinoData(String com1,String com2)
+    {
+        startPort = portInit(com1);
+        dispenserPort = portInit(com2);
+    }
+    SerialPort startPort;
     static String[] comports = System.IO.Ports.SerialPort.GetPortNames();
-    SerialPort dispenserPort = maakpoorttwee();
+    SerialPort dispenserPort;
     private String inputString;
+
+    public SerialPort portInit(String compoort)
+    {
+        SerialPort tmp = new SerialPort();
+        tmp.BaudRate = 9600;
+        tmp.PortName = compoort;
+        tmp.Open();
+        return tmp;
+    }
 
     public String getFirstString()
     {
