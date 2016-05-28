@@ -24,17 +24,32 @@ namespace Final_Apllication
 
         public void setLabel2(String tens, String twenties)
         {
-            label2.Text = "B: " + tens + " x 10,  " + twenties + " x 20";
+            String substring = "";
+            if(!(tens.Equals("0")))
+            {
+                substring = tens + " x 10 ";
+            }
+            label2.Text = "B: "+ substring + twenties + " x 20";
         }
 
         public void setLabel3(String tens, String fifties)
         {
-            label3.Text = "B: " + tens + " x 10,  " +fifties+"x 50";
+            String substring = "";
+            if (!(tens.Equals("0")))
+            {
+                substring = tens + " x 10 ";
+            }
+            label3.Text = "C: " + substring +fifties+"x 50";
         }
 
         public void setLabel4(String tens, String twenties, String fifties)
         {
-            label4.Text = "B: " + tens + " x 10,  " + twenties + " x 20   " + fifties + "x 50";
+            String substring = "";
+            if (!(tens.Equals("0")))
+            {
+                substring = tens + " x 10 ";
+            }
+            label4.Text = "D: " + substring + twenties + " x 20   " + fifties + "x 50";
         }
     }
 }
