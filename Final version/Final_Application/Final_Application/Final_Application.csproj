@@ -75,11 +75,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArduinoSelect.Designer.cs">
+      <DependentUpon>ArduinoSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Beginscherm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Beginscherm.Designer.cs">
       <DependentUpon>Beginscherm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BiljetScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BiljetScreen.Designer.cs">
+      <DependentUpon>BiljetScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="BlockScreen.cs">
       <SubType>Form</SubType>
@@ -98,6 +110,12 @@
     </Compile>
     <Compile Include="Bedragselectie.Designer.cs">
       <DependentUpon>Bedragselectie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Arduino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Arduino.Designer.cs">
+      <DependentUpon>Arduino.cs</DependentUpon>
     </Compile>
     <Compile Include="PinError.cs">
       <SubType>Form</SubType>
@@ -154,8 +172,17 @@
       <DependentUpon>Pinscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Arduino.resx">
+      <DependentUpon>Arduino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArduinoSelect.resx">
+      <DependentUpon>ArduinoSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Beginscherm.resx">
       <DependentUpon>Beginscherm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BiljetScreen.resx">
+      <DependentUpon>BiljetScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BlockScreen.resx">
       <DependentUpon>BlockScreen.cs</DependentUpon>
