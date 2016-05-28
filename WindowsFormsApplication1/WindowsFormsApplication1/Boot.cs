@@ -264,6 +264,36 @@ namespace WindowsFormsApplication1
         }
         private void WriteCard()
         {
+            rfidprogress.Style = ProgressBarStyle.Continuous;
+            rfidprogress.Maximum = 100;
+            rfidprogress.Value = 0;
+            statusinfo.Text = "Starting";
+            rfidprogress.Value = 5;
+            statusinfo.Text = "Making connection with hardware";
+            hardware.WriteLine("AUTH#");
+            while (!hardware.ReadLine().Contains("Authenticated\r"))
+            {
+                statusinfo.Text = "Authentication process busy";
+            }
+            rfidprogress.Value = 10;
+            statusinfo.Text = "Connection authenticated, getting ready to write";
+            statusinfo.Text = "Preparing hardware for RFID write-fase";
+            while (true)
+            {
+                if (hardware.ReadLine().Contains("WRITEFASEREADY"))
+                {
+                    break;
+                }
+                hardware.WriteLine("WRITEPROMPT#");
+            }
+            statusinfo.Text = "Sending RFID data to Hardware";
+            rfidprogress.Value = 20;
+            while(true)
+            {
+                hardware.WriteLine(glPasNR +"PS#");
+                //hardware.WriteLine(glRekeningNR + "RK#");
+                serdebug.Text = hardware.ReadLine();
+            }
 
         }
     }

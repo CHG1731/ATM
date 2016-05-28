@@ -56,9 +56,10 @@
             this.pasbox = new System.Windows.Forms.ComboBox();
             this.pasbutton = new System.Windows.Forms.Button();
             this.writebutton = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.rfidprogress = new System.Windows.Forms.ProgressBar();
             this.statuslabel = new System.Windows.Forms.Label();
             this.statusinfo = new System.Windows.Forms.Label();
+            this.serdebug = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -375,13 +376,13 @@
             this.writebutton.UseVisualStyleBackColor = true;
             this.writebutton.Click += new System.EventHandler(this.writebutton_Click);
             // 
-            // progressBar1
+            // rfidprogress
             // 
-            this.progressBar1.Location = new System.Drawing.Point(13, 322);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(947, 24);
-            this.progressBar1.TabIndex = 29;
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            this.rfidprogress.Location = new System.Drawing.Point(13, 322);
+            this.rfidprogress.Name = "rfidprogress";
+            this.rfidprogress.Size = new System.Drawing.Size(947, 24);
+            this.rfidprogress.TabIndex = 29;
+            this.rfidprogress.Click += new System.EventHandler(this.progressBar1_Click);
             // 
             // statuslabel
             // 
@@ -400,16 +401,24 @@
             this.statusinfo.Size = new System.Drawing.Size(0, 16);
             this.statusinfo.TabIndex = 31;
             // 
+            // serdebug
+            // 
+            this.serdebug.Location = new System.Drawing.Point(13, 369);
+            this.serdebug.Name = "serdebug";
+            this.serdebug.Size = new System.Drawing.Size(267, 22);
+            this.serdebug.TabIndex = 32;
+            // 
             // Boot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(969, 368);
+            this.ClientSize = new System.Drawing.Size(969, 403);
+            this.Controls.Add(this.serdebug);
             this.Controls.Add(this.statusinfo);
             this.Controls.Add(this.statuslabel);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.rfidprogress);
             this.Controls.Add(this.writebutton);
             this.Controls.Add(this.pasbutton);
             this.Controls.Add(this.pasbox);
@@ -481,9 +490,10 @@
         private System.Windows.Forms.ComboBox pasbox;
         private System.Windows.Forms.Button pasbutton;
         private System.Windows.Forms.Button writebutton;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar rfidprogress;
         private System.Windows.Forms.Label statuslabel;
         private System.Windows.Forms.Label statusinfo;
+        private System.Windows.Forms.TextBox serdebug;
     }
 }
 

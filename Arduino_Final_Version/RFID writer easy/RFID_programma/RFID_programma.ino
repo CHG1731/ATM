@@ -100,6 +100,7 @@ void loop()
   Serial.println("Present an RFID card to start writing");
   while (true)
   {
+    mfrc522.PCD_Init();
     if (!mfrc522.PICC_IsNewCardPresent())
     {
       delay(2000);
@@ -110,6 +111,9 @@ void loop()
       delay(2000);
       break;
     }
+    writeBlock(62,PasIDblock);
+    Serial.println("DONE WRITING");
+    delay(200000);
     delay(2000);
   }
 }

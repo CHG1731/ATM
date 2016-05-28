@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
-using DYMO.Label.Framework;
+using System.Net.Http.Formatting;
+//using DYMO.Label.Framework;
 using System.Timers;
-
 namespace Final_Application
 {
     static class Program
@@ -91,12 +91,19 @@ public class HTTPget
 {
     public bool getActiefStand(String pasID)
     {
-        Pas temp = getActiefStandData(pasID).Result;
-        if (temp.Actief == 1)
+        try
         {
-            return true;
+            Pas temp = getActiefStandData(pasID).Result;
+            if (temp.Actief == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
+        catch (Exception e)
         {
             return false;
         }
@@ -140,7 +147,7 @@ public class HTTPget
     {
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //GET THE KLANT ID
@@ -189,7 +196,7 @@ public class HTTPget
         String location = s;
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -212,7 +219,7 @@ public class HTTPget
         String location = s;
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -235,7 +242,7 @@ public class HTTPget
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -258,7 +265,7 @@ public class HTTPget
         String location = string.Concat("api/Pass/", ID);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // HTTP GET
@@ -316,7 +323,7 @@ public class HTTPpost
         Int32.TryParse(RekeningID, out RekeningIDint);
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -337,7 +344,7 @@ public class HTTPpost
         String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -360,7 +367,7 @@ public class HTTPpost
         String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -381,7 +388,7 @@ public class HTTPpost
         String location = string.Concat("api/pass/", PasID.ToString());
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://localhost:50752/");
+            client.BaseAddress = new Uri("https://145.24.222.178/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
@@ -735,6 +742,7 @@ public class Printer
 
     public void printTicket()
     {
+        /*
         String bedrag = amount.ToString();
         ILabel _label;
         _label = Framework.Open(@"C:\DYMO\jaja.label");
@@ -757,7 +765,9 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
+            */
     }
+
 }
 
 public class Hash

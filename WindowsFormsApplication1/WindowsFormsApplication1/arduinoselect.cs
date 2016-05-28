@@ -59,8 +59,8 @@ namespace WindowsFormsApplication1
             else
             {
                 MessageBox.Show("Is dit gecertificeerde hardware", "Hardware fout", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tmp.Close();
             }
-            tmp.Close();
         }
     }
 }

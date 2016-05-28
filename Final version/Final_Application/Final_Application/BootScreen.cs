@@ -70,9 +70,11 @@ namespace Final_Application
             {
                 comboBox1.Items.Add("No ports available");
             }
+            /*
             comboBox1.SelectedItem = ports[0];
             ArduinoClass.makePort(comboBox1.SelectedItem.ToString());
             StartButton.Visible = true;
+            */
 
         }
 
