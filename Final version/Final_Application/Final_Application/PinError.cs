@@ -21,8 +21,7 @@ namespace Final_Apllication
             this.Refresh();
             this.sleepnow().Wait();
             this.Close();
-        }
-        async Task sleepnow()
+        }        async Task sleepnow()
         {
             //its all ogre now
             System.Threading.Thread.Sleep(5000);

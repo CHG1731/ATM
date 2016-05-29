@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Rfidbox = new System.Windows.Forms.ComboBox();
             this.dispbox = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -68,11 +69,22 @@
             this.dispbox.Size = new System.Drawing.Size(121, 21);
             this.dispbox.TabIndex = 3;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 49);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(229, 48);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ArduinoSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 156);
+            this.ClientSize = new System.Drawing.Size(253, 105);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dispbox);
             this.Controls.Add(this.Rfidbox);
             this.Controls.Add(this.label2);
@@ -91,5 +103,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox Rfidbox;
         private System.Windows.Forms.ComboBox dispbox;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -21,11 +21,24 @@ namespace Final_Apllication
 
         private void Beginscherm_Load(object sender, EventArgs e)
         {
+            bool config = false;
             ArduinoSelect init = new ArduinoSelect();
-            init.ShowDialog();
+            if (!config)
+            {
+                var result = init.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //Make the ports
+                    config = true;
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
             PinInvoer pinInvoer = new PinInvoer();
             Hoofdmenu hoofdmenu = new Hoofdmenu();
-            ArduinoData arduino = new ArduinoData("COM8","COM11");
+            ArduinoData arduino = new ArduinoData();
             Hash security = new Hash();
             Executer executer;
             Boolean reset = false;
