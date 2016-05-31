@@ -12,8 +12,6 @@ namespace Final_Application
 {
     public partial class ArduinoSelect : Form
     {
-        public string COM1 { get; set; }
-        public string COM2 { get; set; }
         public ArduinoSelect()
         {
             InitializeComponent();
@@ -36,14 +34,6 @@ namespace Final_Application
                 cbbox.Items.Add("No ports available");
             }
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.COM1 = Rfidbox.SelectedItem.ToString();
-            this.COM2 = dispbox.SelectedItem.ToString();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
     }
 }

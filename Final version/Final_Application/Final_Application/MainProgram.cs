@@ -24,7 +24,7 @@ namespace Final_Application
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Beginscherm());
+            Application.Run(new BootScreen());
         }
     }
 }

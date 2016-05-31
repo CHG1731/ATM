@@ -111,6 +111,12 @@
     <Compile Include="Bedragselectie.Designer.cs">
       <DependentUpon>Bedragselectie.cs</DependentUpon>
     </Compile>
+    <Compile Include="Arduino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Arduino.Designer.cs">
+      <DependentUpon>Arduino.cs</DependentUpon>
+    </Compile>
     <Compile Include="PinError.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
       <DependentUpon>Pinscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Arduino.resx">
+      <DependentUpon>Arduino.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ArduinoSelect.resx">
       <DependentUpon>ArduinoSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,6 +223,7 @@
       <DependentUpon>TicketScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <Fakes Include="Fakes\DYMO.Label.Framework.fakes" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -235,6 +245,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ee.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Interop.DYMOPrintingSupportLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Interop.DYMOBarcodeLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stdole.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
