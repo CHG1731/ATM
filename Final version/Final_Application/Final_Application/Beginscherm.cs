@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Final_Application;
 
 namespace Final_Apllication
 {
@@ -17,15 +16,15 @@ namespace Final_Apllication
         public Beginscherm()
         {
             InitializeComponent();
+            Cursor.Hide();
         }
 
         private void Beginscherm_Load(object sender, EventArgs e)
         {
-            ArduinoSelect init = new ArduinoSelect();
-            init.ShowDialog();
+            //bool killscreen = true;
             PinInvoer pinInvoer = new PinInvoer();
             Hoofdmenu hoofdmenu = new Hoofdmenu();
-            ArduinoData arduino = new ArduinoData("COM8","COM11");
+            ArduinoData arduino = new ArduinoData();
             Hash security = new Hash();
             Executer executer;
             Boolean reset = false;

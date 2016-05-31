@@ -75,12 +75,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ArduinoSelect.Designer.cs">
-      <DependentUpon>ArduinoSelect.cs</DependentUpon>
-    </Compile>
     <Compile Include="Beginscherm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,12 +104,6 @@
     </Compile>
     <Compile Include="Bedragselectie.Designer.cs">
       <DependentUpon>Bedragselectie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Arduino.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Arduino.Designer.cs">
-      <DependentUpon>Arduino.cs</DependentUpon>
     </Compile>
     <Compile Include="PinError.cs">
       <SubType>Form</SubType>
@@ -172,12 +160,6 @@
       <DependentUpon>Pinscherm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Arduino.resx">
-      <DependentUpon>Arduino.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ArduinoSelect.resx">
-      <DependentUpon>ArduinoSelect.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Beginscherm.resx">
       <DependentUpon>Beginscherm.cs</DependentUpon>
     </EmbeddedResource>
