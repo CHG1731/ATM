@@ -438,7 +438,8 @@ public class Transactie
 }
 public class ArduinoData
 {
-    SerialPort startPort = ArduinoClass.getPort();
+    //SerialPort startPort = ArduinoClass.getPort();
+    SerialPort startPort = maakpoorteen();
     static String[] comports = System.IO.Ports.SerialPort.GetPortNames();
     SerialPort dispenserPort = maakpoorttwee();
     private String inputString;
@@ -448,12 +449,19 @@ public class ArduinoData
         inputString = startPort.ReadTo("\r\n");
         return inputString;
     }
-
+    public static SerialPort maakpoorteen()
+    {
+        SerialPort een = new SerialPort();
+        een.BaudRate = 9600;
+        een.PortName = "COM11";
+        een.Open();
+        return een;
+    }
     public static SerialPort maakpoorttwee()
     {
         SerialPort twee = new SerialPort();
         twee.BaudRate = 9600;
-        twee.PortName = "COM12";
+        twee.PortName = "COM4";
         twee.Open();
         return twee;
     }
@@ -479,6 +487,7 @@ public class ArduinoData
         if (choiceString == "BKEY") { choice = 2; }
         if (choiceString == "CKEY") { choice = 3; }
         if (choiceString == "#KEY") { choice = 4; }
+        if (choiceString == "$KEY") { choice = 5; }
         return choice;
     }
 }
@@ -594,7 +603,7 @@ public class Executer
                 uploadConnection.transaction(pasID, rekeningID, amount);
                 //Error.show(amount.ToString());
             }
-            if(amount > 10) { dispenserCommand = biljetSelection(amount); }
+            if (amount > 10) { dispenserCommand = biljetSelection(amount); }
             else { dispenserCommand = "01,00,00*"; }
             asker.Show();
             while (true)
@@ -632,19 +641,19 @@ public class Executer
     private String biljetSelection(int amount)
     {
         String choice = "00,00,00*";
-        String option1 = "00,00,00*";
-        String option2 = "00,00,00*";
-        String option3 = "00,00,00*";
-        String option4 = "00,00,00*";
+        String option1;
+        String option2;
+        String option3 = "invalid";
+        String option4 = "invalid*";
         int tens = 0;
         int twenties = 0;
         int fifties = 0;
         BiljetScreen selector = new BiljetScreen();
         tens = amount / 10;
         selector.setLabel1(tens.ToString());
-        if(tens > 9) { option1 = tens.ToString() + ",00,00*"; }
+        if (tens > 9) { option1 = tens.ToString() + ",00,00*"; }
         else { option1 = "0" + tens.ToString() + ",00,00*"; }
-        if(amount % 20 == 0)
+        if (amount % 20 == 0)
         {
             twenties = (amount / 20);
             tens = 0;
@@ -657,7 +666,7 @@ public class Executer
             option2 = generateCommand(tens, twenties, fifties);
         }
         selector.setLabel2(tens.ToString(), twenties.ToString());
-        if(amount >= 50 && amount % 50 == 0)
+        if (amount >= 50 && amount % 50 == 0)
         {
             tens = 0;
             twenties = 0;
@@ -665,33 +674,37 @@ public class Executer
             option3 = generateCommand(tens, twenties, fifties);
             selector.label4.Visible = false;
         }
-        else if(amount > 60)
+        else if (amount >= 60)
         {
             tens = (amount % 50) / 10;
             twenties = 0;
             fifties = (amount - (amount % 50)) / 50;
             selector.setLabel3(tens.ToString(), fifties.ToString());
             option3 = generateCommand(tens, twenties, fifties);
-            if(((amount%50)%20) == 0)
+            if (((amount % 50) % 20) == 0)
             {
                 twenties = ((amount % 50) % 20) / 20;
                 tens = 0;
             }
-            else if(amount % 50 == 30)
+            else if (amount % 50 == 30)
             {
                 twenties = 1;
                 tens = 1;
+                selector.setLabel4(tens.ToString(), twenties.ToString(), fifties.ToString());
             }
             option4 = generateCommand(tens, twenties, fifties);
-            selector.setLabel4(tens.ToString(), twenties.ToString(), fifties.ToString());
         }
         selector.Show();
+        Boolean validInput = false;
         int selection = 0;
-        while(selection == 0)
+        while (validInput == false)
         {
             selection = arduino.getChoice();
+            if (selection == 3 && !(option3.Equals("invalid"))) { validInput = true; }
+            else if (selection == 4 && !(option4.Equals("invalid"))) { validInput = true; }
+            else if (selection != 0) { validInput = true; }
         }
-        switch(selection)
+        switch (selection)
         {
             case 1:
                 choice = option1;
@@ -702,11 +715,12 @@ public class Executer
             case 3:
                 choice = option3;
                 break;
-            case 4:
+            case 5:
                 choice = option4;
                 break;
         }
         selector.Hide();
+        Error.show(choice);
         return choice;
     }
 
@@ -716,10 +730,10 @@ public class Executer
         String strTwenties = ",00";
         String strFifties = ",00";
 
-        if(tens < 10 && tens > 0) { strTens = "0" + tens.ToString(); }
-        if(twenties < 10 && twenties > 0) { strTwenties = ",0" + twenties.ToString(); }
-        if(fifties < 10 && fifties > 0) { strFifties = ",0" + fifties.ToString(); }
-        return strTens + strTwenties + strFifties + "*";
+        if (tens < 10 && tens > 0) { strTens = "0" + tens.ToString(); }
+        if (twenties < 10 && twenties > 0) { strTwenties = ",0" + twenties.ToString(); }
+        if (fifties < 10 && fifties > 0) { strFifties = ",0" + fifties.ToString(); }
+        return strTens + strTwenties + strFifties + ",*";
     }
 
     private void checkSaldo()
@@ -747,10 +761,15 @@ public class Executer
 
     private void quickPin()
     {
-        Klant tmp = downloadConnection.getKlant(userName);
-        String printnaam = String.Concat(tmp.Naam + " " + tmp.Achternaam);
-        Printer bonPrinter = new Printer(printnaam, 70, rekeningID);
-        bonPrinter.printTicket();
+        int amount = 70;
+        if (amount > saldo && amount != 0)
+        {
+            PinError pinError = new PinError();
+            cancelled = true;
+        }
+        uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+        uploadConnection.transaction(pasID, rekeningID, amount);
+        if (cancelled == false) { arduino.dispenseMoney("02,00,01*"); }
         ByeScreen quickBye = new ByeScreen();
         endOfSession = true;
         quickBye.Hide();
