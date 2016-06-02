@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
+using System.Collections.Generic;
+using System.Net.Mail;
+
 
 namespace Final_Application
 {
@@ -906,3 +909,27 @@ public class Hash
 
     }
 }
+ public class Email
+  {
+  
+      public void SendEmail()
+      {
+          MailMessage mail = new MailMessage();
+          SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+          mail.From = new MailAddress("saltysolutionsbank@gmail.com");
+          mail.To.Add("rowalski_wever@hotmail.com");
+          mail.Subject = "Test Mail - 1";
+        mail.Body = "kijk attachment voor jouw bon!";
+  
+          System.Net.Mail.Attachment attachment;
+          attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
+          mail.Attachments.Add(attachment);
+  
+          SmtpServer.Port = 587;
+          SmtpServer.Credentials = new System.Net.NetworkCredential("saltysolutionsbank@gmail.com", "saltysalt");
+          SmtpServer.EnableSsl = true;
+ 
+         SmtpServer.Send(mail);
+      }
+  
+   }
