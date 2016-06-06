@@ -914,16 +914,19 @@ public class Hash
   
       public void SendEmail()
       {
+          DateTime dt = DateTime.Now;
+          String strDate = "";
+          strDate = dt.ToString("dddd, dd MMMM yyyy HH:mm:ss");
           MailMessage mail = new MailMessage();
           SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
           mail.From = new MailAddress("saltysolutionsbank@gmail.com");
           mail.To.Add("rowalski_wever@hotmail.com");
-          mail.Subject = "Test Mail - 1";
-        mail.Body = "kijk attachment voor jouw bon!";
+          mail.Subject = "TransactieBon: "+strDate;
+          mail.Body = "kijk attachment voor jouw bon!";
   
-          System.Net.Mail.Attachment attachment;
-          attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
-          mail.Attachments.Add(attachment);
+          //System.Net.Mail.Attachment attachment;
+          //attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
+          //mail.Attachments.Add(attachment);
   
           SmtpServer.Port = 587;
           SmtpServer.Credentials = new System.Net.NetworkCredential("saltysolutionsbank@gmail.com", "saltysalt");
