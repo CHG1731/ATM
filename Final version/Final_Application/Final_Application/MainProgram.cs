@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace Final_Application
 {
@@ -1016,4 +1018,55 @@ public class Hash
     {
 
     }
+}
+
+public class Email
+{
+
+    private String userName;
+    private String rekeningNr;
+    private double amount;
+
+    public Email(String s, double b, String r)
+    {
+        this.userName = s;
+        this.amount = b;
+        this.rekeningNr = r;
+        //dddddd
+    }
+
+    public void sendEmail()
+    {
+        DateTime dt = DateTime.Now;
+        String strDate = "";
+        strDate = dt.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+        MailMessage mail = new MailMessage();
+        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+        mail.From = new MailAddress("saltysolutionsbank@gmail.com");
+        mail.To.Add("rowalski_wever@hotmail.com");
+        mail.Subject = "TransactieBon: " + strDate;
+        //mail.Body = "Geachte Meneer/Mevrouw: "+userName+ "\nOpname van: "+amount+"\nRekeningnummer: "+rekeningNr;
+        mail.AlternateViews.Add(getEmbeddedImage(@"C:\Users\Rowalski\Dropbox\Project blok 3\indexlogo.png"));
+
+        //System.Net.Mail.Attachment attachment;
+        //attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
+        //mail.Attachments.Add(attachment);
+
+        SmtpServer.Port = 587;
+        SmtpServer.Credentials = new System.Net.NetworkCredential("saltysolutionsbank@gmail.com", "saltysalt");
+        SmtpServer.EnableSsl = true;
+
+        SmtpServer.Send(mail);
+    }
+    private AlternateView getEmbeddedImage(String filePath)
+    {
+        LinkedResource inline = new LinkedResource(filePath);
+        inline.ContentId = Guid.NewGuid().ToString();
+        string htmlBody = "Geachte Heer/Mevrouw " + userName + "<br>Opname van: " + amount + "<br>Rekeningnummer: " + rekeningNr + "<br>" + "<br>" + "<br>" + "<br>" + "Bedankt voor uw transactie" + "<br>" + "<br>" + "Met vriendelijke groet," + "<br>" + "Salty Solutions Bank" + "<br>" + @"<img src='cid:" + inline.ContentId + @"'/>";
+        AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+        alternateView.LinkedResources.Add(inline);
+        return alternateView;
+
+    }
+
 }
