@@ -26,6 +26,7 @@ namespace Final_Application
         }
     }
 }
+
 public class Start
 {
     public void run()
@@ -454,7 +455,7 @@ public class ArduinoData
         SerialPort een = new SerialPort();
         een.BaudRate = 9600;
         een.PortName = "COM11";
-        een.Open();
+        //een.Open();
         return een;
     }
     public static SerialPort maakpoorttwee()
@@ -501,20 +502,23 @@ public class Executer
     private HTTPget downloadConnection = new HTTPget();
     private HTTPpost uploadConnection = new HTTPpost();
     private Rekening rekening;
+    private Stock stock;
     Boolean cancelled = false;
     private Boolean endOfSession = true;
     private double saldo;
     Pinscherm pinsherm = new Pinscherm();
     TicketScreen asker = new TicketScreen();
 
-    public Executer(String r, String u, ArduinoData a, String p)
+    public Executer(String r, String u, ArduinoData a, String p, Stock s)
     {
         this.rekeningID = r;
         this.userName = u;
         this.arduino = a;
         this.pasID = p;
-        this.rekening = downloadConnection.getRekening(rekeningID);
-        this.saldo = rekening.Balans;
+        //this.rekening = downloadConnection.getRekening(rekeningID);
+        //this.saldo = rekening.Balans;
+        this.saldo = 10000;
+        this.stock = s;
     }
 
     public Boolean getEndOfSession()
@@ -597,14 +601,19 @@ public class Executer
             {
                 break;
             }
-            else
+            if(amount == 10) { dispenserCommand = "01,00,00,*"; }
+            else if(amount > 10)
             {
-                uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
-                uploadConnection.transaction(pasID, rekeningID, amount);
-                //Error.show(amount.ToString());
+                dispenserCommand = biljetSelection(amount);
+                if (dispenserCommand.Equals("00,00,00,*"))
+                {
+                    break;
+                }
             }
-            if (amount > 10) { dispenserCommand = biljetSelection(amount); }
-            else { dispenserCommand = "01,00,00*"; }
+            else { dispenserCommand = "01,00,00,*"; }
+            //uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+            //uploadConnection.transaction(pasID, rekeningID, amount);
+            //Error.show(amount.ToString());
             asker.Show();
             while (true)
             {
@@ -617,12 +626,19 @@ public class Executer
                 }
                 else if (input.Contains("#"))
                 {
-                    //Error.show("Geen Bon", "bon");
+                    goBack = false;
+                    break;
+                }
+                else if (input.Contains("A"))
+                {
+                    Email mailer = new Email(userName, amount, rekeningID);
+                    mailer.sendEmail();
                     goBack = false;
                     break;
                 }
             }
             asker.Hide();
+            stock.substractBiljets(dispenserCommand);
             arduino.dispenseMoney(dispenserCommand);
             if (printTicket == true)
             {
@@ -640,47 +656,64 @@ public class Executer
 
     private String biljetSelection(int amount)
     {
-        String choice = "00,00,00*";
-        String option1;
-        String option2;
+        String choice = "00,00,00,*";
+        String option1 = "invalid";
+        String option2 = "invalid";
         String option3 = "invalid";
-        String option4 = "invalid*";
+        String option4 = "invalid";
+        Boolean validInput = false;
+        int selection = 0;
         int tens = 0;
         int twenties = 0;
         int fifties = 0;
         BiljetScreen selector = new BiljetScreen();
         tens = amount / 10;
-        selector.setLabel1(tens.ToString());
-        if (tens > 9) { option1 = tens.ToString() + ",00,00*"; }
-        else { option1 = "0" + tens.ToString() + ",00,00*"; }
+        if (stock.checkIfAvailable(tens, twenties, fifties))
+        {
+            selector.setLabel1(tens.ToString());
+            if (tens > 9) { option1 = tens.ToString() + ",00,00,*"; }
+            else { option1 = "0" + tens.ToString() + ",00,00,*"; }
+        }
         if (amount % 20 == 0)
         {
             twenties = (amount / 20);
             tens = 0;
+            fifties = 0;
             option2 = generateCommand(tens, twenties, fifties);
         }
         else
         {
             twenties = (amount - (amount % 20)) / 20;
             tens = 1;
+            fifties = 0;
             option2 = generateCommand(tens, twenties, fifties);
         }
-        selector.setLabel2(tens.ToString(), twenties.ToString());
+        if(!(option2.Equals("invalid")))
+        {
+            selector.setLabel2(tens.ToString(), twenties.ToString());
+        }
         if (amount >= 50 && amount % 50 == 0)
         {
             tens = 0;
             twenties = 0;
             fifties = amount / 50;
             option3 = generateCommand(tens, twenties, fifties);
-            selector.label4.Visible = false;
+            if (!(option3.Equals("invalid")))
+            {
+                selector.setLabel3(tens.ToString(), fifties.ToString());
+            }
+            //selector.label4.Visible = false;
         }
         else if (amount >= 60)
         {
             tens = (amount % 50) / 10;
             twenties = 0;
             fifties = (amount - (amount % 50)) / 50;
-            selector.setLabel3(tens.ToString(), fifties.ToString());
             option3 = generateCommand(tens, twenties, fifties);
+            if (!(option3.Equals("invalid")))
+            {
+                selector.setLabel3(tens.ToString(), fifties.ToString());
+            }
             if (((amount % 50) % 20) == 0)
             {
                 twenties = ((amount % 50) % 20) / 20;
@@ -690,37 +723,47 @@ public class Executer
             {
                 twenties = 1;
                 tens = 1;
-                selector.setLabel4(tens.ToString(), twenties.ToString(), fifties.ToString());
             }
             option4 = generateCommand(tens, twenties, fifties);
+            if (!(option4.Equals("invalid")))
+            {
+                selector.setLabel4(tens.ToString(), twenties.ToString(), fifties.ToString());
+            }
         }
         selector.Show();
-        Boolean validInput = false;
-        int selection = 0;
-        while (validInput == false)
+        if (option1.Equals("invalid") && option2.Equals("invalid") && option3.Equals("invalid") && option4.Equals("invalid"))
         {
-            selection = arduino.getChoice();
-            if (selection == 3 && !(option3.Equals("invalid"))) { validInput = true; }
-            else if (selection == 4 && !(option4.Equals("invalid"))) { validInput = true; }
-            else if (selection != 0) { validInput = true; }
+            selector.showInsufficient();
         }
-        switch (selection)
+        else
         {
-            case 1:
-                choice = option1;
-                break;
-            case 2:
-                choice = option2;
-                break;
-            case 3:
-                choice = option3;
-                break;
-            case 5:
-                choice = option4;
-                break;
+            Error.show(option1 + " " + option2 + " " + option3 + "" + option4);
+            while (validInput == false)
+            {
+                selection = arduino.getChoice();
+                if (selection == 1 && !(option1.Equals("invalid"))) { validInput = true; }
+                else if (selection == 2 && !(option1.Equals("invalid"))) { validInput = true; }
+                else if (selection == 3 && !(option3.Equals("invalid"))) { validInput = true; }
+                else if (selection == 5 && !(option4.Equals("invalid"))) { validInput = true; }
+            }
+            switch (selection)
+            {
+                case 1:
+                    choice = option1;
+                    break;
+                case 2:
+                    choice = option2;
+                    break;
+                case 3:
+                    choice = option3;
+                    break;
+                case 5:
+                    choice = option4;
+                    break;
+            }
         }
         selector.Hide();
-        Error.show(choice);
+        //Error.show(choice);
         return choice;
     }
 
@@ -729,11 +772,20 @@ public class Executer
         String strTens = "00";
         String strTwenties = ",00";
         String strFifties = ",00";
+        String command = "";
 
         if (tens < 10 && tens > 0) { strTens = "0" + tens.ToString(); }
         if (twenties < 10 && twenties > 0) { strTwenties = ",0" + twenties.ToString(); }
         if (fifties < 10 && fifties > 0) { strFifties = ",0" + fifties.ToString(); }
-        return strTens + strTwenties + strFifties + ",*";
+        command = strTens + strTwenties + strFifties + ",*";
+        if (stock.checkIfAvailable(tens, twenties, fifties) == true)
+        {
+            return command;
+        }
+        else
+        {
+            return "invalid";
+        }
     }
 
     private void checkSaldo()
@@ -805,6 +857,7 @@ public class Executer
                         }
                         else
                         {
+                            bedragstring = "";
                             selector.clearDisplay();
                             selector.showError();
                             break;
@@ -837,6 +890,64 @@ public class Executer
     }
 }
 
+public class Stock
+{
+    private int tensInStock = 10;
+    private int twentiesInStock = 10;
+    private int fiftiesInStock = 10;
+    Boolean available = false;
+    ArduinoData arduino;
+
+    public Stock(ArduinoData a)
+    {
+        this.arduino = a;
+    }
+
+    public Boolean checkIfAvailable(int tens, int twenties, int fifties)
+    {
+        available = false;
+        if(tensInStock == 0 && twentiesInStock == 0 && fiftiesInStock == 0)
+        {
+            Error.show("Leeg");
+        }
+        if(tens > tensInStock) { return available;}
+        else if(twenties > twentiesInStock){return available;}
+        else if(fifties > fiftiesInStock){ return available; }
+        else
+        {
+            available = true;
+            return available;
+        }
+    }
+
+    public void substractBiljets(String amount)
+    {
+        String[] order = new String[3];
+        order = amount.Split(',', ',', ',');
+        tensInStock -= Int32.Parse(order[0]);
+        twentiesInStock -= Int32.Parse(order[1]);
+        fiftiesInStock -= Int32.Parse(order[2]);
+        Error.show(""+tensInStock +" " + twentiesInStock +" " + fiftiesInStock);
+    }
+
+    public void restock()
+    {
+        StockScreen stockScreen = new StockScreen(this);
+        stockScreen.ShowDialog();
+    }
+
+    public void setBiljets(int tens, int twenties, int fifties)
+    {
+        this.tensInStock += tens;
+        this.twentiesInStock += twenties;
+        this.fiftiesInStock += fifties;
+    }
+
+    public void showStock()
+    {
+        Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
+    }
+}
 
 public class Printer
 {

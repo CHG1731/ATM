@@ -40,7 +40,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(500, 100);
+            this.label1.Location = new System.Drawing.Point(603, 231);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 43);
             this.label1.TabIndex = 5;
@@ -50,7 +50,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(500, 160);
+            this.label2.Location = new System.Drawing.Point(603, 291);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 43);
             this.label2.TabIndex = 5;
@@ -60,7 +60,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(500, 220);
+            this.label3.Location = new System.Drawing.Point(603, 351);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 43);
             this.label3.TabIndex = 5;
@@ -70,7 +70,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(500, 280);
+            this.label4.Location = new System.Drawing.Point(603, 411);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 43);
             this.label4.TabIndex = 5;
@@ -86,6 +86,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BiljetScreen";
             this.Text = "BiljetScreen";

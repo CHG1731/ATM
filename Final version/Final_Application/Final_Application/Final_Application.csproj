@@ -122,6 +122,12 @@
     <Compile Include="SaldoScreen.Designer.cs">
       <DependentUpon>SaldoScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="StockScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockScreen.Designer.cs">
+      <DependentUpon>StockScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="TicketScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SaldoScreen.resx">
       <DependentUpon>SaldoScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockScreen.resx">
+      <DependentUpon>StockScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TicketScreen.resx">
       <DependentUpon>TicketScreen.cs</DependentUpon>

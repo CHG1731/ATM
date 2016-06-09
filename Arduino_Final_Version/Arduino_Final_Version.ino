@@ -4,6 +4,7 @@
 #include <SPI.h>
 #define  RST_PIN 9
 #define SS_PIN 10
+int safePin = 3;
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
 byte nuidPICC[3];
@@ -23,6 +24,8 @@ int timeout = 0;
 bool newcard = false;
 void setup()
 {
+  pinMode(safePin, INPUT);
+  digitalWrite(safePin, LOW);
   Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();        // Init MFRC522 card
@@ -82,9 +85,9 @@ void loop() {
     }
   }
 
-  char key = keypad.getKey();
-  if (key != NO_KEY) {
-    Serial.print(key);
-    Serial.println("KEY");
-  }
+    char key = keypad.getKey();
+    if (key != NO_KEY) {
+      Serial.print(key);
+      Serial.println("KEY");
+    }
 }

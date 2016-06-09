@@ -1,7 +1,10 @@
 int mainPower = 2;
 int dispenser1 = 3;
-int dispenser2 = 5;
-int dispenser3 = 6;
+int dispenser1Rev = 9;
+int dispenser3 = 5;
+int dispenser3Rev = 10;
+int dispenser2 = 6;
+int dispenser2Rev = 11;
 int tens;
 int twenties;
 int fifties;
@@ -11,6 +14,12 @@ void setup() {
   pinMode(dispenser1, OUTPUT);
   pinMode(dispenser2, OUTPUT);
   pinMode(dispenser3, OUTPUT);
+  pinMode(dispenser1Rev, OUTPUT);
+  pinMode(dispenser2Rev, OUTPUT);
+  pinMode(dispenser3Rev, OUTPUT);
+  digitalWrite(dispenser1Rev, LOW);
+  digitalWrite(dispenser2Rev, LOW);
+  digitalWrite(dispenser3Rev, LOW);
   Serial.begin(9600);
 }
 
@@ -67,7 +76,17 @@ void dispense()
     {
       digitalWrite(dispenser3, LOW);
     }
-    delay(1500);
+    delay(1600);
+    digitalWrite(dispenser1, LOW);
+    digitalWrite(dispenser1Rev, HIGH);
+    digitalWrite(dispenser2, LOW);
+    digitalWrite(dispenser2Rev, HIGH);
+    digitalWrite(dispenser3, LOW);
+    digitalWrite(dispenser3Rev, HIGH);
+    delay(800);
+    digitalWrite(dispenser1Rev, LOW);
+    digitalWrite(dispenser2Rev, LOW);
+    digitalWrite(dispenser3Rev, LOW);
   }
 }
 

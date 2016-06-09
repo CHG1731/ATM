@@ -41,6 +41,7 @@ namespace Final_Application
                 Error.show("No port selected", "Error");
             }
         }
+
         public class Error
         {
             public static void show(String s, String x)

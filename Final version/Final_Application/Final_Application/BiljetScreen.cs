@@ -51,5 +51,21 @@ namespace Final_Apllication
             }
             label4.Text = "D: " + substring + twenties + " x 20   " + fifties + "x 50";
         }
+
+        public void showInsufficient()
+        {
+            label3.Text = "Bedrag kan niet gepint worden,";
+            label4.Text = "er zijn onvoldonede biljetten op vooraad.";
+            this.Show();
+            this.Refresh();
+            sleepnow().Wait();
+            this.Close();
+        }
+
+        async Task sleepnow()
+        {
+            //its all ogre now
+            System.Threading.Thread.Sleep(5000);
+        }
     }
 }

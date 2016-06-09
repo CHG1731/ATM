@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicketScreen));
             this.pinButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pinButton
@@ -38,9 +39,9 @@
             this.pinButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pinButton.BackColor = System.Drawing.Color.DarkGreen;
             this.pinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pinButton.Location = new System.Drawing.Point(136, 503);
+            this.pinButton.Location = new System.Drawing.Point(101, 503);
             this.pinButton.Name = "pinButton";
-            this.pinButton.Size = new System.Drawing.Size(389, 44);
+            this.pinButton.Size = new System.Drawing.Size(315, 44);
             this.pinButton.TabIndex = 1;
             this.pinButton.Text = "✔ - Ja";
             this.pinButton.UseVisualStyleBackColor = false;
@@ -51,12 +52,24 @@
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.Color.Red;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(713, 503);
+            this.button1.Location = new System.Drawing.Point(465, 503);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(389, 44);
+            this.button1.Size = new System.Drawing.Size(315, 44);
             this.button1.TabIndex = 2;
             this.button1.Text = " X - Nee";
             this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.BackColor = System.Drawing.Color.Teal;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(837, 503);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(315, 44);
+            this.button3.TabIndex = 3;
+            this.button3.Text = " A - Per e-mail";
+            this.button3.UseVisualStyleBackColor = false;
             // 
             // TicketScreen
             // 
@@ -65,6 +78,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1386, 788);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pinButton);
             this.Cursor = System.Windows.Forms.Cursors.No;
@@ -81,5 +95,6 @@
 
         private System.Windows.Forms.Button pinButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
     }
 }

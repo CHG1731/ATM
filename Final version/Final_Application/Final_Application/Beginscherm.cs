@@ -25,6 +25,7 @@ namespace Final_Apllication
             PinInvoer pinInvoer = new PinInvoer();
             Hoofdmenu hoofdmenu = new Hoofdmenu();
             ArduinoData arduino = new ArduinoData();
+            Stock stock = new Stock(arduino);
             Hash security = new Hash();
             Executer executer;
             Boolean reset = false;
@@ -35,6 +36,13 @@ namespace Final_Apllication
 
             //try
             //{
+            executer = new Executer("hoi", "doei", arduino, "Koekje", stock);
+            while (true)
+            {
+                stock.restock();
+                stock.showStock();
+                //executer.executeChoice(1);
+            }
             while (true) ///Infinite loop so that the program returns here after every cancelation.
             {
                 while (true)
@@ -59,6 +67,10 @@ namespace Final_Apllication
                             pasID = pasInformation[0];
                             Error.show(httpget.getActiefStand(pasInformation[0]).ToString());
                             break;
+                        }
+                        else if(s.Contains("open"))
+                        {
+                            stock.restock();
                         }
                     }
                     if (!httpget.getActiefStand(pasID))
@@ -109,7 +121,6 @@ namespace Final_Apllication
                             pinInvoer.pictureBox2.Visible = false;
                             break;
                         }
-                        /*
                         if (security.checkHash(rekeningID, pincode) == false)
                         {
                             pinInvoer.falsepininfo.Visible = true;
@@ -120,7 +131,7 @@ namespace Final_Apllication
                                 pinInvoer.Close();
                             }
                         }
-                        */
+                        
                         else
                         {
                             httppost.resetfalsepin(pasID);
@@ -133,7 +144,7 @@ namespace Final_Apllication
                         break;
                     }
                     hoofdmenu.Show();
-                    executer = new Executer(rekeningID, KlantID, arduino, pasID);
+                    executer = new Executer(rekeningID, KlantID, arduino, pasID, stock);
                     while (true)
                     {
                         int choice = arduino.getChoice();

@@ -44,7 +44,7 @@
             this.inputDisplay.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.inputDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputDisplay.Font = new System.Drawing.Font("Arial Rounded MT Bold", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputDisplay.Location = new System.Drawing.Point(592, 235);
+            this.inputDisplay.Location = new System.Drawing.Point(594, 266);
             this.inputDisplay.Name = "inputDisplay";
             this.inputDisplay.Size = new System.Drawing.Size(214, 50);
             this.inputDisplay.TabIndex = 1;
