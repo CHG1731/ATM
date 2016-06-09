@@ -141,7 +141,7 @@ public class HTTPget
     {
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
+            client.BaseAddress = new Uri("https://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //GET THE KLANT ID
@@ -407,7 +407,7 @@ public class Klant
     public int KlantID { get; set; }
     public string Naam { get; set; }
     public string Achternaam { get; set; }
-    public String Postcode { get; set; }
+    //public String Postcode { get; set; }
     public String getNaam()
     {
         return Naam;
@@ -427,7 +427,7 @@ public class Rekening
     [Key]
     public int RekeningID { get; set; }
     public double Balans { get; set; }
-    public int RekeningType { get; set; }
+   // public int RekeningType { get; set; }
     public String Hash { get; set; }
 }
 public class Transactie
