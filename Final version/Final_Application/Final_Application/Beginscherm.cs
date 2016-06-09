@@ -27,7 +27,7 @@ namespace Final_Apllication
             ArduinoData arduino = new ArduinoData();
             Stock stock = new Stock(arduino);
             Hash security = new Hash();
-            Executer executer;
+            TransactionManager transactionManager;
             Boolean reset = false;
             Boolean pinCorrect;
             String[] pasInformation;
@@ -36,12 +36,10 @@ namespace Final_Apllication
 
             //try
             //{
-            executer = new Executer("hoi", "doei", arduino, "Koekje", stock);
+            transactionManager = new TransactionManager("hoi", "doei", arduino, "Koekje", stock);
             while (true)
             {
-                stock.restock();
-                stock.showStock();
-                //executer.executeChoice(1);
+                transactionManager.executeChoice(1);
             }
             while (true) ///Infinite loop so that the program returns here after every cancelation.
             {
@@ -50,7 +48,7 @@ namespace Final_Apllication
                     pinCorrect = false;
                     pasInformation = new String[4];
                     reset = false;
-                    executer = null;
+                    transactionManager = null;
                     String KlantID;
                     String rekeningID;
                     String pasID;
@@ -144,14 +142,14 @@ namespace Final_Apllication
                         break;
                     }
                     hoofdmenu.Show();
-                    executer = new Executer(rekeningID, KlantID, arduino, pasID, stock);
+                    transactionManager = new TransactionManager(rekeningID, KlantID, arduino, pasID, stock);
                     while (true)
                     {
                         int choice = arduino.getChoice();
                         if (choice != 0)
                         {
-                            executer.executeChoice(choice);
-                            if (executer.getEndOfSession() == true)
+                            transactionManager.executeChoice(choice);
+                            if (transactionManager.getEndOfSession() == true)
                             {
                                 hoofdmenu.Hide();
                                 break;

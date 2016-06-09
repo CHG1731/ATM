@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace Final_Application
 {
@@ -455,7 +457,7 @@ public class ArduinoData
         SerialPort een = new SerialPort();
         een.BaudRate = 9600;
         een.PortName = "COM11";
-        //een.Open();
+        een.Open();
         return een;
     }
     public static SerialPort maakpoorttwee()
@@ -493,7 +495,7 @@ public class ArduinoData
     }
 }
 
-public class Executer
+public class TransactionManager
 {
     private String rekeningID;
     private String userName;
@@ -509,7 +511,7 @@ public class Executer
     Pinscherm pinsherm = new Pinscherm();
     TicketScreen asker = new TicketScreen();
 
-    public Executer(String r, String u, ArduinoData a, String p, Stock s)
+    public TransactionManager(String r, String u, ArduinoData a, String p, Stock s)
     {
         this.rekeningID = r;
         this.userName = u;
@@ -702,7 +704,6 @@ public class Executer
             {
                 selector.setLabel3(tens.ToString(), fifties.ToString());
             }
-            //selector.label4.Visible = false;
         }
         else if (amount >= 60)
         {
@@ -742,7 +743,7 @@ public class Executer
             {
                 selection = arduino.getChoice();
                 if (selection == 1 && !(option1.Equals("invalid"))) { validInput = true; }
-                else if (selection == 2 && !(option1.Equals("invalid"))) { validInput = true; }
+                else if (selection == 2 && !(option2.Equals("invalid"))) { validInput = true; }
                 else if (selection == 3 && !(option3.Equals("invalid"))) { validInput = true; }
                 else if (selection == 5 && !(option4.Equals("invalid"))) { validInput = true; }
             }
@@ -1015,5 +1016,54 @@ public class Hash
     public void blockCard(String PasID)
     {
 
+    }
+}
+
+public class Email
+{
+
+    private String userName;
+    private String rekeningNr;
+    private double amount;
+
+    public Email(String s, double b, String r)
+    {
+        this.userName = s;
+        this.amount = b;
+        this.rekeningNr = r;
+        //dddddd
+    }
+
+    public void sendEmail()
+    {
+        DateTime dt = DateTime.Now;
+        String strDate = "";
+        strDate = dt.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+        MailMessage mail = new MailMessage();
+        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+        mail.From = new MailAddress("saltysolutionsbank@gmail.com");
+        mail.To.Add("rowalski_wever@hotmail.com");
+        mail.Subject = "TransactieBon: " + strDate;
+        //mail.Body = "Geachte Meneer/Mevrouw: "+userName+ "\nOpname van: "+amount+"\nRekeningnummer: "+rekeningNr;
+        mail.AlternateViews.Add(getEmbeddedImage(@"C:\Users\User\Downloads\indexlogo.png"));
+
+        //System.Net.Mail.Attachment attachment;
+        //attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
+        //mail.Attachments.Add(attachment);
+
+        SmtpServer.Port = 587;
+        SmtpServer.Credentials = new System.Net.NetworkCredential("saltysolutionsbank@gmail.com", "saltysalt");
+        SmtpServer.EnableSsl = true;
+
+        SmtpServer.Send(mail);
+    }
+    private AlternateView getEmbeddedImage(String filePath)
+    {
+        LinkedResource inline = new LinkedResource(filePath);
+        inline.ContentId = Guid.NewGuid().ToString();
+        string htmlBody = "Geachte Heer/Mevrouw " + userName + "<br>Opname van: " + amount + "€<br>Rekeningnummer: " + rekeningNr + "<br>" + "<br>" + "<br>" + "<br>" + "Bedankt voor uw transactie" + "<br>" + "<br>" + "Met vriendelijke groet," + "<br>" + "Salty Solutions Bank" + "<br>" + @"<img src='cid:" + inline.ContentId + @"'/>";
+        AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+        alternateView.LinkedResources.Add(inline);
+        return alternateView;
     }
 }
