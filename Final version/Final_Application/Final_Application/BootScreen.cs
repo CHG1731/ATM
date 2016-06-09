@@ -131,9 +131,15 @@ namespace Final_Application
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Email tmp = new Email("RYUU GA WAGA TEKI WO KURAU!!! ( ͡° ͜ʖ ͡°)", 200, "(づó‿‿ò)づ");
+            tmp.sendEmail();
+            textBox1.Text = "sent";
+
+            /*
             Hash tmp = new Hash();
             String s = tmp.makeHash(123456, 1234);
             textBox1.Text = s;
+            */
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
