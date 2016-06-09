@@ -141,7 +141,7 @@ public class HTTPget
     {
         using (var client = new HttpClient())
         {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
+            client.BaseAddress = new Uri("https://hrsqlapp.tk/WebApp/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //GET THE KLANT ID
@@ -149,7 +149,7 @@ public class HTTPget
             if (response.IsSuccessStatusCode)
             {
                 Pas tmppas = await response.Content.ReadAsAsync<Pas>();
-                String result = tmppas.KlantID.ToString();
+                String result = tmppas.klantID.ToString();
                 return result;
             }
             else
@@ -281,7 +281,7 @@ public class HTTPget
 
 public class HTTPpost
 {
-    public void transaction(String PasID, String RekeningID, double Balans)
+    public void transaction(String PasID, String RekeningID, int Balans)
     {
         Transactie(PasID, RekeningID, Balans).Wait();
     }
@@ -307,11 +307,11 @@ public class HTTPpost
             incrementFalsePin(PasID, uploaddata, nrfalsepin).Wait();
         }
     }
-    public void UpdateBalans(int RekeningID, double balans)
+    public void UpdateBalans(int RekeningID, int balans)
     {
         NieuwBalans(RekeningID, balans).Wait();
     }
-    static async Task Transactie(String PasID, String RekeningID, double balans)
+    static async Task Transactie(String PasID, String RekeningID, int balans)
     {
         int RekeningIDint;
         Int32.TryParse(RekeningID, out RekeningIDint);
@@ -321,7 +321,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            var trans = new Transactie() { Balans = balans, PasID = PasID, RekeningID = RekeningIDint, AtmID = "HRO" };
+            var trans = new Transactie() { Balans = balans, PasID = Int32.Parse(PasID), RekeningID = RekeningIDint.ToString(), AtmID = "HRO" };
             HttpResponseMessage response = await client.PostAsJsonAsync("api/transacties", trans).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -333,7 +333,7 @@ public class HTTPpost
             }
         }
     }
-    static async Task NieuwBalans(int RekeningID, double balans)
+    static async Task NieuwBalans(int RekeningID, int balans)
     {
         String location = string.Concat("api/rekenings/", RekeningID.ToString());
         using (var client = new HttpClient())
@@ -365,7 +365,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -386,7 +386,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { Actief = 0, FalsePin = data.FalsePin, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            Pas incrementFalsePin = new Pas() { Actief = 0, FalsePin = data.FalsePin, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -403,40 +403,38 @@ public class HTTPpost
 public class Klant
 {
 
-    public string Adres { get; set; }
     public int KlantID { get; set; }
-    public string Naam { get; set; }
-    public string Achternaam { get; set; }
-    public String Postcode { get; set; }
+    public string voornaam { get; set; }
+    public string achternaam { get; set; }
+    public string email { get; set; }
     public String getNaam()
     {
-        return Naam;
+        return voornaam;
     }
 }
 public class Pas
 {
-    public String PasID { get; set; }
-    public int RekeningID { get; set; }
-    public int KlantID { get; set; }
+    public int pasID { get; set; }
+    public string rekeningID { get; set; }
+    public int klantID { get; set; }
     public int Actief { get; set; }
     public int FalsePin { get; set; }
-
 }
 public class Rekening
 {
     [Key]
-    public int RekeningID { get; set; }
-    public double Balans { get; set; }
-    public int RekeningType { get; set; }
+    public string RekeningID { get; set; }
+    public int Balans { get; set; }
+   // public int RekeningType { get; set; }
     public String Hash { get; set; }
 }
 public class Transactie
 {
     [Key]
     public int TransactieID { get; set; }
-    public int RekeningID { get; set; }
-    public double Balans { get; set; }
-    public String PasID { get; set; }
+    public string RekeningID { get; set; }
+    public int Balans { get; set; }
+    public int PasID { get; set; }
     public String AtmID { get; set; }
 }
 public class ArduinoData
@@ -602,7 +600,9 @@ public class Executer
             }
             else
             {
-                uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+                double newsaldo = saldo - amount;
+                int newnewsaldo = Convert.ToInt32(newsaldo);
+                uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (newnewsaldo));
                 uploadConnection.transaction(pasID, rekeningID, amount);
                 //Error.show(amount.ToString());
             }
@@ -630,7 +630,7 @@ public class Executer
             if (printTicket == true)
             {
                 Klant tmp = downloadConnection.getKlant(userName);
-                String printnaam = String.Concat(tmp.Naam + " " + tmp.Achternaam);
+                String printnaam = String.Concat(tmp.voornaam + " " + tmp.achternaam);
                 Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
                 bonPrinter.printTicket();
             }
@@ -781,7 +781,7 @@ public class Executer
             PinError pinError = new PinError();
             cancelled = true;
         }
-        uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+        uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (Convert.ToInt32(saldo - amount)));
         uploadConnection.transaction(pasID, rekeningID, amount);
         if (cancelled == false) { arduino.dispenseMoney("02,00,01*"); }
         ByeScreen quickBye = new ByeScreen();

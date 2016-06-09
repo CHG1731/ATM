@@ -102,9 +102,9 @@ namespace Final_Application
         {
             HTTPpost test = new HTTPpost();
             int intone = 1;
-            double inttwo = 1;
+            int inttwo = 1;
             Int32.TryParse(textBox1.Text, out intone);
-            Double.TryParse(textBox2.Text, out inttwo);
+            Int32.TryParse(textBox2.Text, out inttwo);
             test.UpdateBalans(intone,inttwo);
         }
 
