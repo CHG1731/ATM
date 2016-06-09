@@ -103,9 +103,9 @@ namespace Final_Application
         {
             HTTPpost test = new HTTPpost();
             int intone = 1;
-            double inttwo = 1;
+            int inttwo = 1;
             Int32.TryParse(textBox1.Text, out intone);
-            Double.TryParse(textBox2.Text, out inttwo);
+            Int32.TryParse(textBox2.Text, out inttwo);
             test.UpdateBalans(intone,inttwo);
         }
 
@@ -132,9 +132,15 @@ namespace Final_Application
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Email tmp = new Email("RYUU GA WAGA TEKI WO KURAU!!! ( ͡° ͜ʖ ͡°)", 200, "(づó‿‿ò)づ");
+            tmp.sendEmail();
+            textBox1.Text = "sent";
+
+            /*
             Hash tmp = new Hash();
             String s = tmp.makeHash(123456, 1234);
             textBox1.Text = s;
+            */
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {
