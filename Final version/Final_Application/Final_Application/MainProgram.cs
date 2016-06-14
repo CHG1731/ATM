@@ -93,43 +93,39 @@ public class HTTPget
 {
     public bool getActiefStand(String pasID)
     {
-        Pas temp = getActiefStandData(pasID).Result;
-        if (temp.actief == 1)
+        Pas tmp = getPasObject(pasID).Result;
+        Boolean result = false;
+        if(tmp.actief == 1)
         {
-            return true;
+            result = true;
         }
-        else
-        {
-            return false;
-        }
+        return result;
     }
 
     public Pas getPinclass(String s)
     {
-        Pas tmp = getPinData(s).Result;
+        Pas tmp = getPasObject(s).Result;
         return tmp;
     }
     public int getFalsePinnr(String s)
     {
-        Pas tmp = getPinData(s).Result;
-        int falsepi = tmp.poging;
-        return falsepi;
+        Pas tmp = getPasObject(s).Result;
+        return tmp.poging;
     }
-    public Klant getKlant(string s)
+    public Klant getKlant(string loc)
     {
-        Klant result = GetKlantData(s).Result;
+        Klant result = getKlantObject(loc).Result;
         return result;
 
     }
     public String getKlantID(string s)
     {
-        String location = String.Concat("/api/pass/", s);
-        return getKlantIDthrougPasID(location).Result;
+        Pas tmp = getPasObject(s).Result;
+        return tmp.klantID;
     }
     public Rekening getRekening(string s)
     {
-        String loc = String.Concat("api/rekenings/", s);
-        Rekening result = getRekeningData(loc).Result;
+        Rekening result = getRekeningObject(s).Result;
         return result;
     }
     public String getHash(String RekeningID)
@@ -286,7 +282,7 @@ public class HTTPget
             client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/klants/",loc)).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)//Als het lukt
             {
                 Klant klant = await response.Content.ReadAsAsync<Klant>();
@@ -306,7 +302,7 @@ public class HTTPget
             client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/pass/", loc)).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)//Als het lukt
             {
                 Pas pas = await response.Content.ReadAsAsync<Pas>();
@@ -326,7 +322,7 @@ public class HTTPget
             client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/rekenings/",loc)).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)//Als het lukt
             {
                 Rekening rekening = await response.Content.ReadAsAsync<Rekening>();
