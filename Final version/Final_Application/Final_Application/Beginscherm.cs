@@ -36,11 +36,6 @@ namespace Final_Apllication
 
             //try
             //{
-            transactionManager = new TransactionManager("hoi", "doei", arduino, "Koekje", stock);
-            while (true)
-            {
-                transactionManager.executeChoice(1);
-            }
             while (true) ///Infinite loop so that the program returns here after every cancelation.
             {
                 while (true)

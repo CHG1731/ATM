@@ -238,15 +238,6 @@
     <None Include="Resources\ee.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Interop.DYMOPrintingSupportLib.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Interop.DYMOBarcodeLib.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stdole.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\email img.bmp" />
   </ItemGroup>
   <ItemGroup>

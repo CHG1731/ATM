@@ -12,7 +12,7 @@ namespace Final_Apllication
 {
     public partial class SaldoScreen : Form
     {
-        public SaldoScreen(double saldo)
+        public SaldoScreen(int saldo)
         {
             InitializeComponent();
             Cursor.Hide();

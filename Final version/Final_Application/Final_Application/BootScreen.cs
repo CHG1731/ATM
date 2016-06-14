@@ -103,8 +103,7 @@ namespace Final_Application
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            HTTPget test = new HTTPget();
-            Error.show("ACTIEF", test.klantdataretrieve());
+
         }
 
         private void label2_Click(object sender, EventArgs e)

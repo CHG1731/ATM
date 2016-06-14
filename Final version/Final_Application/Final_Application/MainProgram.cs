@@ -539,7 +539,7 @@ public class TransactionManager
     private Stock stock;
     Boolean cancelled = false;
     private Boolean endOfSession = true;
-    private double saldo;
+    private int saldo;
     Pinscherm pinsherm = new Pinscherm();
     TicketScreen asker = new TicketScreen();
 
@@ -549,9 +549,8 @@ public class TransactionManager
         this.userName = u;
         this.arduino = a;
         this.pasID = p;
-        //this.rekening = downloadConnection.getRekening(rekeningID);
-        //this.saldo = rekening.Balans;
-        this.saldo = 10000;
+        this.rekening = downloadConnection.getRekening(rekeningID);
+        this.saldo = rekening.balans;
         this.stock = s;
     }
 
@@ -645,9 +644,8 @@ public class TransactionManager
                 }
             }
             else { dispenserCommand = "01,00,00,*"; }
-            //uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
-            //uploadConnection.transaction(pasID, rekeningID, amount);
-            //Error.show(amount.ToString());
+            uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+            uploadConnection.transaction(pasID, rekeningID, amount);
             asker.Show();
             while (true)
             {
