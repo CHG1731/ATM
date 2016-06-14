@@ -71,9 +71,11 @@ namespace Final_Application
             {
                 comboBox1.Items.Add("No ports available");
             }
+            /*
             comboBox1.SelectedItem = ports[0];
             ArduinoClass.makePort(comboBox1.SelectedItem.ToString());
             StartButton.Visible = true;
+            */
 
         }
 
@@ -101,12 +103,8 @@ namespace Final_Application
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            HTTPpost test = new HTTPpost();
-            int intone = 1;
-            int inttwo = 1;
-            Int32.TryParse(textBox1.Text, out intone);
-            Int32.TryParse(textBox2.Text, out inttwo);
-            test.UpdateBalans(intone,inttwo);
+            HTTPget test = new HTTPget();
+            Error.show("ACTIEF", test.klantdataretrieve());
         }
 
         private void label2_Click(object sender, EventArgs e)

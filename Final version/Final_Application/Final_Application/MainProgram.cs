@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using DYMO.Label.Framework;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Net;
 
 namespace Final_Application
 {
@@ -93,7 +94,7 @@ public class HTTPget
     public bool getActiefStand(String pasID)
     {
         Pas temp = getActiefStandData(pasID).Result;
-        if (temp.Actief == 1)
+        if (temp.actief == 1)
         {
             return true;
         }
@@ -111,7 +112,7 @@ public class HTTPget
     public int getFalsePinnr(String s)
     {
         Pas tmp = getPinData(s).Result;
-        int falsepi = tmp.FalsePin;
+        int falsepi = tmp.poging;
         return falsepi;
     }
     public Klant getKlant(string s)
@@ -135,7 +136,7 @@ public class HTTPget
     {
         String loc = String.Concat("/api/rekenings/", RekeningID);
         Rekening result = getRekeningData(loc).Result;
-        return result.Hash;
+        return result.hash;
     }
     static async Task<String> getKlantIDthrougPasID(String s)
     {
@@ -149,7 +150,7 @@ public class HTTPget
             if (response.IsSuccessStatusCode)
             {
                 Pas tmppas = await response.Content.ReadAsAsync<Pas>();
-                String result = tmppas.KlantID.ToString();
+                String result = tmppas.klantID.ToString();
                 return result;
             }
             else
@@ -277,6 +278,46 @@ public class HTTPget
 
         }
     }
+    private async Task<Klant> getKlantObject(string loc)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)//Als het lukt
+            {
+                Klant klant = await response.Content.ReadAsAsync<Klant>();
+                return klant;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+    private async Task<Pas> getPasObject(string loc)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)//Als het lukt
+            {
+                Pas pas = await response.Content.ReadAsAsync<Pas>();
+                return pas;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }
 
 public class HTTPpost
@@ -344,7 +385,7 @@ public class HTTPpost
             //HTTPpost part
             HTTPget tmp = new HTTPget();
             Rekening trans = tmp.getRekening(RekeningID.ToString());
-            trans.Balans = balans;
+            trans.balans = Convert.ToInt32(balans);
             HttpResponseMessage response = await client.PutAsJsonAsync(location, trans).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -365,7 +406,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { Actief = data.Actief, FalsePin = falsepinnr, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            Pas incrementFalsePin = new Pas() { actief = data.actief, poging = falsepinnr, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -386,7 +427,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //HTTPpost part
-            Pas incrementFalsePin = new Pas() { Actief = 0, FalsePin = data.FalsePin, KlantID = data.KlantID, PasID = PasID, RekeningID = data.RekeningID };
+            Pas incrementFalsePin = new Pas() { actief = 0, poging = data.poging, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
             HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -402,33 +443,24 @@ public class HTTPpost
 
 public class Klant
 {
-
-    public string Adres { get; set; }
-    public int KlantID { get; set; }
-    public string Naam { get; set; }
-    public string Achternaam { get; set; }
-    public String Postcode { get; set; }
-    public String getNaam()
-    {
-        return Naam;
-    }
+    public int klantID { get; set; }
+    public string voornaam { get; set; }
+    public string achternaam { get; set; }
+    public string email { get; set; }
 }
 public class Pas
 {
-    public String PasID { get; set; }
-    public int RekeningID { get; set; }
-    public int KlantID { get; set; }
-    public int Actief { get; set; }
-    public int FalsePin { get; set; }
-
+    public int pasID { get; set; }
+    public int poging { get; set; }
+    public int actief { get; set; }
+    public int klantID { get; set; }
+    public string rekeningID { get; set; }
 }
 public class Rekening
 {
-    [Key]
-    public int RekeningID { get; set; }
-    public double Balans { get; set; }
-    public int RekeningType { get; set; }
-    public String Hash { get; set; }
+    public string rekeningID { get; set; }
+    public int balans { get; set; }
+    public string hash { get; set; }
 }
 public class Transactie
 {
@@ -645,7 +677,7 @@ public class TransactionManager
             if (printTicket == true)
             {
                 Klant tmp = downloadConnection.getKlant(userName);
-                String printnaam = String.Concat(tmp.Naam + " " + tmp.Achternaam);
+                String printnaam = String.Concat(tmp.voornaam + " " + tmp.achternaam);
                 Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
                 bonPrinter.printTicket();
             }
