@@ -318,6 +318,26 @@ public class HTTPget
             }
         }
     }
+    private async Task<Rekening> getRekeningObject(string loc)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await client.GetAsync(loc).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)//Als het lukt
+            {
+                Rekening rekening = await response.Content.ReadAsAsync<Rekening>();
+                return rekening;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }
 
 public class HTTPpost
