@@ -235,13 +235,13 @@
     <TypeScriptCompile Include="Scripts\typings\dymo-label-framework\dymo-label-framework.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ee.jpg" />
+    <None Include="obj\Resources\ee.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\email img.bmp" />
+    <None Include="obj\Resources\email img.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\indexlogo.png" />
+    <None Include="obj\Resources\indexlogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

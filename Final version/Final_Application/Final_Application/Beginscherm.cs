@@ -44,7 +44,7 @@ namespace Final_Apllication
                     pasInformation = new String[4];
                     reset = false;
                     transactionManager = null;
-                    String KlantID;
+                    int KlantID;
                     String rekeningID;
                     String pasID;
                     HTTPget httpget = new HTTPget();
@@ -55,7 +55,7 @@ namespace Final_Apllication
                         if (s.Contains(",NEWUID"))
                         {
                             pasInformation = s.Split('\n', '\n', '\n');
-                            KlantID = pasInformation[2];
+                            KlantID = Int32.Parse(pasInformation[2]);
                             rekeningID = pasInformation[1];
                             pasID = pasInformation[0];
                             Error.show(httpget.getActiefStand(pasInformation[0]).ToString());

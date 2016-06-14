@@ -118,7 +118,7 @@ public class HTTPget
         return result;
 
     }
-    public String getKlantID(string s)
+    public int getKlantID(string s)
     {
         Pas tmp = getPasObject(s).Result;
         return tmp.klantID;
@@ -548,6 +548,7 @@ public class TransactionManager
     private String rekeningID;
     private String userName;
     private String pasID;
+    private int klantID;
     private ArduinoData arduino;
     private HTTPget downloadConnection = new HTTPget();
     private HTTPpost uploadConnection = new HTTPpost();
@@ -559,10 +560,11 @@ public class TransactionManager
     Pinscherm pinsherm = new Pinscherm();
     TicketScreen asker = new TicketScreen();
 
-    public TransactionManager(String r, String u, ArduinoData a, String p, Stock s)
+    public TransactionManager(String r, int u, ArduinoData a, String p, Stock s)
     {
         this.rekeningID = r;
-        this.userName = u;
+        this.klantID = u;
+        this.userName = downloadConnection.getKlant(klantID.ToString()).achternaam;
         this.arduino = a;
         this.pasID = p;
         this.rekening = downloadConnection.getRekening(rekeningID);
