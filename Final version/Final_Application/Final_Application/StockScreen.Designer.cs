@@ -32,6 +32,9 @@
             this.twentiesDisplay = new System.Windows.Forms.TextBox();
             this.fiftiesDisplay = new System.Windows.Forms.TextBox();
             this.AcceptButton = new System.Windows.Forms.Button();
+            this.falsepininfo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tensDisplay
@@ -86,11 +89,50 @@
             this.AcceptButton.UseVisualStyleBackColor = true;
             this.AcceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
             // 
+            // falsepininfo
+            // 
+            this.falsepininfo.AutoSize = true;
+            this.falsepininfo.BackColor = System.Drawing.Color.Transparent;
+            this.falsepininfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.falsepininfo.ForeColor = System.Drawing.Color.Black;
+            this.falsepininfo.Location = new System.Drawing.Point(150, 209);
+            this.falsepininfo.Name = "falsepininfo";
+            this.falsepininfo.Size = new System.Drawing.Size(135, 24);
+            this.falsepininfo.TabIndex = 15;
+            this.falsepininfo.Text = "Biljetten van 10";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(438, 209);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 24);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Biljetten van 20";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(737, 209);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(135, 24);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Biljetten van 50";
+            // 
             // StockScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 604);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.falsepininfo);
             this.Controls.Add(this.AcceptButton);
             this.Controls.Add(this.fiftiesDisplay);
             this.Controls.Add(this.twentiesDisplay);
@@ -110,5 +152,8 @@
         private System.Windows.Forms.TextBox twentiesDisplay;
         private System.Windows.Forms.TextBox fiftiesDisplay;
         private System.Windows.Forms.Button AcceptButton;
+        protected internal System.Windows.Forms.Label falsepininfo;
+        protected internal System.Windows.Forms.Label label1;
+        protected internal System.Windows.Forms.Label label2;
     }
 }

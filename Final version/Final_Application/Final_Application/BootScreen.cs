@@ -17,7 +17,7 @@ namespace Final_Application
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             fetchCom();
-            //StartButton.Visible = true;
+            StartButton.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)

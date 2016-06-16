@@ -491,7 +491,6 @@ public class ArduinoData
 {
     //SerialPort startPort = ArduinoClass.getPort();
     SerialPort startPort = maakpoorteen();
-    static String[] comports = System.IO.Ports.SerialPort.GetPortNames();
     SerialPort dispenserPort = maakpoorttwee();
     private String inputString;
 
@@ -504,7 +503,7 @@ public class ArduinoData
     {
         SerialPort een = new SerialPort();
         een.BaudRate = 9600;
-        een.PortName = "COM11";
+        een.PortName = "COM12";
         een.Open();
         return een;
     }
@@ -513,7 +512,7 @@ public class ArduinoData
         SerialPort twee = new SerialPort();
         twee.BaudRate = 9600;
         twee.PortName = "COM4";
-        twee.Open();
+        //twee.Open();
         return twee;
     }
 
@@ -662,6 +661,7 @@ public class TransactionManager
                 }
             }
             else { dispenserCommand = "01,00,00,*"; }
+            if (cancelled == true) { break; }
             uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
             uploadConnection.transaction(pasID, rekeningID, amount);
             asker.Show();
@@ -794,6 +794,11 @@ public class TransactionManager
                 else if (selection == 2 && !(option2.Equals("invalid"))) { validInput = true; }
                 else if (selection == 3 && !(option3.Equals("invalid"))) { validInput = true; }
                 else if (selection == 5 && !(option4.Equals("invalid"))) { validInput = true; }
+                else if (selection == 4)
+                {
+                    cancelled = true;
+                    break;
+                }
             }
             switch (selection)
             {
@@ -870,7 +875,7 @@ public class TransactionManager
         }
         uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
         uploadConnection.transaction(pasID, rekeningID, amount);
-        if (cancelled == false) { arduino.dispenseMoney("02,00,01*"); }
+        if (cancelled == false) { arduino.dispenseMoney("02,00,01,*"); }
         ByeScreen quickBye = new ByeScreen();
         endOfSession = true;
         quickBye.Hide();
@@ -897,7 +902,7 @@ public class TransactionManager
                 }
                 else if (input.Contains("*"))
                 {
-                    if (customBedrag > 0)
+                    if (customBedrag > 0 && customBedrag <= 1000)
                     {
                         if (customBedrag % 10 == 0)
                         {
@@ -908,9 +913,16 @@ public class TransactionManager
                         {
                             bedragstring = "";
                             selector.clearDisplay();
-                            selector.showError();
+                            selector.showError(1);
                             break;
                         }
+                    }
+                    else
+                    {
+                        bedragstring = "";
+                        selector.clearDisplay();
+                        selector.showError(2);
+                        break;
                     }
                 }
                 else if (input.Contains("C"))

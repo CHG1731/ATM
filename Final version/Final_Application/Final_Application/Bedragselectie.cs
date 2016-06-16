@@ -26,9 +26,17 @@ namespace Final_Apllication
         {
             inputDisplay.Text = "";
         }
-        public void showError()
+        public void showError(int errorNr)
         {
-            nope.Visible = true;
+            if (errorNr == 1)
+            {
+                nope.Visible = true;
+            }
+            else
+            {
+                nope.Text = "Bedrag is te hoog.\nBedragen die meer als 1000 euro bedragen kunt u\nAlleen bij een van onze filialen opnemen.";
+                nope.Visible = true;
+            }
         }
 
         private void falsepininfo_Click(object sender, EventArgs e)
