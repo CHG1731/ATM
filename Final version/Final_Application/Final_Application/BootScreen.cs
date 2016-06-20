@@ -125,7 +125,7 @@ namespace Final_Application
         private void button1_Click_3(object sender, EventArgs e)
         {
             Hash x = new Hash();
-            if(x.checkHash("SALT5555","1234"))
+            if(x.checkHash("HLDB0420","1234"))
             {
                 Error.show("EQUALITY!!!","BITCH!");
             }
@@ -139,7 +139,7 @@ namespace Final_Application
         private void button2_Click(object sender, EventArgs e)
         {
             Hash x = new Hash();
-            String s = x.makeHash("SALT5555", "1234");
+            String s = x.makeHash("HLDB0420", "1234");
             textBox2.Text = s;
         }
         private void BootScreen_Load(object sender, EventArgs e)

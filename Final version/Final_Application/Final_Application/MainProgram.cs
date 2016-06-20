@@ -215,14 +215,13 @@ public class HTTPpost
         HTTPget tmp = new HTTPget();
         int nrfalsepin = tmp.getFalsePinnr(PasID);
         nrfalsepin++;
-        if (nrfalsepin >= 3)
-        {
-            BlockPin(PasID).Wait();
-            BlockScreen a = new BlockScreen();
-        }
         if (nrfalsepin < 3)
         {
             setFalsePin(PasID).Wait();
+        }
+        else
+        {
+            blockcard(PasID);
         }
     }
     public void UpdateBalans(string RekeningID, int balans) //UPDATED
@@ -565,7 +564,7 @@ public class TransactionManager
                 }
                 else if (input.Contains("A"))
                 {
-                    Email mailer = new Email(userName, amount, rekeningID);
+                    Email mailer = new Email(userName, amount, rekeningID,klantID);
                     mailer.sendEmail();
                     goBack = false;
                     break;
@@ -576,9 +575,7 @@ public class TransactionManager
             arduino.dispenseMoney(dispenserCommand);
             if (printTicket == true)
             {
-                //&&&ADDDDDDD PLOX
-                String printnaam = String.Concat("Felix","Jochems");
-                Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
+                Printer bonPrinter = new Printer(userName, amount, rekeningID);
                 bonPrinter.printTicket();
             }
             if (goBack == false)
@@ -670,7 +667,7 @@ public class TransactionManager
         }
         else
         {
-            Error.show(option1 + " " + option2 + " " + option3 + "" + option4);
+            //Error.show(option1 + " " + option2 + " " + option3 + "" + option4);
             while (validInput == false)
             {
                 selection = arduino.getChoice();
@@ -872,7 +869,7 @@ public class Stock
         tensInStock -= Int32.Parse(order[0]);
         twentiesInStock -= Int32.Parse(order[1]);
         fiftiesInStock -= Int32.Parse(order[2]);
-        Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
+        //Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
     }
 
     public void restock()
@@ -890,7 +887,7 @@ public class Stock
 
     public void showStock()
     {
-        Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
+        //Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
     }
 }
 
@@ -968,12 +965,16 @@ public class Email
     private String userName;
     private String rekeningNr;
     private double amount;
+    private string email;
 
-    public Email(String s, double b, String r)
+    public Email(String s, double b, String r,int klantid)
     {
         this.userName = s;
         this.amount = b;
         this.rekeningNr = r;
+        HTTPget x = new HTTPget();
+        Klant tmp = x.getKlant(klantid.ToString());
+        email = tmp.email;
     }
 
     public void sendEmail()
@@ -984,15 +985,15 @@ public class Email
         MailMessage mail = new MailMessage();
         SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
         mail.From = new MailAddress("saltysolutionsbank@gmail.com");
-        mail.To.Add("felixos_11@hotmail.com");
+        mail.To.Add(email);
         mail.Subject = "TransactieBon: " + strDate;
-        //mail.Body = "Geachte Meneer/Mevrouw: "+userName+ "\nOpname van: "+amount+"\nRekeningnummer: "+rekeningNr;
-        mail.AlternateViews.Add(getEmbeddedImage(@"C:\Users\User\Downloads\indexlogo.png"));
-
-        //System.Net.Mail.Attachment attachment;
-        //attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
-        //mail.Attachments.Add(attachment);
-
+        mail.Body = "Geachte Meneer/Mevrouw: "+userName+ "\nOpname van: "+amount+"\nRekeningnummer: "+rekeningNr;
+        mail.AlternateViews.Add(getEmbeddedImage(@"C:\DYMO\indexlogo.png"));
+        /*
+        System.Net.Mail.Attachment attachment;
+        attachment = new System.Net.Mail.Attachment(@"C:\Users\Rowalski\Desktop\hi\wallpapers\142e94c38ca95ece.jpg");
+        mail.Attachments.Add(attachment);
+        */
         SmtpServer.Port = 587;
         SmtpServer.Credentials = new System.Net.NetworkCredential("saltysolutionsbank@gmail.com", "saltysalt");
         SmtpServer.EnableSsl = true;

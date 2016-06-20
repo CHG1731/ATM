@@ -26,130 +26,131 @@ namespace Final_Apllication
             Boolean pinCorrect;
             String[] pasInformation;
             bool EE = true;
-            //User user;
-            /*
+            //User user; 
+            /*      
             try
             {
             */
-                while (true) ///Infinite loop so that the program returns here after every cancelation.
+            while (true) ///Infinite loop so that the program returns here after every cancelation.
+            {
+                while (true)
                 {
+                    pinCorrect = false;
+                    pasInformation = new String[4];
+                    reset = false;
+                    transactionManager = null;
+                    int KlantID;
+                    String rekeningID;
+                    String pasID;
+                    HTTPget httpget = new HTTPget();
+                    HTTPpost httppost = new HTTPpost();
                     while (true)
                     {
-                        pinCorrect = false;
-                        pasInformation = new String[4];
-                        reset = false;
-                        transactionManager = null;
-                        int KlantID;
-                        String rekeningID;
-                        String pasID;
-                        HTTPget httpget = new HTTPget();
-                        HTTPpost httppost = new HTTPpost();
-                        while (true)
+                        String s = arduino.getFirstString();
+                        if (s.Contains(",NEWUID"))
                         {
-                            String s = arduino.getFirstString();
-                            if (s.Contains(",NEWUID"))
-                            {
-                                pasInformation = s.Split('\n', '\n', '\n');
-                                KlantID = Int32.Parse(pasInformation[2]);
-                                rekeningID = pasInformation[1];
-                                pasID = pasInformation[0];
-                                break;
-                            }
-                            else if (s.Contains("open"))
-                            {
-                                stock.restock();
-                            }
-                        }
-                        if (!httpget.getActiefStand(pasID))
-                        {
-                            BlockScreen tmp = new BlockScreen();
+                            pasInformation = s.Split('\n', '\n', '\n');
+                            KlantID = Int32.Parse(pasInformation[2]);
+                            rekeningID = pasInformation[1];
+                            pasID = pasInformation[0];
                             break;
                         }
-                        pinInvoer.Show();
-                        while (pinCorrect == false)
+                        else if (s.Contains("open"))
                         {
-                            int insertedDigits = 0;
-                            String pincode = "";
-                            Boolean confirmed = false;
-                            while (confirmed == false) ///Waits for user input until 4 digits have been submitted.
-                            {
-                                String input = arduino.getString();
-                                if (checkInput(input) == true && insertedDigits < 4)
-                                {
-                                    pinInvoer.printStar();
-                                    pinInvoer.falsepininfo.Visible = false;
-                                    insertedDigits++;
-                                    pincode += input.ElementAt(0);
-                                }
-                                else if (input.Contains("#KEY"))
-                                {
-                                    reset = true;
-                                    break;
-                                }
-                                else if (input.Contains("CKEY"))
-                                {
-                                    pinInvoer.clear();
-                                    insertedDigits = 0;
-                                    pincode = "";
-                                }
-                                if (insertedDigits == 4)
-                                {
-                                    if (input.Contains("*")) { confirmed = true; }
-                                }
-                            }
-                            pinInvoer.clear();
-                            if (reset == true) { break; }
-                            if (pincode == "1337" && EE) //Added easter egg
-                            {
-                                pinInvoer.pictureBox2.Visible = true;
-                                pinInvoer.Refresh();
-                                System.Threading.Thread.Sleep(8000);
-                                reset = true;
-                                pinInvoer.pictureBox2.Visible = false;
-                                break;
-                            }
-                            if (security.checkHash(rekeningID, pincode) == false)
-                            {
-                                pinInvoer.falsepininfo.Visible = true;
-                                HTTPpost tmp = new HTTPpost();
-                                tmp.Incrementfalsepin(pasID);
-                                if (!httpget.getActiefStand(pasID))
-                                {
-                                    pinInvoer.Close();
-                                }
-                            }
-
-                            else
-                            {
-                                httppost.resetfalsepin(pasID);
-                                pinCorrect = true;
-                            }
-                        }
-                        pinInvoer.Hide();
-                        if (reset == true)
-                        {
-                            break;
-                        }
-                        hoofdmenu.Show();
-                        transactionManager = new TransactionManager(rekeningID, KlantID, arduino, pasID, stock);
-                        while (true)
-                        {
-                            int choice = arduino.getChoice();
-                            if (choice != 0)
-                            {
-                                transactionManager.executeChoice(choice);
-                                if (transactionManager.getEndOfSession() == true)
-                                {
-                                    hoofdmenu.Hide();
-                                    break;
-                                }
-                            }
-
+                            stock.restock();
                         }
                     }
+                    if (httpget.getActiefStand(pasID) == false)
+                    {
+                        BlockScreen tmp = new BlockScreen();
+                        break;
+                    }
+                    pinInvoer.Show();
+                    while (pinCorrect == false)
+                    {
+                        int insertedDigits = 0;
+                        String pincode = "";
+                        Boolean confirmed = false;
+                        while (confirmed == false) ///Waits for user input until 4 digits have been submitted.
+                        {
+                            String input = arduino.getString();
+                            if (checkInput(input) == true && insertedDigits < 4)
+                            {
+                                pinInvoer.printStar();
+                                pinInvoer.falsepininfo.Visible = false;
+                                insertedDigits++;
+                                pincode += input.ElementAt(0);
+                            }
+                            else if (input.Contains("#KEY"))
+                            {
+                                reset = true;
+                                break;
+                            }
+                            else if (input.Contains("CKEY"))
+                            {
+                                pinInvoer.clear();
+                                insertedDigits = 0;
+                                pincode = "";
+                            }
+                            if (insertedDigits == 4)
+                            {
+                                if (input.Contains("*")) { confirmed = true; }
+                            }
+                        }
+                        pinInvoer.clear();
+                        if (reset == true) { break; }
+                        if (pincode == "1337" && EE) //Added easter egg
+                        {
+                            pinInvoer.pictureBox2.Visible = true;
+                            pinInvoer.Refresh();
+                            System.Threading.Thread.Sleep(8000);
+                            reset = true;
+                            pinInvoer.pictureBox2.Visible = false;
+                            break;
+                        }
+                        if (security.checkHash(rekeningID, pincode) == false)
+                        {
+                            pinInvoer.falsepininfo.Visible = true;
+                            HTTPpost tmp = new HTTPpost();
+                            tmp.Incrementfalsepin(pasID);
+                            HTTPget tmp2 = new HTTPget();
+                            if(tmp2.getPinclass(pasID).poging >=2)
+                            {
+                                reset = true;
+                            }
+
+                        }
+                        else
+                        {
+                            httppost.resetfalsepin(pasID);
+                            pinCorrect = true;
+                        }
+                    }
+                    pinInvoer.Hide();
+                    if (reset == true)
+                    {
+                        break;
+                    }
+                    hoofdmenu.Show();
+                    transactionManager = new TransactionManager(rekeningID, KlantID, arduino, pasID, stock);
+                    while (true)
+                    {
+                        int choice = arduino.getChoice();
+                        if (choice != 0)
+                        {
+                            transactionManager.executeChoice(choice);
+                            if (transactionManager.getEndOfSession() == true)
+                            {
+                                hoofdmenu.Hide();
+                                break;
+                            }
+                        }
+
+                    }
                 }
-                /*
             }
+        }
+        /*
             catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
                 ErrorScreen error = new ErrorScreen();
@@ -164,8 +165,8 @@ namespace Final_Apllication
                 while (true)
                 { } //Loop forever :)
             }
-            */
         }
+        */
 
         private Boolean checkInput(String input)
         {
