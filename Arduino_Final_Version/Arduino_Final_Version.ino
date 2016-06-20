@@ -4,7 +4,7 @@
 #include <SPI.h>
 #define  RST_PIN 9
 #define SS_PIN 10
-int safePin = 4;
+int safePin = 2;
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
 byte nuidPICC[3];
@@ -25,7 +25,6 @@ bool newcard = false;
 void setup()
 {
   pinMode(safePin, INPUT_PULLUP);
-  digitalWrite(safePin, LOW);
   Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();        // Init MFRC522 card
@@ -97,5 +96,6 @@ void loop() {
   else
   {
     Serial.println("open");
+    delay(5000);
   }
 }

@@ -397,7 +397,7 @@ public class ArduinoData
         SerialPort twee = new SerialPort();
         twee.BaudRate = 9600;
         twee.PortName = "COM12";
-        //twee.Open();
+        twee.Open();
         return twee;
     }
 
