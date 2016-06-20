@@ -38,12 +38,17 @@ namespace Final_Apllication
 
         public void setLabel4(String tens, String twenties, String fifties)
         {
-            String substring = "";
+            String substring1 = "";
+            String substring2 = "";
             if (!(tens.Equals("0")))
             {
-                substring = tens + " x 10 ";
+                substring1 = tens + " x 10 ";
             }
-            label4.Text = "D: " + substring + twenties + " x 20   " + fifties + "x 50";
+            if (!(tens.Equals("0")))
+            {
+                substring2 = twenties + " x 20";
+            }
+            label4.Text = "D: " + substring1 + substring2 + fifties + "x 50";
         }
 
         public void showInsufficient()

@@ -483,7 +483,7 @@ public class TransactionManager
         Boolean goBack = true;
         int amount = 0;
         String input;
-        String dispenserCommand;
+        String dispenserCommand = "00,00,00,*";
         cancelled = false;
 
         while (goBack == true)
@@ -525,7 +525,7 @@ public class TransactionManager
                 }
             }
             pinsherm.Hide();
-            if (amount > saldo && amount != 0)
+            if ((amount > saldo && amount != 0) || amount >= 200)
             {
                 PinError pinError = new PinError();
                 cancelled = true;
@@ -534,16 +534,16 @@ public class TransactionManager
             {
                 break;
             }
-            if (amount == 10) { dispenserCommand = "01,00,00,*"; }
+            if (amount == 10 && stock.checkIfAvailable(1, 0 , 0)) { dispenserCommand = "01,00,00,*"; }
             else if (amount > 10)
             {
                 dispenserCommand = biljetSelection(amount);
                 if (dispenserCommand.Equals("00,00,00,*"))
                 {
+                    cancelled = true;
                     break;
                 }
             }
-            else { dispenserCommand = "01,00,00,*"; }
             if (cancelled == true) { break; }
             uploadConnection.UpdateBalans(rekeningID, (saldo - amount*100));
             uploadConnection.transaction(pasID, rekeningID, amount);
