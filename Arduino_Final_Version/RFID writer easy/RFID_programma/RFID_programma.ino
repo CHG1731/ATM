@@ -55,7 +55,7 @@ void setup()
     while (pasgiven)
     {
       PasID = Serial.readString();
-      if (PasID.length() > 3)
+      if (PasID.length() > 2)
       {
         pasgiven = false;
       }
@@ -65,7 +65,7 @@ void setup()
     while (rekeninggiven)
     {
       RekeningNR = Serial.readString();
-      if (RekeningNR.length() > 3)
+      if (RekeningNR.length() > 7)
       {
         rekeninggiven = false;
       }
@@ -112,6 +112,8 @@ void loop()
       break;
     }
     writeBlock(62,PasIDblock);
+    writeBlock(61,RekeningNRblock);
+    writeBlock(60,KlantIDblock);
     Serial.println("DONE WRITING");
     delay(200000);
     delay(2000);

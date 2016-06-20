@@ -27,9 +27,10 @@ namespace Final_Apllication
             String[] pasInformation;
             bool EE = true;
             //User user;
-
+            /*
             try
             {
+            */
                 while (true) ///Infinite loop so that the program returns here after every cancelation.
                 {
                     while (true)
@@ -46,6 +47,7 @@ namespace Final_Apllication
                         while (true)
                         {
                             String s = arduino.getFirstString();
+                        Error.show(s);
                             if (s.Contains(",NEWUID"))
                             {
                                 pasInformation = s.Split('\n', '\n', '\n');
@@ -148,6 +150,7 @@ namespace Final_Apllication
                         }
                     }
                 }
+                /*
             }
             catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
@@ -163,6 +166,7 @@ namespace Final_Apllication
                 while (true)
                 { } //Loop forever :)
             }
+            */
         }
 
         private Boolean checkInput(String input)

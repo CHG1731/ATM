@@ -12,6 +12,7 @@ using DYMO.Label.Framework;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Final_Application
 {
@@ -239,10 +240,10 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HTTPget tmp = new HTTPget();
-            Pas uploadobject  = tmp.getPinclass(loc);
+            Pas uploadobject = tmp.getPinclass(loc);
             int npoging = uploadobject.poging; npoging++;
             uploadobject.poging = npoging;
-            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/pass/",loc),uploadobject).ConfigureAwait(false);
+            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/pass/", loc), uploadobject).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 //Error.show("SUCCES");
@@ -297,7 +298,7 @@ public class HTTPpost
             }
         }
     }
-    private async Task UpdateBalanz(string RekeningID,int balans)
+    private async Task UpdateBalanz(string RekeningID, int balans)
     {
         System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
         using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
@@ -387,7 +388,7 @@ public class ArduinoData
     {
         SerialPort een = new SerialPort();
         een.BaudRate = 9600;
-        een.PortName = "COM12";
+        een.PortName = "COM9";
         een.Open();
         return een;
     }
@@ -395,7 +396,7 @@ public class ArduinoData
     {
         SerialPort twee = new SerialPort();
         twee.BaudRate = 9600;
-        twee.PortName = "COM4";
+        twee.PortName = "COM12";
         //twee.Open();
         return twee;
     }
@@ -938,28 +939,27 @@ public class Hash
 {
     public bool checkHash(String RekeningID, String pincode)
     {
-        int RekeningIDcv;
-        int pincodecv;
-        Int32.TryParse(RekeningID, out RekeningIDcv);
-        Int32.TryParse(pincode, out pincodecv);
+        HTTPget x = new HTTPget();
         bool status = false;
-        HTTPget temporary = new HTTPget();
-        string Hash = makeHash(RekeningIDcv, pincodecv);
-        if (Hash == temporary.getHash(RekeningID))
+        string hashcheck = x.getRekening(RekeningID).hash;
+        if(hashcheck.Equals(makeHash(RekeningID,pincode)))
         {
             status = true;
         }
-        else { }
         return status;
-
     }
-    public String makeHash(int RekeningID, int pincode)
+    public String makeHash(String RekeningID, String pincode)
     {
-        return Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(RekeningID, pincode)));
-    }
-    public void blockCard(String PasID)
-    {
-
+        string input = String.Concat(RekeningID,pincode);
+        byte[] bytes = Encoding.UTF8.GetBytes(input);
+        SHA512Managed hashstring = new SHA512Managed();
+        byte[] hash = hashstring.ComputeHash(bytes);
+        string hashString = string.Empty;
+        foreach (byte x in hash)
+        {
+            hashString += String.Format("{0:x2}", x);
+        }
+        return hashString;
     }
 }
 

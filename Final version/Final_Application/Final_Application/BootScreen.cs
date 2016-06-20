@@ -124,21 +124,23 @@ namespace Final_Application
 
         private void button1_Click_3(object sender, EventArgs e)
         {
-           // Printer print = new Printer("Koekje", 0.6);
-           // print.printTicket();
+            Hash x = new Hash();
+            if(x.checkHash("SALT5555","1234"))
+            {
+                Error.show("EQUALITY!!!","BITCH!");
+            }
+            else
+            {
+                Error.show("CRY ME", "A RIVER");
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Email tmp = new Email("RYUU GA WAGA TEKI WO KURAU!!! ( ͡° ͜ʖ ͡°)", 200, "(づó‿‿ò)づ");
-            tmp.sendEmail();
-            textBox1.Text = "sent";
-
-            /*
-            Hash tmp = new Hash();
-            String s = tmp.makeHash(123456, 1234);
-            textBox1.Text = s;
-            */
+            Hash x = new Hash();
+            String s = x.makeHash("SALT5555", "1234");
+            textBox2.Text = s;
         }
         private void BootScreen_Load(object sender, EventArgs e)
         {

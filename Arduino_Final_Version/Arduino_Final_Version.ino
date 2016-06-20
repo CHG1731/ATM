@@ -62,12 +62,12 @@ void loop() {
         readBlock(62, PasID);
         readBlock(61, RekeningID);
         readBlock(60, KlantID);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3; i++)
         {
           Serial.write(PasID[i]);
         }
         Serial.write("\n");
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 8; i++)
         {
           Serial.write(RekeningID[i]);
         }
