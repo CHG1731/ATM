@@ -546,7 +546,7 @@ public class TransactionManager
             }
             else { dispenserCommand = "01,00,00,*"; }
             if (cancelled == true) { break; }
-            uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+            uploadConnection.UpdateBalans(rekeningID, (saldo - amount));
             uploadConnection.transaction(pasID, rekeningID, amount);
             asker.Show();
             while (true)
@@ -757,7 +757,7 @@ public class TransactionManager
             PinError pinError = new PinError();
             cancelled = true;
         }
-        uploadConnection.UpdateBalans(Int32.Parse(rekeningID), (saldo - amount));
+        uploadConnection.UpdateBalans(rekeningID, (saldo - amount));
         uploadConnection.transaction(pasID, rekeningID, amount);
         if (cancelled == false) { arduino.dispenseMoney("02,00,01,*"); }
         ByeScreen quickBye = new ByeScreen();
