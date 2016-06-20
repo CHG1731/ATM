@@ -298,7 +298,7 @@ public class HTTPpost
             }
         }
     }
-    private async Task UpdateBalanz(string RekeningID, int balans)
+    private async Task UpdateBalanz(string RekeningID, int nbalans)
     {
         System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
         using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
@@ -308,8 +308,7 @@ public class HTTPpost
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HTTPget tmp = new HTTPget();
             Rekening uploadobject = tmp.getRekening(RekeningID);
-            int nieuwbalans = uploadobject.balans - balans;
-            uploadobject.balans = nieuwbalans;
+            uploadobject.balans = nbalans;
             HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/rekenings/", RekeningID), uploadobject).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
@@ -547,7 +546,7 @@ public class TransactionManager
             }
             else { dispenserCommand = "01,00,00,*"; }
             if (cancelled == true) { break; }
-            uploadConnection.UpdateBalans(rekeningID, (saldo - amount));
+            uploadConnection.UpdateBalans(rekeningID, (saldo - amount*100));
             uploadConnection.transaction(pasID, rekeningID, amount);
             asker.Show();
             while (true)
@@ -577,8 +576,8 @@ public class TransactionManager
             arduino.dispenseMoney(dispenserCommand);
             if (printTicket == true)
             {
-                Klant tmp = downloadConnection.getKlant(userName);
-                String printnaam = String.Concat(tmp.voornaam + " " + tmp.achternaam);
+                //&&&ADDDDDDD PLOX
+                String printnaam = String.Concat("Felix","Jochems");
                 Printer bonPrinter = new Printer(printnaam, amount, rekeningID);
                 bonPrinter.printTicket();
             }
@@ -758,7 +757,7 @@ public class TransactionManager
             PinError pinError = new PinError();
             cancelled = true;
         }
-        uploadConnection.UpdateBalans(rekeningID, (saldo - amount));
+        uploadConnection.UpdateBalans(rekeningID, (saldo - amount*100));
         uploadConnection.transaction(pasID, rekeningID, amount);
         if (cancelled == false) { arduino.dispenseMoney("02,00,01,*"); }
         ByeScreen quickBye = new ByeScreen();
@@ -975,7 +974,6 @@ public class Email
         this.userName = s;
         this.amount = b;
         this.rekeningNr = r;
-        //dddddd
     }
 
     public void sendEmail()
@@ -986,7 +984,7 @@ public class Email
         MailMessage mail = new MailMessage();
         SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
         mail.From = new MailAddress("saltysolutionsbank@gmail.com");
-        mail.To.Add("rowalski_wever@hotmail.com");
+        mail.To.Add("felixos_11@hotmail.com");
         mail.Subject = "TransactieBon: " + strDate;
         //mail.Body = "Geachte Meneer/Mevrouw: "+userName+ "\nOpname van: "+amount+"\nRekeningnummer: "+rekeningNr;
         mail.AlternateViews.Add(getEmbeddedImage(@"C:\Users\User\Downloads\indexlogo.png"));

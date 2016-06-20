@@ -47,14 +47,12 @@ namespace Final_Apllication
                         while (true)
                         {
                             String s = arduino.getFirstString();
-                        Error.show(s);
                             if (s.Contains(",NEWUID"))
                             {
                                 pasInformation = s.Split('\n', '\n', '\n');
                                 KlantID = Int32.Parse(pasInformation[2]);
                                 rekeningID = pasInformation[1];
                                 pasID = pasInformation[0];
-                                Error.show(httpget.getActiefStand(pasInformation[0]).ToString());
                                 break;
                             }
                             else if (s.Contains("open"))

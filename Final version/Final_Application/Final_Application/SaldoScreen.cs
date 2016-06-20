@@ -16,7 +16,8 @@ namespace Final_Apllication
         {
             InitializeComponent();
             Cursor.Hide();
-            saldoLabel.Text = (saldo.ToString()+"€");
+            
+            saldoLabel.Text = (saldo/100+".00€");
             this.Refresh();
         }
 
