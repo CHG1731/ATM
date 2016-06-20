@@ -749,14 +749,39 @@ public class TransactionManager
     private void quickPin()
     {
         int amount = 70;
-        if (amount > saldo && amount != 0)
+        String dispenserCommand = "";
+        if (amount > saldo)
         {
             PinError pinError = new PinError();
             cancelled = true;
         }
-        uploadConnection.UpdateBalans(rekeningID, (saldo - amount*100));
-        uploadConnection.transaction(pasID, rekeningID, amount);
-        if (cancelled == false) { arduino.dispenseMoney("02,00,01,*"); }
+        if(stock.checkIfAvailable(2, 0, 1))
+        {
+            dispenserCommand = "02,00,01,*";
+        }
+        else if(stock.checkIfAvailable(0, 1, 1))
+        {
+            dispenserCommand = "00,01,01,*";
+        }
+        else if(stock.checkIfAvailable(1, 3, 0))
+        {
+            dispenserCommand = "01,03,00,*";
+        }
+        else if(stock.checkIfAvailable(7,0,0))
+        {
+            dispenserCommand = "07,00,00,*";
+        }
+        else
+        {
+            Error.show("leeg");
+            cancelled = true;
+        }
+        if (cancelled == false)
+        {
+            uploadConnection.UpdateBalans(rekeningID, (saldo - amount * 100));
+            uploadConnection.transaction(pasID, rekeningID, amount);
+            arduino.dispenseMoney(dispenserCommand);
+        }
         ByeScreen quickBye = new ByeScreen();
         endOfSession = true;
         quickBye.Hide();
@@ -834,9 +859,9 @@ public class TransactionManager
 
 public class Stock
 {
-    private int tensInStock = 10;
-    private int twentiesInStock = 10;
-    private int fiftiesInStock = 10;
+    private int tensInStock = 0;
+    private int twentiesInStock = 0;
+    private int fiftiesInStock = 0;
     Boolean available = false;
     ArduinoData arduino;
 
