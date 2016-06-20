@@ -95,7 +95,7 @@ public class HTTPget
     {
         Pas tmp = getPasObject(pasID).Result;
         Boolean result = false;
-        if(tmp.actief == 1)
+        if (tmp.actief == 1)
         {
             result = true;
         }
@@ -130,149 +130,8 @@ public class HTTPget
     }
     public String getHash(String RekeningID)
     {
-        String loc = String.Concat("/api/rekenings/", RekeningID);
-        Rekening result = getRekeningData(loc).Result;
+        Rekening result = getRekeningObject(RekeningID).Result;
         return result.hash;
-    }
-    static async Task<String> getKlantIDthrougPasID(String s)
-    {
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //GET THE KLANT ID
-            HttpResponseMessage response = await client.GetAsync(s).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Pas tmppas = await response.Content.ReadAsAsync<Pas>();
-                String result = tmppas.klantID.ToString();
-                return result;
-            }
-            else
-            {
-                String result = "0000";
-                return result;
-            }
-        }
-    }
-    static async Task<Klant> GetKlantData(String s)
-    {
-
-        String location = String.Concat("/api/klants/", s);
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            // HTTP GET
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Klant klant = await response.Content.ReadAsAsync<Klant>();
-                return klant;
-            }
-            else
-            {
-                Error.show("FAILED TO GET KLANT");
-                Klant a = new Klant();
-                return a;
-                //CONNECTION FAILED
-                //RETRY CLAUSE? or cut the program?
-            }
-        }
-    }
-    static async Task<Rekening> getRekeningData(string s)
-    {
-        String location = s;
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            // HTTP GET
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Rekening rekening = await response.Content.ReadAsAsync<Rekening>();
-                return rekening;
-            }
-            else
-            {
-                Rekening reject = new Rekening();
-                return reject;
-            }
-
-        }
-    }
-    static async Task<Pas> getPasData(string s)
-    {
-        String location = s;
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            // HTTP GET
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Pas pas = await response.Content.ReadAsAsync<Pas>();
-                return pas;
-            }
-            else
-            {
-                Pas reject = new Pas();
-                return reject;
-            }
-
-        }
-    }
-    static async Task<Pas> getPinData(string ID)
-    {
-        String location = string.Concat("api/Pass/", ID);
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            // HTTP GET
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Pas FalsePin = await response.Content.ReadAsAsync<Pas>();
-                return FalsePin;
-            }
-            else
-            {
-                Pas reject = new Pas();
-                return reject;
-            }
-
-        }
-    }
-    static async Task<Pas> getActiefStandData(string ID)
-    {
-        String location = string.Concat("api/Pass/", ID);
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            // HTTP GET
-            HttpResponseMessage response = await client.GetAsync(location).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                Pas Actief = await response.Content.ReadAsAsync<Pas>();
-                return Actief;
-            }
-            else
-            {
-                Pas reject = new Pas();
-                return reject;
-            }
-
-        }
     }
     private async Task<Klant> getKlantObject(string loc)
     {
@@ -282,7 +141,7 @@ public class HTTPget
             client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/klants/",loc)).ConfigureAwait(false);
+            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/klants/", loc)).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)//Als het lukt
             {
                 Klant klant = await response.Content.ReadAsAsync<Klant>();
@@ -322,7 +181,7 @@ public class HTTPget
             client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/rekenings/",loc)).ConfigureAwait(false);
+            HttpResponseMessage response = await client.GetAsync(string.Concat("/api/rekenings/", loc)).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)//Als het lukt
             {
                 Rekening rekening = await response.Content.ReadAsAsync<Rekening>();
@@ -338,123 +197,150 @@ public class HTTPget
 
 public class HTTPpost
 {
-    public void transaction(String PasID, String RekeningID, double Balans)
+    public void transaction(String PasID, String RekeningID, int Balans)//UPDATED
     {
         Transactie(PasID, RekeningID, Balans).Wait();
     }
-    public void resetfalsepin(String PasID)
+    public void resetfalsepin(String PasID)//UPDATED
     {
-        HTTPget tmp = new HTTPget();
-        Pas resetdata = tmp.getPinclass(PasID);
-        incrementFalsePin(PasID, resetdata, 0).Wait();
+        resetFalsePin(PasID).Wait();
     }
-    public void Incrementfalsepin(String PasID)
+    public void blockcard(string PasID)//UPDATED
+    {
+        BlockPin(PasID).Wait();
+    }
+    public void Incrementfalsepin(String PasID)//UPDATED
     {
         HTTPget tmp = new HTTPget();
         int nrfalsepin = tmp.getFalsePinnr(PasID);
-        Pas uploaddata = tmp.getPinclass(PasID);
         nrfalsepin++;
         if (nrfalsepin >= 3)
         {
+            BlockPin(PasID).Wait();
             BlockScreen a = new BlockScreen();
-            BlockCard(PasID, uploaddata).Wait();
         }
         if (nrfalsepin < 3)
         {
-            incrementFalsePin(PasID, uploaddata, nrfalsepin).Wait();
+            setFalsePin(PasID).Wait();
         }
     }
-    public void UpdateBalans(int RekeningID, double balans)
+    public void UpdateBalans(string RekeningID, int balans) //UPDATED
     {
-        NieuwBalans(RekeningID, balans).Wait();
+        UpdateBalanz(RekeningID, balans).Wait();
     }
-    static async Task Transactie(String PasID, String RekeningID, double balans)
+
+    //==========================
+    private async Task setFalsePin(string loc)
     {
-        int RekeningIDint;
-        Int32.TryParse(RekeningID, out RekeningIDint);
-        using (var client = new HttpClient())
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
         {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //HTTPpost part
-            var trans = new Transactie() { Balans = balans, PasID = PasID, RekeningID = RekeningIDint, AtmID = "HRO" };
+            HTTPget tmp = new HTTPget();
+            Pas uploadobject  = tmp.getPinclass(loc);
+            int npoging = uploadobject.poging; npoging++;
+            uploadobject.poging = npoging;
+            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/pass/",loc),uploadobject).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("SUCCES");
+            }
+            else
+            {
+                //Error.show("FAIL");
+            }
+        }
+    }
+    private async Task resetFalsePin(string loc)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HTTPget tmp = new HTTPget();
+            Pas uploadobject = tmp.getPinclass(loc);
+            uploadobject.poging = 0;
+            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/pass/", loc), uploadobject).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("SUCCES");
+            }
+            else
+            {
+                //Error.show("FAIL");
+            }
+        }
+    }
+    private async Task BlockPin(string loc)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HTTPget tmp = new HTTPget();
+            Pas uploadobject = tmp.getPinclass(loc);
+            uploadobject.actief = 0;
+            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/pass/", loc), uploadobject).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("SUCCES");
+            }
+            else
+            {
+                //Error.show("FAIL");
+            }
+        }
+    }
+    private async Task UpdateBalanz(string RekeningID,int balans)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HTTPget tmp = new HTTPget();
+            Rekening uploadobject = tmp.getRekening(RekeningID);
+            int nieuwbalans = uploadobject.balans - balans;
+            uploadobject.balans = nieuwbalans;
+            HttpResponseMessage response = await client.PutAsJsonAsync(String.Concat("/api/rekenings/", RekeningID), uploadobject).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                //Error.show("SUCCES");
+            }
+            else
+            {
+                //Error.show("FAIL");
+            }
+        }
+    }
+    private async Task Transactie(String PasID, String RekeningID, int balans)
+    {
+        System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (var client = new HttpClient(new HttpClientHandler { UseProxy = false, ClientCertificateOptions = ClientCertificateOption.Automatic }))
+        {
+            client.BaseAddress = new Uri("https://hrsqlapp.tk");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var trans = new Transactie() { Balans = balans, PasID = Int32.Parse(PasID), RekeningID = RekeningID, locatie = "HRO" };
             HttpResponseMessage response = await client.PostAsJsonAsync("api/transacties", trans).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                //Error.show("TRANSACTIE SUCCEED");
+                //Error.show("SUCCES");
             }
             else
             {
-                Error.show("TRANSACTIE FAILED");
+                //Error.show("FAIL");
             }
         }
     }
-    static async Task NieuwBalans(int RekeningID, double balans)
-    {
-        String location = string.Concat("api/rekenings/", RekeningID.ToString());
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //HTTPpost part
-            HTTPget tmp = new HTTPget();
-            Rekening trans = tmp.getRekening(RekeningID.ToString());
-            trans.balans = Convert.ToInt32(balans);
-            HttpResponseMessage response = await client.PutAsJsonAsync(location, trans).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                //Error.show("Succeeded", "Succeeded");
-            }
-            else
-            {
-                Error.show("NIEW BALANS FAILED");
-            }
-        }
-    }
-    static async Task incrementFalsePin(String PasID, Pas data, int falsepinnr)
-    {
-        String location = string.Concat("api/pass/", PasID.ToString());
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //HTTPpost part
-            Pas incrementFalsePin = new Pas() { actief = data.actief, poging = falsepinnr, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
-            HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
-            }
-            else
-            {
-                Error.show("INCR FAILED", "INCR FAILED");
-            }
-        }
-    }
-    static async Task BlockCard(String PasID, Pas data)
-    {
-        String location = string.Concat("api/pass/", PasID.ToString());
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri("http://hrsqlapp.tk/WebApp/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //HTTPpost part
-            Pas incrementFalsePin = new Pas() { actief = 0, poging = data.poging, klantID = data.klantID, pasID = Int32.Parse(PasID), rekeningID = data.rekeningID };
-            HttpResponseMessage response = await client.PutAsJsonAsync(location, incrementFalsePin).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                //Error.show("INCREMENTING SUCCED", "INCREMENT Succeeded");
-            }
-            else
-            {
-                Error.show("BLOCKING FAILED", "BLOCKING FAILED");
-            }
-        }
-    }
+    //======================
 }
 
 public class Klant
@@ -480,12 +366,10 @@ public class Rekening
 }
 public class Transactie
 {
-    [Key]
-    public int TransactieID { get; set; }
-    public int RekeningID { get; set; }
-    public double Balans { get; set; }
-    public String PasID { get; set; }
-    public String AtmID { get; set; }
+    public string RekeningID { get; set; }
+    public int Balans { get; set; }
+    public int PasID { get; set; }
+    public string locatie { get; set; }
 }
 public class ArduinoData
 {
@@ -651,8 +535,8 @@ public class TransactionManager
             {
                 break;
             }
-            if(amount == 10) { dispenserCommand = "01,00,00,*"; }
-            else if(amount > 10)
+            if (amount == 10) { dispenserCommand = "01,00,00,*"; }
+            else if (amount > 10)
             {
                 dispenserCommand = biljetSelection(amount);
                 if (dispenserCommand.Equals("00,00,00,*"))
@@ -738,7 +622,7 @@ public class TransactionManager
             fifties = 0;
             option2 = generateCommand(tens, twenties, fifties);
         }
-        if(!(option2.Equals("invalid")))
+        if (!(option2.Equals("invalid")))
         {
             selector.setLabel2(tens.ToString(), twenties.ToString());
         }
@@ -967,13 +851,13 @@ public class Stock
     public Boolean checkIfAvailable(int tens, int twenties, int fifties)
     {
         available = false;
-        if(tensInStock == 0 && twentiesInStock == 0 && fiftiesInStock == 0)
+        if (tensInStock == 0 && twentiesInStock == 0 && fiftiesInStock == 0)
         {
             Error.show("Leeg");
         }
-        if(tens > tensInStock) { return available;}
-        else if(twenties > twentiesInStock){return available;}
-        else if(fifties > fiftiesInStock){ return available; }
+        if (tens > tensInStock) { return available; }
+        else if (twenties > twentiesInStock) { return available; }
+        else if (fifties > fiftiesInStock) { return available; }
         else
         {
             available = true;
@@ -988,7 +872,7 @@ public class Stock
         tensInStock -= Int32.Parse(order[0]);
         twentiesInStock -= Int32.Parse(order[1]);
         fiftiesInStock -= Int32.Parse(order[2]);
-        Error.show(""+tensInStock +" " + twentiesInStock +" " + fiftiesInStock);
+        Error.show("" + tensInStock + " " + twentiesInStock + " " + fiftiesInStock);
     }
 
     public void restock()

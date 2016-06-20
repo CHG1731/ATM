@@ -103,7 +103,8 @@ namespace Final_Application
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-
+            HTTPpost x = new HTTPpost();
+            x.transaction("1","SALT5555",100);
         }
 
         private void label2_Click(object sender, EventArgs e)
