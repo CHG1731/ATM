@@ -25,11 +25,9 @@ namespace Final_Apllication
             Boolean pinCorrect;
             String[] pasInformation;
             bool EE = true;
-            //User user; 
-            /*      
+            //User user;       
             try
             {
-            */
             while (true) ///Infinite loop so that the program returns here after every cancelation.
             {
                 while (true)
@@ -52,9 +50,6 @@ namespace Final_Apllication
                             Int32.TryParse(pasInformation[2],out KlantID);
                             rekeningID = pasInformation[1];
                             pasID = pasInformation[0];
-                            Error.show(KlantID.ToString());
-                            Error.show(pasID);
-                            Error.show(rekeningID);
                             break;
                         }
                         else if (s.Contains("open"))
@@ -153,7 +148,7 @@ namespace Final_Apllication
                 }
             }
         }
-        /*
+
             catch (Exception) //Made the application safe, as soon as an exception is found, Close everything and show the out of order Form, main thread isnt even running anymore
             {
                 ErrorScreen error = new ErrorScreen();
@@ -169,7 +164,6 @@ namespace Final_Apllication
                 { } //Loop forever :)
             }
         }
-        */
 
         private Boolean checkInput(String input)
         {
