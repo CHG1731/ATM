@@ -541,7 +541,7 @@ public class TransactionManager
             {
                 dispenserCommand = "01,00,00,*";
             }
-            else
+            else if(amount == 10)
             {
                 cancelled = true;
             }
