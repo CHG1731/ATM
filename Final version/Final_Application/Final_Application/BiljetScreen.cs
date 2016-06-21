@@ -44,9 +44,9 @@ namespace Final_Apllication
             {
                 substring1 = tens + " x 10 ";
             }
-            if (!(tens.Equals("0")))
+            if (!(twenties.Equals("0")))
             {
-                substring2 = twenties + " x 20";
+                substring2 = twenties + " x 20 ";
             }
             label4.Text = "D: " + substring1 + substring2 + fifties + "x 50";
         }

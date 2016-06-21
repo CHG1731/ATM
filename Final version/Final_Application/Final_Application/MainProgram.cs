@@ -537,8 +537,15 @@ public class TransactionManager
             {
                 break;
             }
-            if (amount == 10 && stock.checkIfAvailable(1, 0 , 0)) { dispenserCommand = "01,00,00,*"; }
-            else if (amount > 10)
+            if (amount == 10 && stock.checkIfAvailable(1, 0 , 0) == true)
+            {
+                dispenserCommand = "01,00,00,*";
+            }
+            else
+            {
+                cancelled = true;
+            }
+            if (amount > 10)
             {
                 dispenserCommand = biljetSelection(amount);
                 if (dispenserCommand.Equals("00,00,00,*"))
@@ -776,11 +783,11 @@ public class TransactionManager
         }
         else
         {
-            Error.show("leeg");
             cancelled = true;
         }
         if (cancelled == false)
         {
+            stock.substractBiljets(dispenserCommand);
             uploadConnection.UpdateBalans(rekeningID, (saldo - amount * 100));
             uploadConnection.transaction(pasID, rekeningID, amount);
             arduino.dispenseMoney(dispenserCommand);
@@ -878,7 +885,7 @@ public class Stock
         available = false;
         if (tensInStock == 0 && twentiesInStock == 0 && fiftiesInStock == 0)
         {
-            Error.show("Leeg");
+            return available;
         }
         if (tens > tensInStock) { return available; }
         else if (twenties > twentiesInStock) { return available; }
