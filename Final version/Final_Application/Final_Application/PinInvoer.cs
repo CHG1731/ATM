@@ -15,7 +15,6 @@ namespace Final_Apllication
         public PinInvoer()
         {
             InitializeComponent();
-            Cursor.Hide();
             this.Refresh();
             Application.DoEvents();
         }

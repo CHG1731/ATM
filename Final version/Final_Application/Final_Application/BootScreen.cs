@@ -91,6 +91,8 @@ namespace Final_Application
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            COMINFO.com1 = textBox1.Text;
+            COMINFO.com2 = textBox2.Text;
             Start s = new Start();
             s.run();
         }

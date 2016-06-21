@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
-using DYMO.Label.Framework;
+//using DYMO.Label.Framework;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Net;
@@ -38,7 +38,6 @@ public class Start
         Beginscherm begin = new Beginscherm();
         begin.Show();
     }
-
 }
 
 public class ArduinoClass
@@ -76,7 +75,7 @@ public class ArduinoClass
     }
 }
 
-public class Error
+public static class Error
 {
     public static void show(String s, String x)
     {
@@ -96,9 +95,12 @@ public class HTTPget
     {
         Pas tmp = getPasObject(pasID).Result;
         Boolean result = false;
-        if (tmp.actief == 1)
+        if (tmp != null)
         {
-            result = true;
+            if (tmp.actief == 1)
+            {
+                result = true;
+            }
         }
         return result;
     }
@@ -372,7 +374,8 @@ public class Transactie
 }
 public class ArduinoData
 {
-    //SerialPort startPort = ArduinoClass.getPort();
+    static string comuno = string.Concat("COM",COMINFO.com1);
+    static string comdos = string.Concat("COM",COMINFO.com2);
     SerialPort startPort = maakpoorteen();
     SerialPort dispenserPort = maakpoorttwee();
     private String inputString;
@@ -386,7 +389,7 @@ public class ArduinoData
     {
         SerialPort een = new SerialPort();
         een.BaudRate = 9600;
-        een.PortName = "COM9";
+        een.PortName = comuno;
         een.Open();
         return een;
     }
@@ -394,8 +397,8 @@ public class ArduinoData
     {
         SerialPort twee = new SerialPort();
         twee.BaudRate = 9600;
-        twee.PortName = "COM12";
-        twee.Open();
+        twee.PortName = comdos;
+        //twee.Open();
         return twee;
     }
 
@@ -931,6 +934,7 @@ public class Printer
 
     public void printTicket()
     {
+        /*
         String bedrag = amount.ToString();
         ILabel _label;
         _label = Framework.Open(@"C:\DYMO\jaja.label");
@@ -953,6 +957,7 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
+            */
     }
 }
 
@@ -1034,4 +1039,9 @@ public class Email
         alternateView.LinkedResources.Add(inline);
         return alternateView;
     }
+}
+static class COMINFO
+{
+    public static string com1;
+    public static string com2;
 }

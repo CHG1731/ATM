@@ -15,7 +15,6 @@ namespace Final_Apllication
 
         private void Beginscherm_Load(object sender, EventArgs e)
         {
-            //bool killscreen = true;
             PinInvoer pinInvoer = new PinInvoer();
             Hoofdmenu hoofdmenu = new Hoofdmenu();
             ArduinoData arduino = new ArduinoData();
@@ -50,13 +49,17 @@ namespace Final_Apllication
                         if (s.Contains(",NEWUID"))
                         {
                             pasInformation = s.Split('\n', '\n', '\n');
-                            KlantID = Int32.Parse(pasInformation[2]);
+                            Int32.TryParse(pasInformation[2],out KlantID);
                             rekeningID = pasInformation[1];
                             pasID = pasInformation[0];
+                            Error.show(KlantID.ToString());
+                            Error.show(pasID);
+                            Error.show(rekeningID);
                             break;
                         }
                         else if (s.Contains("open"))
                         {
+                            Cursor.Show();
                             stock.restock();
                         }
                     }
