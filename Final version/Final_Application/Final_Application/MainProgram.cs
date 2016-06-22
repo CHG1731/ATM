@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
-//using DYMO.Label.Framework;
+using DYMO.Label.Framework;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Net;
@@ -941,7 +941,6 @@ public class Printer
 
     public void printTicket()
     {
-        /*
         String bedrag = amount.ToString();
         ILabel _label;
         _label = Framework.Open(@"C:\DYMO\jaja.label");
@@ -964,7 +963,7 @@ public class Printer
         }
         else
             _label.Print(printer); // print with default params
-            */
+            
     }
 }
 
