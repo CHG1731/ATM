@@ -54,7 +54,7 @@ namespace Final_Apllication
         public void showInsufficient()
         {
             label3.Text = "Bedrag kan niet gepint worden,";
-            label4.Text = "er zijn onvoldonede biljetten op vooraad.";
+            label4.Text = "er zijn onvoldoende biljetten op vooraad.";
             this.Show();
             this.Refresh();
             sleepnow().Wait();

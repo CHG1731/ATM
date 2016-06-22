@@ -543,6 +543,8 @@ public class TransactionManager
             }
             else if(amount == 10)
             {
+                BiljetScreen selector = new BiljetScreen();
+                selector.showInsufficient();
                 cancelled = true;
             }
             if (amount > 10)
